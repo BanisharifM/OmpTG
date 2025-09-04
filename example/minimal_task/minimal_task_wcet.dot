@@ -1,0 +1,36 @@
+digraph CFG {
+size="10,8"
+rankdir="TB"
+orientation="portrait"
+fontsize=10;
+   subgraph "main" {
+   "main0"[label="main__bb\nWCET: 33",fontsize=10,width=0.01]
+   "main1"[label="main__bb__3\nWCET: 37",fontsize=10,width=0.01]
+   "main2"[label="main__bb__4\nWCET: 37",fontsize=10,width=0.01]
+   "main3"[label="main__bb__5\nWCET: 37",fontsize=10,width=0.01]
+   "main4"[label="main__bb__6\nWCET: 37",fontsize=10,width=0.01]
+   "main5"[label="main__bb__7\nWCET: 37",fontsize=10,width=0.01]
+   "main6"[label="main__bb__8\nWCET: 37",fontsize=10,width=0.01]
+   "main7"[label="main__bb__9\nWCET: 33",fontsize=10,width=0.01]
+   "main0" -> "main1"
+   "main1" -> "main2"
+   "main2" -> "main3"
+   "main3" -> "main4"
+   "main4" -> "main5"
+   "main5" -> "main6"
+   "main6" -> "main7"
+   "main_entry" [label="",color="white",height="0.01",fontsize=10,width=0.01]
+   "main_entry" -> "main0"
+   "main_exit" [label="",color="white",fontsize=10,width=0.01]
+   "main7" -> "main_exit"
+}
+   subgraph "__original_main" {
+   "__original_main0"[label="__original_main__bb\nWCET: 33",fontsize=10,width=0.01]
+   "__original_main1"[label="__original_main__bb__1\nWCET: 33",fontsize=10,width=0.01]
+   "__original_main0" -> "__original_main1"
+   "__original_main_entry" [label="",color="white",height="0.01",fontsize=10,width=0.01]
+   "__original_main_entry" -> "__original_main0"
+   "__original_main_exit" [label="",color="white",fontsize=10,width=0.01]
+   "__original_main1" -> "__original_main_exit"
+}
+}
