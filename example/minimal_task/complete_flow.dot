@@ -1,0 +1,19 @@
+digraph CompleteFlow {
+    rankdir=TB;
+    
+    // Main program flow
+    main -> _thrFunc0_ [label="parallel region"];
+    
+    // Thread function creates tasks
+    _thrFunc0_ -> _taskFunc0_ [label="create task"];
+    _thrFunc0_ -> _taskFunc1_ [label="create task"];
+    _thrFunc0_ -> taskwait [label="synchronize"];
+    
+    // Tasks call work function
+    _taskFunc0_ -> work [label="call"];
+    _taskFunc1_ -> work [label="call"];
+    
+    // Work completes
+    work -> return [label="complete"];
+    taskwait -> main_exit [label="continue"];
+}
