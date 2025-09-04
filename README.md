@@ -70,3 +70,16 @@ docker run --name omptg-online -dit -P -p 8000:80 -p 8888:8888 kingtous/omptg-on
 - `Open BT-Panel in Browser`
   - `127.0.0.1:8888/xxx`
     - get `xxx` from terminal, type `/etc/init.d/bt default`
+
+
+# Analyze an ALF file
+./wctg -i <input_file.alf>
+
+# Generate WCET for the imported file
+./wctg -i <input_file.alf> -w
+
+# Generate ALF for OpenMP tasks
+./wctg -i <input_file.alf> -t
+
+# Combine options
+./wctg -i <input_file.alf> -w -t
