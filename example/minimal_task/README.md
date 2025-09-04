@@ -5,7 +5,7 @@
 - [x] Step 2: C to ALF conversion (completed) 
 - [x] Step 3: WCET generation
 - [x] Step 4: Relation file generation (completed)
-- [ ] Step 5: PCFG generation
+- [x] Step 5: PCFG generation
 - [ ] Step 6: EFG generation
 
 ## Generated Files
