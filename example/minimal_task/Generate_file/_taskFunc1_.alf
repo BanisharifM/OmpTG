@@ -1,0 +1,49 @@
+{ alf
+ { macro_defs }
+ { least_addr_unit 8 }
+ little_endian
+ { exports
+  { frefs
+   { fref 64 "__ompi_defs__" }
+  }
+  { lrefs 
+ { lref 64 "_taskFunc1_" } }
+ }
+ { imports
+  { frefs
+   { fref 64 "$null" }
+   { fref 64 "$mem" }
+  }
+  { lrefs
+   { lref 64 "ort_execute_parallel" }
+   { lref 64 "ort_initialize" }
+   { lref 64 "ort_finalize" }
+   { lref 64 "omp_in_final" }
+   { lref 64 "ort_task_throttling" }
+   { lref 64 "ort_task_immediate_start" }
+   { lref 64 "ort_task_immediate_end" }
+   { lref 64 "ort_new_task" }
+   { lref 64 "ort_taskwait" }
+  }
+ }
+ { decls
+  { alloc 64 ".str" 48 }
+  { alloc 64 "__ompi_defs__" 64 }
+ }
+ { inits
+  { init { ref ".str" { dec_unsigned 64 0 } } { dec_unsigned 8 100 } read_only }
+  { init { ref ".str" { dec_unsigned 64 1 } } { dec_unsigned 8 117 } read_only }
+  { init { ref ".str" { dec_unsigned 64 2 } } { dec_unsigned 8 109 } read_only }
+  { init { ref ".str" { dec_unsigned 64 3 } } { dec_unsigned 8 109 } read_only }
+  { init { ref ".str" { dec_unsigned 64 4 } } { dec_unsigned 8 121 } read_only }
+  { init { ref ".str" { dec_unsigned 64 5 } } { dec_unsigned 8 0 } read_only }
+  { init { ref "__ompi_defs__" { dec_unsigned 64 0 } } { addr 64 { fref 64 "$null" } { dec_unsigned 64 0 } } }
+ }
+ { funcs
+
+{ func   { label 64 { lref 64 "_taskFunc1_" } { dec_unsigned 64 0 } }   { arg_decls    { alloc 64 "%__arg" 64 }   }   { scope    { decls }    { inits }    { stmts          
+{ label 64 { lref 64 "_taskFunc1_::bb" } { dec_unsigned 64 0 } }          { call { label 64 { lref 64 "work" } { dec_unsigned 64 0 } } { dec_unsigned 32 20 } result }          { label 64 { lref 64 "_taskFunc1_::bb1" } { dec_unsigned 64 0 } }          { return { addr 64 { fref 64 "$null" } { dec_unsigned 64 0 } } }    }   }  }
+{ func   { label 64 { lref 64 "work" } { dec_unsigned 64 0 } }   { arg_decls    { alloc 64 "%n" 32 }   }   { scope    { decls     { alloc 64 "%sum.0" 32 }       { alloc 64 "%i.0" 32 }       { alloc 64 "%tmp3" 32 }       { alloc 64 "%tmp5" 32 }      }    { inits }    { stmts          
+{ label 64 { lref 64 "work::bb" } { dec_unsigned 64 0 } }          { store { addr 64 { fref 64 "%sum.0" } { dec_unsigned 64 0 } } with { dec_unsigned 32 0 } }     { label 64 { lref 64 "work::bb::0:::1" } { dec_unsigned 64 0 } }     { store { addr 64 { fref 64 "%i.0" } { dec_unsigned 64 0 } } with { dec_unsigned 32 0 } }          { label 64 { lref 64 "work::bb1" } { dec_unsigned 64 0 } }          { switch      { s_lt 32 { load 32 { addr 64 { fref 64 "%i.0" } { dec_unsigned 64 0 } } } { load 32 { addr 64 { fref 64 "%n" } { dec_unsigned 64 0 } } } }      { target { dec_signed 1 { minus 1 } } { label 64 { lref 64 "work::bb2" } { dec_unsigned 64 0 } } }      { default { label 64 { lref 64 "work::bb6" } { dec_unsigned 64 0 } } }     }          { label 64 { lref 64 "work::bb2" } { dec_unsigned 64 0 } }          { store { addr 64 { fref 64 "%tmp3" } { dec_unsigned 64 0 } } with      { add 32 { load 32 { addr 64 { fref 64 "%sum.0" } { dec_unsigned 64 0 } } } { load 32 { addr 64 { fref 64 "%i.0" } { dec_unsigned 64 0 } } } { dec_unsigned 1 0 } }     }          { label 64 { lref 64 "work::bb4" } { dec_unsigned 64 0 } }          { store { addr 64 { fref 64 "%tmp5" } { dec_unsigned 64 0 } } with      { add 32 { load 32 { addr 64 { fref 64 "%i.0" } { dec_unsigned 64 0 } } } { dec_unsigned 32 1 } { dec_unsigned 1 0 } }     }          { label 64 { lref 64 "work::bb4::1" } { dec_unsigned 64 0 } }     { store { addr 64 { fref 64 "%sum.0" } { dec_unsigned 64 0 } } with { load 32 { addr 64 { fref 64 "%tmp3" } { dec_unsigned 64 0 } } } }     { label 64 { lref 64 "work::bb4::1:::1" } { dec_unsigned 64 0 } }     { store { addr 64 { fref 64 "%i.0" } { dec_unsigned 64 0 } } with { load 32 { addr 64 { fref 64 "%tmp5" } { dec_unsigned 64 0 } } } }     { label 64 { lref 64 "work::bb4::1:::2" } { dec_unsigned 64 0 } }     { jump { label 64 { lref 64 "work::bb1" } { dec_unsigned 64 0 } } leaving 0 }          { label 64 { lref 64 "work::bb6" } { dec_unsigned 64 0 } }          { return }    }   }  }
+  }
+ }

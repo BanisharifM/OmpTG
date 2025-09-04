@@ -1,127 +1,228 @@
-/* (l216) typedef long unsigned int size_t; */
-# 216 "/usr/lib/gcc/x86_64-linux-gnu/7/include/stddef.h"
+/* File generated from [fft.pc] by OMPi compiler with torc extensions 2.5.0, Thu Sep  4 00:36:11 2025
+$OMPi__nfo:0
+*/
+# 1 "fft.pc"
+# 1 "ort.defs"
+void ort_execute_serial(void * (* func)(void *), void * shared);
+void ort_execute_parallel(void * (* func)(void *), void * shared, int num_threads, int iscombined, int procbind_type);
+void ort_start_teams(void * (* func)(void *), void * shared, int num_teams, int thr_limit);
+void * ort_get_thrpriv(void ** key, int size, void * origvar);
+void ort_sglvar_allocate(void ** dataptr, int size, void * initer);
+void ort_fence();
+void ort_initreqs_add(void (* initfunc)(void));
+void * ort_memalloc(int size);
+void ort_memfree(void * ptr);
+void ort_new_task(void * (* func)(void * arg), void * arg, int now, int final, int untied, int priority, void ** deparray, int noutdeps, int nindeps, int ninoutdeps);
+void ort_taskwait(int waitall);
+int ort_task_throttling(void);
+void * ort_task_immediate_start(int final);
+void ort_task_immediate_end(void * tn);
+void ort_entering_taskgroup(void);
+void ort_leaving_taskgroup(void);
+void * ort_taskenv_alloc(int size, void * (* task_func)(void *));
+void ort_taskenv_free(void * ptr, void * (* task_func)(void *));
+void ort_atomic_begin();
+void ort_atomic_end();
+void ort_critical_begin(void ** cl);
+void ort_critical_end(void ** cl);
+void ort_broadcast_private(int num, ...);
+void ort_copy_private(int num, ...);
+int ort_barrier_me(void);
+int ort_enable_cancel(int type);
+int ort_check_cancel(int type);
+int ort_mysingle(int hasnowait);
+void ort_leaving_single();
+void ort_entering_sections(int hasnowait, int numberofsections);
+void ort_leaving_sections();
+int ort_get_section();
+void ort_entering_for(int nowait, int hasordered);
+void ort_entering_doacross(int nowait, int nestdepth, int collapsenum, int schedtype, int chsize, long params[][ 3]);
+int ort_leaving_for();
+void ort_for_curriter(unsigned long iter);
+void ort_ordered_begin();
+void ort_ordered_end();
+void ort_doacross_post(long params[][ 3], long * idx);
+void ort_doacross_wait(long params[][ 3], int ndeps, long * deps);
+
+/* (l80) typedef int (* chunky_t) (unsigned long niters, unsigned long chunksize, int monotonic, unsigned long * fiter, unsigned long * liter, int * extra); */
+# 80 "injected_code"
+void ort_get_runtime_schedule_stuff(int (* (* func))(unsigned long niters, unsigned long chunksize, int monotonic, unsigned long * fiter, unsigned long * liter, int * extra), unsigned long * chunksize);
+int ort_get_guided_chunk(unsigned long niters, unsigned long chunksize, int monotonic, unsigned long * fiter, unsigned long * liter, int * ignored);
+int ort_get_dynamic_chunk(unsigned long niters, unsigned long chunksize, int monotonic, unsigned long * fiter, unsigned long * liter, int * ignored);
+int ort_get_runtimestatic_chunk(unsigned long niters, unsigned long chunksize, int monotonic, unsigned long * fiter, unsigned long * liter, int * chunkid);
+int ort_get_static_default_chunk(unsigned long niters, unsigned long * from, unsigned long * to);
+void * ort_dev_gaddr(void * medaddr);
+char * devpart_med2dev_addr(void * medaddr, unsigned long size);
+void ort_reduction_begin(void ** cl);
+void ort_reduction_end(void ** cl);
+void ort_reduce_add(int, void *, void *, int);
+void ort_reduce_subtract(int, void *, void *, int);
+void ort_reduce_multiply(int, void *, void *, int);
+void ort_reduce_and(int, void *, void *, int);
+void ort_reduce_or(int, void *, void *, int);
+void ort_reduce_max(int, void *, void *, int);
+void ort_reduce_min(int, void *, void *, int);
+void ort_reduce_bitand(int, void *, void *, int);
+void ort_reduce_bitor(int, void *, void *, int);
+void ort_reduce_bitxor(int, void *, void *, int);
+void ort_offload_kernel(void * (* host_func)(void *), void * vars, void * declvars, char * kernel_filename_prefix, int devnum, ...);
+void * ort_devdata_alloc(unsigned long size, int devnum);
+void ort_devdata_free(void * data, int devnum);
+void * ort_start_target_data(int tdvars, int devnum);
+void ort_end_target_data(void * de);
+void ort_map_tdvar(void * var, unsigned long size, void * varlb, int isptr, int init);
+void ort_unmap_tdvar(void * var, int update);
+void ort_map_var_dev(void * var, unsigned long size, void * varlb, int isptr, int devid, int init);
+void ort_unmap_var_dev(void * var, int devid, int update, int delete);
+void ort_read_var_dev(void * var, unsigned long size, void * varlb, int devnum);
+void ort_write_var_dev(void * var, unsigned long size, void * varlb, int devnum);
+void * ort_unmappedcopy_dev(void * buf, unsigned long size, int devnum);
+void ort_unmappedfree_dev(void * umed, int devnum);
+void * ort_host2med_addr(void * var, int devnum);
+void ort_decltarg_register(void * var, unsigned long size, const void * init, int bylink);
+void * ort_decltarg_host2med_addr(void * var, int devnum);
+void ort_kerneltable_add(char * name, void * (* kernel_function)(void *));
+void * __ompi_defs__;
+
+# 1 "fft.pc-newglobals"
+#define __DEVSPEC
+#define __DEVQLFR
+#define __DEVKERN
+
+
+# 1 "fft.pc"
+/* (l209) typedef long unsigned int size_t; */
+# 209 "/sw/spack/deltas11-2023-03/apps/linux-rhel8-x86_64/gcc-8.5.0/gcc-11.4.0-yycklku/lib/gcc/x86_64-pc-linux-gnu/11.4.0/include/stddef.h"
+/* (l40) typedef __builtin_va_list __gnuc_va_list; */
+# 40 "/sw/spack/deltas11-2023-03/apps/linux-rhel8-x86_64/gcc-8.5.0/gcc-11.4.0-yycklku/lib/gcc/x86_64-pc-linux-gnu/11.4.0/include/stdarg.h"
 /* (l30) typedef unsigned char __u_char; */
-# 30 "/usr/include/x86_64-linux-gnu/bits/types.h"
+# 30 "/usr/include/bits/types.h"
 /* (l31) typedef unsigned short int __u_short; */
-# 31 "/usr/include/x86_64-linux-gnu/bits/types.h"
+# 31 "/usr/include/bits/types.h"
 /* (l32) typedef unsigned int __u_int; */
-# 32 "/usr/include/x86_64-linux-gnu/bits/types.h"
+# 32 "/usr/include/bits/types.h"
 /* (l33) typedef unsigned long int __u_long; */
-# 33 "/usr/include/x86_64-linux-gnu/bits/types.h"
+# 33 "/usr/include/bits/types.h"
 /* (l36) typedef signed char __int8_t; */
-# 36 "/usr/include/x86_64-linux-gnu/bits/types.h"
+# 36 "/usr/include/bits/types.h"
 /* (l37) typedef unsigned char __uint8_t; */
-# 37 "/usr/include/x86_64-linux-gnu/bits/types.h"
+# 37 "/usr/include/bits/types.h"
 /* (l38) typedef signed short int __int16_t; */
-# 38 "/usr/include/x86_64-linux-gnu/bits/types.h"
+# 38 "/usr/include/bits/types.h"
 /* (l39) typedef unsigned short int __uint16_t; */
-# 39 "/usr/include/x86_64-linux-gnu/bits/types.h"
+# 39 "/usr/include/bits/types.h"
 /* (l40) typedef signed int __int32_t; */
-# 40 "/usr/include/x86_64-linux-gnu/bits/types.h"
+# 40 "/usr/include/bits/types.h"
 /* (l41) typedef unsigned int __uint32_t; */
-# 41 "/usr/include/x86_64-linux-gnu/bits/types.h"
+# 41 "/usr/include/bits/types.h"
 /* (l43) typedef signed long int __int64_t; */
-# 43 "/usr/include/x86_64-linux-gnu/bits/types.h"
+# 43 "/usr/include/bits/types.h"
 /* (l44) typedef unsigned long int __uint64_t; */
-# 44 "/usr/include/x86_64-linux-gnu/bits/types.h"
-/* (l52) typedef long int __quad_t; */
-# 52 "/usr/include/x86_64-linux-gnu/bits/types.h"
-/* (l53) typedef unsigned long int __u_quad_t; */
-# 53 "/usr/include/x86_64-linux-gnu/bits/types.h"
-/* (l61) typedef long int __intmax_t; */
-# 61 "/usr/include/x86_64-linux-gnu/bits/types.h"
-/* (l62) typedef unsigned long int __uintmax_t; */
-# 62 "/usr/include/x86_64-linux-gnu/bits/types.h"
-/* (l133) typedef unsigned long int __dev_t; */
-# 133 "/usr/include/x86_64-linux-gnu/bits/types.h"
-/* (l134) typedef unsigned int __uid_t; */
-# 134 "/usr/include/x86_64-linux-gnu/bits/types.h"
-/* (l135) typedef unsigned int __gid_t; */
-# 135 "/usr/include/x86_64-linux-gnu/bits/types.h"
-/* (l136) typedef unsigned long int __ino_t; */
-# 136 "/usr/include/x86_64-linux-gnu/bits/types.h"
-/* (l137) typedef unsigned long int __ino64_t; */
-# 137 "/usr/include/x86_64-linux-gnu/bits/types.h"
-/* (l138) typedef unsigned int __mode_t; */
-# 138 "/usr/include/x86_64-linux-gnu/bits/types.h"
-/* (l139) typedef unsigned long int __nlink_t; */
-# 139 "/usr/include/x86_64-linux-gnu/bits/types.h"
-/* (l140) typedef long int __off_t; */
-# 140 "/usr/include/x86_64-linux-gnu/bits/types.h"
-/* (l141) typedef long int __off64_t; */
-# 141 "/usr/include/x86_64-linux-gnu/bits/types.h"
-/* (l142) typedef int __pid_t; */
-# 142 "/usr/include/x86_64-linux-gnu/bits/types.h"
+# 44 "/usr/include/bits/types.h"
+/* (l51) typedef __int8_t __int_least8_t; */
+# 51 "/usr/include/bits/types.h"
+/* (l52) typedef __uint8_t __uint_least8_t; */
+# 52 "/usr/include/bits/types.h"
+/* (l53) typedef __int16_t __int_least16_t; */
+# 53 "/usr/include/bits/types.h"
+/* (l54) typedef __uint16_t __uint_least16_t; */
+# 54 "/usr/include/bits/types.h"
+/* (l55) typedef __int32_t __int_least32_t; */
+# 55 "/usr/include/bits/types.h"
+/* (l56) typedef __uint32_t __uint_least32_t; */
+# 56 "/usr/include/bits/types.h"
+/* (l57) typedef __int64_t __int_least64_t; */
+# 57 "/usr/include/bits/types.h"
+/* (l58) typedef __uint64_t __uint_least64_t; */
+# 58 "/usr/include/bits/types.h"
+/* (l62) typedef long int __quad_t; */
+# 62 "/usr/include/bits/types.h"
+/* (l63) typedef unsigned long int __u_quad_t; */
+# 63 "/usr/include/bits/types.h"
+/* (l71) typedef long int __intmax_t; */
+# 71 "/usr/include/bits/types.h"
+/* (l72) typedef unsigned long int __uintmax_t; */
+# 72 "/usr/include/bits/types.h"
+/* (l143) typedef unsigned long int __dev_t; */
+# 143 "/usr/include/bits/types.h"
+/* (l144) typedef unsigned int __uid_t; */
+# 144 "/usr/include/bits/types.h"
+/* (l145) typedef unsigned int __gid_t; */
+# 145 "/usr/include/bits/types.h"
+/* (l146) typedef unsigned long int __ino_t; */
+# 146 "/usr/include/bits/types.h"
+/* (l147) typedef unsigned long int __ino64_t; */
+# 147 "/usr/include/bits/types.h"
+/* (l148) typedef unsigned int __mode_t; */
+# 148 "/usr/include/bits/types.h"
+/* (l149) typedef unsigned long int __nlink_t; */
+# 149 "/usr/include/bits/types.h"
+/* (l150) typedef long int __off_t; */
+# 150 "/usr/include/bits/types.h"
+/* (l151) typedef long int __off64_t; */
+# 151 "/usr/include/bits/types.h"
+/* (l152) typedef int __pid_t; */
+# 152 "/usr/include/bits/types.h"
 struct _noname0_ {
     int __val[ 2];
   };
 
-/* (l143) typedef struct _noname0_  __fsid_t; */
-# 143 "/usr/include/x86_64-linux-gnu/bits/types.h"
-/* (l144) typedef long int __clock_t; */
-# 144 "/usr/include/x86_64-linux-gnu/bits/types.h"
-/* (l145) typedef unsigned long int __rlim_t; */
-# 145 "/usr/include/x86_64-linux-gnu/bits/types.h"
-/* (l146) typedef unsigned long int __rlim64_t; */
-# 146 "/usr/include/x86_64-linux-gnu/bits/types.h"
-/* (l147) typedef unsigned int __id_t; */
-# 147 "/usr/include/x86_64-linux-gnu/bits/types.h"
-/* (l148) typedef long int __time_t; */
-# 148 "/usr/include/x86_64-linux-gnu/bits/types.h"
-/* (l149) typedef unsigned int __useconds_t; */
-# 149 "/usr/include/x86_64-linux-gnu/bits/types.h"
-/* (l150) typedef long int __suseconds_t; */
-# 150 "/usr/include/x86_64-linux-gnu/bits/types.h"
-/* (l152) typedef int __daddr_t; */
-# 152 "/usr/include/x86_64-linux-gnu/bits/types.h"
-/* (l153) typedef int __key_t; */
-# 153 "/usr/include/x86_64-linux-gnu/bits/types.h"
-/* (l156) typedef int __clockid_t; */
-# 156 "/usr/include/x86_64-linux-gnu/bits/types.h"
-/* (l159) typedef void * __timer_t; */
-# 159 "/usr/include/x86_64-linux-gnu/bits/types.h"
-/* (l162) typedef long int __blksize_t; */
-# 162 "/usr/include/x86_64-linux-gnu/bits/types.h"
-/* (l167) typedef long int __blkcnt_t; */
-# 167 "/usr/include/x86_64-linux-gnu/bits/types.h"
-/* (l168) typedef long int __blkcnt64_t; */
-# 168 "/usr/include/x86_64-linux-gnu/bits/types.h"
-/* (l171) typedef unsigned long int __fsblkcnt_t; */
-# 171 "/usr/include/x86_64-linux-gnu/bits/types.h"
-/* (l172) typedef unsigned long int __fsblkcnt64_t; */
-# 172 "/usr/include/x86_64-linux-gnu/bits/types.h"
-/* (l175) typedef unsigned long int __fsfilcnt_t; */
-# 175 "/usr/include/x86_64-linux-gnu/bits/types.h"
-/* (l176) typedef unsigned long int __fsfilcnt64_t; */
-# 176 "/usr/include/x86_64-linux-gnu/bits/types.h"
-/* (l179) typedef long int __fsword_t; */
-# 179 "/usr/include/x86_64-linux-gnu/bits/types.h"
-/* (l181) typedef long int __ssize_t; */
-# 181 "/usr/include/x86_64-linux-gnu/bits/types.h"
-/* (l184) typedef long int __syscall_slong_t; */
-# 184 "/usr/include/x86_64-linux-gnu/bits/types.h"
-/* (l186) typedef unsigned long int __syscall_ulong_t; */
-# 186 "/usr/include/x86_64-linux-gnu/bits/types.h"
-/* (l190) typedef __off64_t __loff_t; */
-# 190 "/usr/include/x86_64-linux-gnu/bits/types.h"
-/* (l191) typedef char * __caddr_t; */
-# 191 "/usr/include/x86_64-linux-gnu/bits/types.h"
-/* (l194) typedef long int __intptr_t; */
-# 194 "/usr/include/x86_64-linux-gnu/bits/types.h"
-/* (l197) typedef unsigned int __socklen_t; */
-# 197 "/usr/include/x86_64-linux-gnu/bits/types.h"
-/* (l202) typedef int __sig_atomic_t; */
-# 202 "/usr/include/x86_64-linux-gnu/bits/types.h"
-# 4 "/usr/include/x86_64-linux-gnu/bits/types/__FILE.h"
-struct _IO_FILE;
-
-/* (l5) typedef struct _IO_FILE  __FILE; */
-# 5 "/usr/include/x86_64-linux-gnu/bits/types/__FILE.h"
-# 4 "/usr/include/x86_64-linux-gnu/bits/types/FILE.h"
-struct _IO_FILE;
-
-/* (l7) typedef struct _IO_FILE  FILE; */
-# 7 "/usr/include/x86_64-linux-gnu/bits/types/FILE.h"
+/* (l153) typedef struct _noname0_ __fsid_t; */
+# 153 "/usr/include/bits/types.h"
+/* (l154) typedef long int __clock_t; */
+# 154 "/usr/include/bits/types.h"
+/* (l155) typedef unsigned long int __rlim_t; */
+# 155 "/usr/include/bits/types.h"
+/* (l156) typedef unsigned long int __rlim64_t; */
+# 156 "/usr/include/bits/types.h"
+/* (l157) typedef unsigned int __id_t; */
+# 157 "/usr/include/bits/types.h"
+/* (l158) typedef long int __time_t; */
+# 158 "/usr/include/bits/types.h"
+/* (l159) typedef unsigned int __useconds_t; */
+# 159 "/usr/include/bits/types.h"
+/* (l160) typedef long int __suseconds_t; */
+# 160 "/usr/include/bits/types.h"
+/* (l162) typedef int __daddr_t; */
+# 162 "/usr/include/bits/types.h"
+/* (l163) typedef int __key_t; */
+# 163 "/usr/include/bits/types.h"
+/* (l166) typedef int __clockid_t; */
+# 166 "/usr/include/bits/types.h"
+/* (l169) typedef void * __timer_t; */
+# 169 "/usr/include/bits/types.h"
+/* (l172) typedef long int __blksize_t; */
+# 172 "/usr/include/bits/types.h"
+/* (l177) typedef long int __blkcnt_t; */
+# 177 "/usr/include/bits/types.h"
+/* (l178) typedef long int __blkcnt64_t; */
+# 178 "/usr/include/bits/types.h"
+/* (l181) typedef unsigned long int __fsblkcnt_t; */
+# 181 "/usr/include/bits/types.h"
+/* (l182) typedef unsigned long int __fsblkcnt64_t; */
+# 182 "/usr/include/bits/types.h"
+/* (l185) typedef unsigned long int __fsfilcnt_t; */
+# 185 "/usr/include/bits/types.h"
+/* (l186) typedef unsigned long int __fsfilcnt64_t; */
+# 186 "/usr/include/bits/types.h"
+/* (l189) typedef long int __fsword_t; */
+# 189 "/usr/include/bits/types.h"
+/* (l191) typedef long int __ssize_t; */
+# 191 "/usr/include/bits/types.h"
+/* (l194) typedef long int __syscall_slong_t; */
+# 194 "/usr/include/bits/types.h"
+/* (l196) typedef unsigned long int __syscall_ulong_t; */
+# 196 "/usr/include/bits/types.h"
+/* (l200) typedef __off64_t __loff_t; */
+# 200 "/usr/include/bits/types.h"
+/* (l201) typedef char * __caddr_t; */
+# 201 "/usr/include/bits/types.h"
+/* (l204) typedef long int __intptr_t; */
+# 204 "/usr/include/bits/types.h"
+/* (l207) typedef unsigned int __socklen_t; */
+# 207 "/usr/include/bits/types.h"
+/* (l212) typedef int __sig_atomic_t; */
+# 212 "/usr/include/bits/types.h"
 struct _noname1_ {
     int __count;
     union {
@@ -130,38 +231,40 @@ struct _noname1_ {
       } __value;
   };
 
-/* (l21) typedef struct _noname1_  __mbstate_t; */
-# 21 "/usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h"
-struct _noname2_ {
+/* (l21) typedef struct _noname1_ __mbstate_t; */
+# 21 "/usr/include/bits/types/__mbstate_t.h"
+struct _G_fpos_t {
     long int __pos;
     struct _noname1_ __state;
   };
 
-/* (l30) typedef struct _noname2_  _G_fpos_t; */
-# 30 "/usr/include/x86_64-linux-gnu/bits/_G_config.h"
-struct _noname3_ {
+/* (l14) typedef struct _G_fpos_t __fpos_t; */
+# 14 "/usr/include/bits/types/__fpos_t.h"
+struct _G_fpos64_t {
     long int __pos;
     struct _noname1_ __state;
   };
 
-/* (l35) typedef struct _noname3_  _G_fpos64_t; */
-# 35 "/usr/include/x86_64-linux-gnu/bits/_G_config.h"
-/* (l40) typedef __builtin_va_list __gnuc_va_list; */
-# 40 "/usr/lib/gcc/x86_64-linux-gnu/7/include/stdarg.h"
-# 149 "/usr/include/x86_64-linux-gnu/bits/libio.h"
-struct _IO_jump_t;
+/* (l14) typedef struct _G_fpos64_t __fpos64_t; */
+# 14 "/usr/include/bits/types/__fpos64_t.h"
+# 4 "/usr/include/bits/types/__FILE.h"
 struct _IO_FILE;
 
-/* (l154) typedef void _IO_lock_t; */
-# 154 "/usr/include/x86_64-linux-gnu/bits/libio.h"
-struct _IO_marker {
-    struct _IO_marker * _next;
-    struct _IO_FILE * _sbuf;
-    int _pos;
-  };
-enum __codecvt_result {
-    __codecvt_ok, __codecvt_partial, __codecvt_error, __codecvt_noconv
-  };
+/* (l5) typedef struct _IO_FILE __FILE; */
+# 5 "/usr/include/bits/types/__FILE.h"
+# 4 "/usr/include/bits/types/FILE.h"
+struct _IO_FILE;
+
+/* (l7) typedef struct _IO_FILE FILE; */
+# 7 "/usr/include/bits/types/FILE.h"
+# 35 "/usr/include/bits/types/struct_FILE.h"
+struct _IO_FILE;
+struct _IO_marker;
+struct _IO_codecvt;
+struct _IO_wide_data;
+
+/* (l43) typedef void _IO_lock_t; */
+# 43 "/usr/include/bits/types/struct_FILE.h"
 struct _IO_FILE {
     int _flags;
     char * _IO_read_ptr;
@@ -185,61 +288,27 @@ struct _IO_FILE {
     char _shortbuf[ 1];
     void (* _lock);
     long int _offset;
-    void * __pad1;
-    void * __pad2;
-    void * __pad3;
-    void * __pad4;
+    struct _IO_codecvt * _codecvt;
+    struct _IO_wide_data * _wide_data;
+    struct _IO_FILE * _freeres_list;
+    void * _freeres_buf;
     long unsigned int __pad5;
     int _mode;
-    char _unused2[ 15 * sizeof(int) - 4 * sizeof(void *) - sizeof(long unsigned int )];
+    char _unused2[ 15 * sizeof(int) - 4 * sizeof(void *) - sizeof(long unsigned int)];
   };
 
-/* (l314) typedef struct _IO_FILE  _IO_FILE; */
-# 314 "/usr/include/x86_64-linux-gnu/bits/libio.h"
-struct _IO_FILE_plus;
-extern struct _IO_FILE_plus _IO_2_1_stdin_;
-extern struct _IO_FILE_plus _IO_2_1_stdout_;
-extern struct _IO_FILE_plus _IO_2_1_stderr_;
-
-/* (l337) typedef __ssize_t __io_read_fn(void * __cookie, char * __buf, size_t __nbytes); */
-# 337 "/usr/include/x86_64-linux-gnu/bits/libio.h"
-/* (l346) typedef __ssize_t __io_write_fn(void * __cookie, const char * __buf, size_t __n); */
-# 346 "/usr/include/x86_64-linux-gnu/bits/libio.h"
-/* (l354) typedef int __io_seek_fn(void * __cookie, __off64_t * __pos, int __w); */
-# 354 "/usr/include/x86_64-linux-gnu/bits/libio.h"
-/* (l357) typedef int __io_close_fn(void * __cookie); */
-# 357 "/usr/include/x86_64-linux-gnu/bits/libio.h"
-extern int __underflow(struct _IO_FILE (*));
-extern int __uflow(struct _IO_FILE (*));
-extern int __overflow(struct _IO_FILE (*), int);
-extern int _IO_getc(struct _IO_FILE (* __fp));
-extern int _IO_putc(int __c, struct _IO_FILE (* __fp));
-extern int _IO_feof(struct _IO_FILE (* __fp));
-extern int _IO_ferror(struct _IO_FILE (* __fp));
-extern int _IO_peekc_locked(struct _IO_FILE (* __fp));
-extern void _IO_flockfile(struct _IO_FILE (*));
-extern void _IO_funlockfile(struct _IO_FILE (*));
-extern int _IO_ftrylockfile(struct _IO_FILE (*));
-extern int _IO_vfscanf(struct _IO_FILE (*), const char *, __builtin_va_list , int *);
-extern int _IO_vfprintf(struct _IO_FILE (*), const char *, __builtin_va_list );
-extern long int _IO_padn(struct _IO_FILE (*), int, long int );
-extern long unsigned int _IO_sgetn(struct _IO_FILE (*), void *, long unsigned int );
-extern long int _IO_seekoff(struct _IO_FILE (*), long int , int, int);
-extern long int _IO_seekpos(struct _IO_FILE (*), long int , int);
-extern void _IO_free_backup_area(struct _IO_FILE (*));
-
 /* (l99) typedef __gnuc_va_list va_list; */
-# 99 "/usr/lib/gcc/x86_64-linux-gnu/7/include/stdarg.h"
-/* (l57) typedef __off_t off_t; */
-# 57 "/usr/include/stdio.h"
-/* (l71) typedef __ssize_t ssize_t; */
-# 71 "/usr/include/stdio.h"
-/* (l78) typedef _G_fpos_t fpos_t; */
-# 78 "/usr/include/stdio.h"
-# 135 "/usr/include/stdio.h"
-extern struct _IO_FILE * stdin;
-extern struct _IO_FILE * stdout;
-extern struct _IO_FILE * stderr;
+# 99 "/sw/spack/deltas11-2023-03/apps/linux-rhel8-x86_64/gcc-8.5.0/gcc-11.4.0-yycklku/lib/gcc/x86_64-pc-linux-gnu/11.4.0/include/stdarg.h"
+/* (l63) typedef __off_t off_t; */
+# 63 "/usr/include/stdio.h"
+/* (l77) typedef __ssize_t ssize_t; */
+# 77 "/usr/include/stdio.h"
+/* (l84) typedef __fpos_t fpos_t; */
+# 84 "/usr/include/stdio.h"
+# 137 "/usr/include/stdio.h"
+extern struct _IO_FILE (* stdin);
+extern struct _IO_FILE (* stdout);
+extern struct _IO_FILE (* stderr);
 extern int remove(const char * __filename);
 extern int rename(const char * __old, const char * __new);
 extern int renameat(int __oldfd, const char * __old, int __newfd, const char * __new);
@@ -250,37 +319,37 @@ extern char * tempnam(const char * __dir, const char * __pfx);
 extern int fclose(struct _IO_FILE (* __stream));
 extern int fflush(struct _IO_FILE (* __stream));
 extern int fflush_unlocked(struct _IO_FILE (* __stream));
-extern struct _IO_FILE (* fopen(const char * __filename, const char * __modes));
-extern struct _IO_FILE (* freopen(const char * __filename, const char * __modes, struct _IO_FILE (* __stream)));
+extern struct _IO_FILE (* fopen(const char *restrict __filename, const char *restrict __modes));
+extern struct _IO_FILE (* freopen(const char *restrict __filename, const char *restrict __modes, struct _IO_FILE (*restrict __stream)));
 extern struct _IO_FILE (* fdopen(int __fd, const char * __modes));
 extern struct _IO_FILE (* fmemopen(void * __s, long unsigned int __len, const char * __modes));
 extern struct _IO_FILE (* open_memstream(char ** __bufloc, long unsigned int (* __sizeloc)));
-extern void setbuf(struct _IO_FILE (* __stream), char * __buf);
-extern int setvbuf(struct _IO_FILE (* __stream), char * __buf, int __modes, long unsigned int __n);
-extern void setbuffer(struct _IO_FILE (* __stream), char * __buf, long unsigned int __size);
+extern void setbuf(struct _IO_FILE (*restrict __stream), char *restrict __buf);
+extern int setvbuf(struct _IO_FILE (*restrict __stream), char *restrict __buf, int __modes, long unsigned int __n);
+extern void setbuffer(struct _IO_FILE (*restrict __stream), char *restrict __buf, long unsigned int __size);
 extern void setlinebuf(struct _IO_FILE (* __stream));
-extern int fprintf(struct _IO_FILE (* __stream), const char * __format, ...);
-extern int printf(const char * __format, ...);
-extern int sprintf(char * __s, const char * __format, ...);
-extern int vfprintf(struct _IO_FILE (* __s), const char * __format, __builtin_va_list __arg);
-extern int vprintf(const char * __format, __builtin_va_list __arg);
-extern int vsprintf(char * __s, const char * __format, __builtin_va_list __arg);
-extern int snprintf(char * __s, long unsigned int __maxlen, const char * __format, ...);
-extern int vsnprintf(char * __s, long unsigned int __maxlen, const char * __format, __builtin_va_list __arg);
-extern int vdprintf(int __fd, const char * __fmt, __builtin_va_list __arg);
-extern int dprintf(int __fd, const char * __fmt, ...);
-extern int fscanf(struct _IO_FILE (* __stream), const char * __format, ...);
-extern int scanf(const char * __format, ...);
-extern int sscanf(const char * __s, const char * __format, ...);
-extern int __isoc99_fscanf(struct _IO_FILE (* __stream), const char * __format, ...);
-extern int __isoc99_scanf(const char * __format, ...);
-extern int __isoc99_sscanf(const char * __s, const char * __format, ...);
-extern int vfscanf(struct _IO_FILE (* __s), const char * __format, __builtin_va_list __arg);
-extern int vscanf(const char * __format, __builtin_va_list __arg);
-extern int vsscanf(const char * __s, const char * __format, __builtin_va_list __arg);
-extern int __isoc99_vfscanf(struct _IO_FILE (* __s), const char * __format, __builtin_va_list __arg);
-extern int __isoc99_vscanf(const char * __format, __builtin_va_list __arg);
-extern int __isoc99_vsscanf(const char * __s, const char * __format, __builtin_va_list __arg);
+extern int fprintf(struct _IO_FILE (*restrict __stream), const char *restrict __format, ...);
+extern int printf(const char *restrict __format, ...);
+extern int sprintf(char *restrict __s, const char *restrict __format, ...);
+extern int vfprintf(struct _IO_FILE (*restrict __s), const char *restrict __format, __builtin_va_list __arg);
+extern int vprintf(const char *restrict __format, __builtin_va_list __arg);
+extern int vsprintf(char *restrict __s, const char *restrict __format, __builtin_va_list __arg);
+extern int snprintf(char *restrict __s, long unsigned int __maxlen, const char *restrict __format, ...);
+extern int vsnprintf(char *restrict __s, long unsigned int __maxlen, const char *restrict __format, __builtin_va_list __arg);
+extern int vdprintf(int __fd, const char *restrict __fmt, __builtin_va_list __arg);
+extern int dprintf(int __fd, const char *restrict __fmt, ...);
+extern int fscanf(struct _IO_FILE (*restrict __stream), const char *restrict __format, ...);
+extern int scanf(const char *restrict __format, ...);
+extern int sscanf(const char *restrict __s, const char *restrict __format, ...);
+extern int __isoc99_fscanf(struct _IO_FILE (*restrict __stream), const char *restrict __format, ...);
+extern int __isoc99_scanf(const char *restrict __format, ...);
+extern int __isoc99_sscanf(const char *restrict __s, const char *restrict __format, ...);
+extern int vfscanf(struct _IO_FILE (*restrict __s), const char *restrict __format, __builtin_va_list __arg);
+extern int vscanf(const char *restrict __format, __builtin_va_list __arg);
+extern int vsscanf(const char *restrict __s, const char *restrict __format, __builtin_va_list __arg);
+extern int __isoc99_vfscanf(struct _IO_FILE (*restrict __s), const char *restrict __format, __builtin_va_list __arg);
+extern int __isoc99_vscanf(const char *restrict __format, __builtin_va_list __arg);
+extern int __isoc99_vsscanf(const char *restrict __s, const char *restrict __format, __builtin_va_list __arg);
 extern int fgetc(struct _IO_FILE (* __stream));
 extern int getc(struct _IO_FILE (* __stream));
 extern int getchar(void);
@@ -295,24 +364,24 @@ extern int putc_unlocked(int __c, struct _IO_FILE (* __stream));
 extern int putchar_unlocked(int __c);
 extern int getw(struct _IO_FILE (* __stream));
 extern int putw(int __w, struct _IO_FILE (* __stream));
-extern char * fgets(char * __s, int __n, struct _IO_FILE (* __stream));
-extern long int __getdelim(char ** __lineptr, long unsigned int (* __n), int __delimiter, struct _IO_FILE (* __stream));
-extern long int getdelim(char ** __lineptr, long unsigned int (* __n), int __delimiter, struct _IO_FILE (* __stream));
-extern long int getline(char ** __lineptr, long unsigned int (* __n), struct _IO_FILE (* __stream));
-extern int fputs(const char * __s, struct _IO_FILE (* __stream));
+extern char * fgets(char *restrict __s, int __n, struct _IO_FILE (*restrict __stream));
+extern long int __getdelim(char **restrict __lineptr, long unsigned int (*restrict __n), int __delimiter, struct _IO_FILE (*restrict __stream));
+extern long int getdelim(char **restrict __lineptr, long unsigned int (*restrict __n), int __delimiter, struct _IO_FILE (*restrict __stream));
+extern long int getline(char **restrict __lineptr, long unsigned int (*restrict __n), struct _IO_FILE (*restrict __stream));
+extern int fputs(const char *restrict __s, struct _IO_FILE (*restrict __stream));
 extern int puts(const char * __s);
 extern int ungetc(int __c, struct _IO_FILE (* __stream));
-extern long unsigned int fread(void * __ptr, long unsigned int __size, long unsigned int __n, struct _IO_FILE (* __stream));
-extern long unsigned int fwrite(const void * __ptr, long unsigned int __size, long unsigned int __n, struct _IO_FILE (* __s));
-extern long unsigned int fread_unlocked(void * __ptr, long unsigned int __size, long unsigned int __n, struct _IO_FILE (* __stream));
-extern long unsigned int fwrite_unlocked(const void * __ptr, long unsigned int __size, long unsigned int __n, struct _IO_FILE (* __stream));
+extern long unsigned int fread(void *restrict __ptr, long unsigned int __size, long unsigned int __n, struct _IO_FILE (*restrict __stream));
+extern long unsigned int fwrite(const void *restrict __ptr, long unsigned int __size, long unsigned int __n, struct _IO_FILE (*restrict __s));
+extern long unsigned int fread_unlocked(void *restrict __ptr, long unsigned int __size, long unsigned int __n, struct _IO_FILE (*restrict __stream));
+extern long unsigned int fwrite_unlocked(const void *restrict __ptr, long unsigned int __size, long unsigned int __n, struct _IO_FILE (*restrict __stream));
 extern int fseek(struct _IO_FILE (* __stream), long int __off, int __whence);
 extern long int ftell(struct _IO_FILE (* __stream));
 extern void rewind(struct _IO_FILE (* __stream));
 extern int fseeko(struct _IO_FILE (* __stream), long int __off, int __whence);
 extern long int ftello(struct _IO_FILE (* __stream));
-extern int fgetpos(struct _IO_FILE (* __stream), struct _noname2_ (* __pos));
-extern int fsetpos(struct _IO_FILE (* __stream), const struct _noname2_ (* __pos));
+extern int fgetpos(struct _IO_FILE (*restrict __stream), struct _G_fpos_t (*restrict __pos));
+extern int fsetpos(struct _IO_FILE (* __stream), const struct _G_fpos_t (* __pos));
 extern void clearerr(struct _IO_FILE (* __stream));
 extern int feof(struct _IO_FILE (* __stream));
 extern int ferror(struct _IO_FILE (* __stream));
@@ -320,10 +389,10 @@ extern void clearerr_unlocked(struct _IO_FILE (* __stream));
 extern int feof_unlocked(struct _IO_FILE (* __stream));
 extern int ferror_unlocked(struct _IO_FILE (* __stream));
 extern void perror(const char * __s);
-# 26 "/usr/include/x86_64-linux-gnu/bits/sys_errlist.h"
+# 26 "/usr/include/bits/sys_errlist.h"
 extern int sys_nerr;
 extern const char *const sys_errlist[];
-# 786 "/usr/include/stdio.h"
+# 792 "/usr/include/stdio.h"
 extern int fileno(struct _IO_FILE (* __stream));
 extern int fileno_unlocked(struct _IO_FILE (* __stream));
 extern struct _IO_FILE (* popen(const char * __command, const char * __modes));
@@ -332,20 +401,22 @@ extern char * ctermid(char * __s);
 extern void flockfile(struct _IO_FILE (* __stream));
 extern int ftrylockfile(struct _IO_FILE (* __stream));
 extern void funlockfile(struct _IO_FILE (* __stream));
+extern int __uflow(struct _IO_FILE (*));
+extern int __overflow(struct _IO_FILE (*), int);
 
-/* (l207) typedef float _Float32; */
-# 207 "/usr/include/x86_64-linux-gnu/bits/floatn-common.h"
-/* (l244) typedef double _Float64; */
-# 244 "/usr/include/x86_64-linux-gnu/bits/floatn-common.h"
-/* (l261) typedef double _Float32x; */
-# 261 "/usr/include/x86_64-linux-gnu/bits/floatn-common.h"
-/* (l278) typedef long double _Float64x; */
-# 278 "/usr/include/x86_64-linux-gnu/bits/floatn-common.h"
+/* (l214) typedef float _Float32; */
+# 214 "/usr/include/bits/floatn-common.h"
+/* (l251) typedef double _Float64; */
+# 251 "/usr/include/bits/floatn-common.h"
+/* (l268) typedef double _Float32x; */
+# 268 "/usr/include/bits/floatn-common.h"
+/* (l285) typedef long double _Float64x; */
+# 285 "/usr/include/bits/floatn-common.h"
 /* (l149) typedef float float_t; */
 # 149 "/usr/include/math.h"
 /* (l150) typedef double double_t; */
 # 150 "/usr/include/math.h"
-# 22 "/usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h"
+# 22 "/usr/include/bits/mathcalls-helper-functions.h"
 extern int __fpclassify(double __value);
 extern int __signbit(double __value);
 extern int __isinf(double __value);
@@ -353,7 +424,7 @@ extern int __finite(double __value);
 extern int __isnan(double __value);
 extern int __iseqsig(double __x, double __y);
 extern int __issignaling(double __value);
-# 53 "/usr/include/x86_64-linux-gnu/bits/mathcalls.h"
+# 53 "/usr/include/bits/mathcalls.h"
 extern double acos(double __x);
 extern double __acos(double __x);
 extern double asin(double __x);
@@ -493,7 +564,7 @@ extern double fma(double __x, double __y, double __z);
 extern double __fma(double __x, double __y, double __z);
 extern double scalb(double __x, double __n);
 extern double __scalb(double __x, double __n);
-# 22 "/usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h"
+# 22 "/usr/include/bits/mathcalls-helper-functions.h"
 extern int __fpclassifyf(float __value);
 extern int __signbitf(float __value);
 extern int __isinff(float __value);
@@ -501,7 +572,7 @@ extern int __finitef(float __value);
 extern int __isnanf(float __value);
 extern int __iseqsigf(float __x, float __y);
 extern int __issignalingf(float __value);
-# 53 "/usr/include/x86_64-linux-gnu/bits/mathcalls.h"
+# 53 "/usr/include/bits/mathcalls.h"
 extern float acosf(float __x);
 extern float __acosf(float __x);
 extern float asinf(float __x);
@@ -641,7 +712,7 @@ extern float fmaf(float __x, float __y, float __z);
 extern float __fmaf(float __x, float __y, float __z);
 extern float scalbf(float __x, float __n);
 extern float __scalbf(float __x, float __n);
-# 22 "/usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h"
+# 22 "/usr/include/bits/mathcalls-helper-functions.h"
 extern int __fpclassifyl(long double __value);
 extern int __signbitl(long double __value);
 extern int __isinfl(long double __value);
@@ -649,7 +720,7 @@ extern int __finitel(long double __value);
 extern int __isnanl(long double __value);
 extern int __iseqsigl(long double __x, long double __y);
 extern int __issignalingl(long double __value);
-# 53 "/usr/include/x86_64-linux-gnu/bits/mathcalls.h"
+# 53 "/usr/include/bits/mathcalls.h"
 extern long double acosl(long double __x);
 extern long double __acosl(long double __x);
 extern long double asinl(long double __x);
@@ -789,40 +860,34 @@ extern long double fmal(long double __x, long double __y, long double __z);
 extern long double __fmal(long double __x, long double __y, long double __z);
 extern long double scalbl(long double __x, long double __n);
 extern long double __scalbl(long double __x, long double __n);
-# 489 "/usr/include/math.h"
+# 773 "/usr/include/math.h"
 extern int signgam;
 enum {
     FP_NAN = 0, FP_INFINITE = 1, FP_ZERO = 2, FP_SUBNORMAL = 3, FP_NORMAL = 4
   };
 
-/* (l328) typedef int wchar_t; */
-# 328 "/usr/lib/gcc/x86_64-linux-gnu/7/include/stddef.h"
-enum _noname4_ {
-    P_ALL, P_PID, P_PGID
-  };
-
-/* (l57) typedef enum _noname4_  idtype_t; */
-# 57 "/usr/include/x86_64-linux-gnu/bits/waitflags.h"
-struct _noname5_ {
+/* (l321) typedef int wchar_t; */
+# 321 "/sw/spack/deltas11-2023-03/apps/linux-rhel8-x86_64/gcc-8.5.0/gcc-11.4.0-yycklku/lib/gcc/x86_64-pc-linux-gnu/11.4.0/include/stddef.h"
+struct _noname2_ {
     int quot;
     int rem;
   };
 
-/* (l62) typedef struct _noname5_  div_t; */
+/* (l62) typedef struct _noname2_ div_t; */
 # 62 "/usr/include/stdlib.h"
-struct _noname6_ {
+struct _noname3_ {
     long int quot;
     long int rem;
   };
 
-/* (l70) typedef struct _noname6_  ldiv_t; */
+/* (l70) typedef struct _noname3_ ldiv_t; */
 # 70 "/usr/include/stdlib.h"
-struct _noname7_ {
+struct _noname4_ {
     long long int quot;
     long long int rem;
   };
 
-/* (l80) typedef struct _noname7_  lldiv_t; */
+/* (l80) typedef struct _noname4_ lldiv_t; */
 # 80 "/usr/include/stdlib.h"
 # 97 "/usr/include/stdlib.h"
 extern long unsigned int __ctype_get_mb_cur_max(void);
@@ -830,175 +895,170 @@ extern double atof(const char * __nptr);
 extern int atoi(const char * __nptr);
 extern long int atol(const char * __nptr);
 extern long long int atoll(const char * __nptr);
-extern double strtod(const char * __nptr, char ** __endptr);
-extern float strtof(const char * __nptr, char ** __endptr);
-extern long double strtold(const char * __nptr, char ** __endptr);
-extern long int strtol(const char * __nptr, char ** __endptr, int __base);
-extern unsigned long int strtoul(const char * __nptr, char ** __endptr, int __base);
-extern long long int strtoq(const char * __nptr, char ** __endptr, int __base);
-extern unsigned long long int strtouq(const char * __nptr, char ** __endptr, int __base);
-extern long long int strtoll(const char * __nptr, char ** __endptr, int __base);
-extern unsigned long long int strtoull(const char * __nptr, char ** __endptr, int __base);
+extern double strtod(const char *restrict __nptr, char **restrict __endptr);
+extern float strtof(const char *restrict __nptr, char **restrict __endptr);
+extern long double strtold(const char *restrict __nptr, char **restrict __endptr);
+extern long int strtol(const char *restrict __nptr, char **restrict __endptr, int __base);
+extern unsigned long int strtoul(const char *restrict __nptr, char **restrict __endptr, int __base);
+extern long long int strtoq(const char *restrict __nptr, char **restrict __endptr, int __base);
+extern unsigned long long int strtouq(const char *restrict __nptr, char **restrict __endptr, int __base);
+extern long long int strtoll(const char *restrict __nptr, char **restrict __endptr, int __base);
+extern unsigned long long int strtoull(const char *restrict __nptr, char **restrict __endptr, int __base);
 extern char * l64a(long int __n);
 extern long int a64l(const char * __s);
 
 /* (l33) typedef __u_char u_char; */
-# 33 "/usr/include/x86_64-linux-gnu/sys/types.h"
+# 33 "/usr/include/sys/types.h"
 /* (l34) typedef __u_short u_short; */
-# 34 "/usr/include/x86_64-linux-gnu/sys/types.h"
+# 34 "/usr/include/sys/types.h"
 /* (l35) typedef __u_int u_int; */
-# 35 "/usr/include/x86_64-linux-gnu/sys/types.h"
+# 35 "/usr/include/sys/types.h"
 /* (l36) typedef __u_long u_long; */
-# 36 "/usr/include/x86_64-linux-gnu/sys/types.h"
+# 36 "/usr/include/sys/types.h"
 /* (l37) typedef __quad_t quad_t; */
-# 37 "/usr/include/x86_64-linux-gnu/sys/types.h"
+# 37 "/usr/include/sys/types.h"
 /* (l38) typedef __u_quad_t u_quad_t; */
-# 38 "/usr/include/x86_64-linux-gnu/sys/types.h"
+# 38 "/usr/include/sys/types.h"
 /* (l39) typedef __fsid_t fsid_t; */
-# 39 "/usr/include/x86_64-linux-gnu/sys/types.h"
-/* (l44) typedef __loff_t loff_t; */
-# 44 "/usr/include/x86_64-linux-gnu/sys/types.h"
-/* (l48) typedef __ino_t ino_t; */
-# 48 "/usr/include/x86_64-linux-gnu/sys/types.h"
-/* (l60) typedef __dev_t dev_t; */
-# 60 "/usr/include/x86_64-linux-gnu/sys/types.h"
-/* (l65) typedef __gid_t gid_t; */
-# 65 "/usr/include/x86_64-linux-gnu/sys/types.h"
-/* (l70) typedef __mode_t mode_t; */
-# 70 "/usr/include/x86_64-linux-gnu/sys/types.h"
-/* (l75) typedef __nlink_t nlink_t; */
-# 75 "/usr/include/x86_64-linux-gnu/sys/types.h"
-/* (l80) typedef __uid_t uid_t; */
-# 80 "/usr/include/x86_64-linux-gnu/sys/types.h"
-/* (l98) typedef __pid_t pid_t; */
-# 98 "/usr/include/x86_64-linux-gnu/sys/types.h"
-/* (l104) typedef __id_t id_t; */
-# 104 "/usr/include/x86_64-linux-gnu/sys/types.h"
-/* (l115) typedef __daddr_t daddr_t; */
-# 115 "/usr/include/x86_64-linux-gnu/sys/types.h"
-/* (l116) typedef __caddr_t caddr_t; */
-# 116 "/usr/include/x86_64-linux-gnu/sys/types.h"
-/* (l122) typedef __key_t key_t; */
-# 122 "/usr/include/x86_64-linux-gnu/sys/types.h"
+# 39 "/usr/include/sys/types.h"
+/* (l42) typedef __loff_t loff_t; */
+# 42 "/usr/include/sys/types.h"
+/* (l47) typedef __ino_t ino_t; */
+# 47 "/usr/include/sys/types.h"
+/* (l59) typedef __dev_t dev_t; */
+# 59 "/usr/include/sys/types.h"
+/* (l64) typedef __gid_t gid_t; */
+# 64 "/usr/include/sys/types.h"
+/* (l69) typedef __mode_t mode_t; */
+# 69 "/usr/include/sys/types.h"
+/* (l74) typedef __nlink_t nlink_t; */
+# 74 "/usr/include/sys/types.h"
+/* (l79) typedef __uid_t uid_t; */
+# 79 "/usr/include/sys/types.h"
+/* (l97) typedef __pid_t pid_t; */
+# 97 "/usr/include/sys/types.h"
+/* (l103) typedef __id_t id_t; */
+# 103 "/usr/include/sys/types.h"
+/* (l114) typedef __daddr_t daddr_t; */
+# 114 "/usr/include/sys/types.h"
+/* (l115) typedef __caddr_t caddr_t; */
+# 115 "/usr/include/sys/types.h"
+/* (l121) typedef __key_t key_t; */
+# 121 "/usr/include/sys/types.h"
 /* (l7) typedef __clock_t clock_t; */
-# 7 "/usr/include/x86_64-linux-gnu/bits/types/clock_t.h"
+# 7 "/usr/include/bits/types/clock_t.h"
 /* (l7) typedef __clockid_t clockid_t; */
-# 7 "/usr/include/x86_64-linux-gnu/bits/types/clockid_t.h"
+# 7 "/usr/include/bits/types/clockid_t.h"
 /* (l7) typedef __time_t time_t; */
-# 7 "/usr/include/x86_64-linux-gnu/bits/types/time_t.h"
+# 7 "/usr/include/bits/types/time_t.h"
 /* (l7) typedef __timer_t timer_t; */
-# 7 "/usr/include/x86_64-linux-gnu/bits/types/timer_t.h"
-/* (l149) typedef unsigned long int ulong; */
-# 149 "/usr/include/x86_64-linux-gnu/sys/types.h"
-/* (l150) typedef unsigned short int ushort; */
-# 150 "/usr/include/x86_64-linux-gnu/sys/types.h"
-/* (l151) typedef unsigned int uint; */
-# 151 "/usr/include/x86_64-linux-gnu/sys/types.h"
+# 7 "/usr/include/bits/types/timer_t.h"
+/* (l148) typedef unsigned long int ulong; */
+# 148 "/usr/include/sys/types.h"
+/* (l149) typedef unsigned short int ushort; */
+# 149 "/usr/include/sys/types.h"
+/* (l150) typedef unsigned int uint; */
+# 150 "/usr/include/sys/types.h"
 /* (l24) typedef __int8_t int8_t; */
-# 24 "/usr/include/x86_64-linux-gnu/bits/stdint-intn.h"
+# 24 "/usr/include/bits/stdint-intn.h"
 /* (l25) typedef __int16_t int16_t; */
-# 25 "/usr/include/x86_64-linux-gnu/bits/stdint-intn.h"
+# 25 "/usr/include/bits/stdint-intn.h"
 /* (l26) typedef __int32_t int32_t; */
-# 26 "/usr/include/x86_64-linux-gnu/bits/stdint-intn.h"
+# 26 "/usr/include/bits/stdint-intn.h"
 /* (l27) typedef __int64_t int64_t; */
-# 27 "/usr/include/x86_64-linux-gnu/bits/stdint-intn.h"
-/* (l161) typedef unsigned char u_int8_t; */
-# 161 "/usr/include/x86_64-linux-gnu/sys/types.h"
-/* (l162) typedef unsigned short int u_int16_t; */
-# 162 "/usr/include/x86_64-linux-gnu/sys/types.h"
-/* (l163) typedef unsigned int u_int32_t; */
-# 163 "/usr/include/x86_64-linux-gnu/sys/types.h"
-/* (l165) typedef unsigned long int u_int64_t; */
-# 165 "/usr/include/x86_64-linux-gnu/sys/types.h"
-/* (l170) typedef int register_t; */
-# 170 "/usr/include/x86_64-linux-gnu/sys/types.h"
+# 27 "/usr/include/bits/stdint-intn.h"
+/* (l158) typedef __uint8_t u_int8_t; */
+# 158 "/usr/include/sys/types.h"
+/* (l159) typedef __uint16_t u_int16_t; */
+# 159 "/usr/include/sys/types.h"
+/* (l160) typedef __uint32_t u_int32_t; */
+# 160 "/usr/include/sys/types.h"
+/* (l161) typedef __uint64_t u_int64_t; */
+# 161 "/usr/include/sys/types.h"
+/* (l166) typedef int register_t; */
+# 166 "/usr/include/sys/types.h"
 
-static unsigned short int __bswap_16(unsigned short int __bsx)
-# 46 "/usr/include/x86_64-linux-gnu/bits/byteswap-16.h"
+static inline unsigned short int __bswap_16(unsigned short int __bsx)
+# 38 "/usr/include/bits/byteswap.h"
 {
   return (((unsigned short int) ((((__bsx) >> 8) & 0xff) | (((__bsx) & 0xff) << 8))));
 }
 
 
-static unsigned int __bswap_32(unsigned int __bsx)
-# 89 "/usr/include/x86_64-linux-gnu/bits/byteswap.h"
+static inline unsigned int __bswap_32(unsigned int __bsx)
 {
-  return (((((__bsx) & 0xff000000) >> 24) | (((__bsx) & 0x00ff0000) >> 8) | (((__bsx) & 0x0000ff00) << 8) | (((__bsx) & 0x000000ff) << 24)));
+  return (((((__bsx) & 0xff000000u) >> 24) | (((__bsx) & 0x00ff0000u) >> 8) | (((__bsx) & 0x0000ff00u) << 8) | (((__bsx) & 0x000000ffu) << 24)));
 }
 
 
-static unsigned long int __bswap_64(unsigned long int __bsx)
+static inline unsigned long int __bswap_64(unsigned long int __bsx)
 {
   return (((((__bsx) & 0xff00000000000000ull) >> 56) | (((__bsx) & 0x00ff000000000000ull) >> 40) | (((__bsx) & 0x0000ff0000000000ull) >> 24) | (((__bsx) & 0x000000ff00000000ull) >> 8) | (((__bsx) & 0x00000000ff000000ull) << 8) | (((__bsx) & 0x0000000000ff0000ull) << 24) | (((__bsx) & 0x000000000000ff00ull) << 40) | (((__bsx) & 0x00000000000000ffull) << 56)));
 }
 
 
-static unsigned short int __uint16_identity(unsigned short int __x)
-# 34 "/usr/include/x86_64-linux-gnu/bits/uintn-identity.h"
+static inline unsigned short int __uint16_identity(unsigned short int __x)
+# 34 "/usr/include/bits/uintn-identity.h"
 {
   return (__x);
 }
 
 
-static unsigned int __uint32_identity(unsigned int __x)
+static inline unsigned int __uint32_identity(unsigned int __x)
 {
   return (__x);
 }
 
 
-static unsigned long int __uint64_identity(unsigned long int __x)
+static inline unsigned long int __uint64_identity(unsigned long int __x)
 {
   return (__x);
 }
 
-struct _noname8_ {
+struct _noname5_ {
     unsigned long int __val[ (1024 / (8 * sizeof(unsigned long int)))];
   };
 
-/* (l8) typedef struct _noname8_  __sigset_t; */
-# 8 "/usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h"
+/* (l8) typedef struct _noname5_ __sigset_t; */
+# 8 "/usr/include/bits/types/__sigset_t.h"
 /* (l7) typedef __sigset_t sigset_t; */
-# 7 "/usr/include/x86_64-linux-gnu/bits/types/sigset_t.h"
-# 12 "/usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h"
+# 7 "/usr/include/bits/types/sigset_t.h"
+# 12 "/usr/include/bits/types/struct_timeval.h"
 struct timeval {
     long int tv_sec;
     long int tv_usec;
   };
-# 12 "/usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h"
+# 13 "/usr/include/bits/types/struct_timespec.h"
 struct timespec {
     long int tv_sec;
     long int tv_nsec;
   };
 
 /* (l43) typedef __suseconds_t suseconds_t; */
-# 43 "/usr/include/x86_64-linux-gnu/sys/select.h"
+# 43 "/usr/include/sys/select.h"
 /* (l49) typedef long int __fd_mask; */
-# 49 "/usr/include/x86_64-linux-gnu/sys/select.h"
-struct _noname9_ {
-    long int (__fds_bits[ 1024 / (8 * (int) sizeof(long int ))]);
+# 49 "/usr/include/sys/select.h"
+struct _noname6_ {
+    long int (__fds_bits[ 1024 / (8 * (int) sizeof(long int))]);
   };
 
-/* (l70) typedef struct _noname9_  fd_set; */
-# 70 "/usr/include/x86_64-linux-gnu/sys/select.h"
+/* (l70) typedef struct _noname6_ fd_set; */
+# 70 "/usr/include/sys/select.h"
 /* (l77) typedef __fd_mask fd_mask; */
-# 77 "/usr/include/x86_64-linux-gnu/sys/select.h"
-# 104 "/usr/include/x86_64-linux-gnu/sys/select.h"
-extern int select(int __nfds, struct _noname9_ (* __readfds), struct _noname9_ (* __writefds), struct _noname9_ (* __exceptfds), struct timeval * __timeout);
-extern int pselect(int __nfds, struct _noname9_ (* __readfds), struct _noname9_ (* __writefds), struct _noname9_ (* __exceptfds), const struct timespec * __timeout, const struct _noname8_ (* __sigmask));
-# 73 "/usr/include/x86_64-linux-gnu/sys/sysmacros.h"
-extern unsigned int gnu_dev_major(unsigned long int __dev);
-extern unsigned int gnu_dev_minor(unsigned long int __dev);
-extern unsigned long int gnu_dev_makedev(unsigned int __major, unsigned int __minor);
+# 77 "/usr/include/sys/select.h"
+# 104 "/usr/include/sys/select.h"
+extern int select(int __nfds, struct _noname6_ (*restrict __readfds), struct _noname6_ (*restrict __writefds), struct _noname6_ (*restrict __exceptfds), struct timeval *restrict __timeout);
+extern int pselect(int __nfds, struct _noname6_ (*restrict __readfds), struct _noname6_ (*restrict __writefds), struct _noname6_ (*restrict __exceptfds), const struct timespec *restrict __timeout, const struct _noname5_ (*restrict __sigmask));
 
-/* (l212) typedef __blksize_t blksize_t; */
-# 212 "/usr/include/x86_64-linux-gnu/sys/types.h"
-/* (l219) typedef __blkcnt_t blkcnt_t; */
-# 219 "/usr/include/x86_64-linux-gnu/sys/types.h"
-/* (l223) typedef __fsblkcnt_t fsblkcnt_t; */
-# 223 "/usr/include/x86_64-linux-gnu/sys/types.h"
-/* (l227) typedef __fsfilcnt_t fsfilcnt_t; */
-# 227 "/usr/include/x86_64-linux-gnu/sys/types.h"
-# 99 "/usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h"
+/* (l185) typedef __blksize_t blksize_t; */
+# 185 "/usr/include/sys/types.h"
+/* (l192) typedef __blkcnt_t blkcnt_t; */
+# 192 "/usr/include/sys/types.h"
+/* (l196) typedef __fsblkcnt_t fsblkcnt_t; */
+# 196 "/usr/include/sys/types.h"
+/* (l200) typedef __fsfilcnt_t fsfilcnt_t; */
+# 200 "/usr/include/sys/types.h"
+# 99 "/usr/include/bits/pthreadtypes-arch.h"
 struct __pthread_rwlock_arch_t {
     unsigned int __readers;
     unsigned int __writers;
@@ -1018,9 +1078,9 @@ struct __pthread_internal_list {
     struct __pthread_internal_list * __next;
   };
 
-/* (l86) typedef struct __pthread_internal_list  __pthread_list_t; */
-# 86 "/usr/include/x86_64-linux-gnu/bits/thread-shared-types.h"
-# 146 "/usr/include/x86_64-linux-gnu/bits/thread-shared-types.h"
+/* (l86) typedef struct __pthread_internal_list __pthread_list_t; */
+# 86 "/usr/include/bits/thread-shared-types.h"
+# 166 "/usr/include/bits/thread-shared-types.h"
 struct __pthread_mutex_s {
     int __lock;
     unsigned int __count;
@@ -1054,80 +1114,80 @@ struct __pthread_cond_s {
   };
 
 /* (l27) typedef unsigned long int pthread_t; */
-# 27 "/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h"
-union _noname10_ {
+# 27 "/usr/include/bits/pthreadtypes.h"
+union _noname7_ {
     char __size[ 4];
     int __align;
   };
 
-/* (l36) typedef union _noname10_  pthread_mutexattr_t; */
-# 36 "/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h"
-union _noname11_ {
+/* (l36) typedef union _noname7_ pthread_mutexattr_t; */
+# 36 "/usr/include/bits/pthreadtypes.h"
+union _noname8_ {
     char __size[ 4];
     int __align;
   };
 
-/* (l45) typedef union _noname11_  pthread_condattr_t; */
-# 45 "/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h"
+/* (l45) typedef union _noname8_ pthread_condattr_t; */
+# 45 "/usr/include/bits/pthreadtypes.h"
 /* (l49) typedef unsigned int pthread_key_t; */
-# 49 "/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h"
+# 49 "/usr/include/bits/pthreadtypes.h"
 /* (l53) typedef int pthread_once_t; */
-# 53 "/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h"
-# 60 "/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h"
+# 53 "/usr/include/bits/pthreadtypes.h"
+# 60 "/usr/include/bits/pthreadtypes.h"
 union pthread_attr_t {
     char __size[ 56];
     long int __align;
   };
 
-/* (l62) typedef union pthread_attr_t  pthread_attr_t; */
-# 62 "/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h"
-union _noname12_ {
+/* (l62) typedef union pthread_attr_t pthread_attr_t; */
+# 62 "/usr/include/bits/pthreadtypes.h"
+union _noname9_ {
     struct __pthread_mutex_s __data;
     char __size[ 40];
     long int __align;
   };
 
-/* (l72) typedef union _noname12_  pthread_mutex_t; */
-# 72 "/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h"
-union _noname13_ {
+/* (l72) typedef union _noname9_ pthread_mutex_t; */
+# 72 "/usr/include/bits/pthreadtypes.h"
+union _noname10_ {
     struct __pthread_cond_s __data;
     char __size[ 48];
     long long int __align;
   };
 
-/* (l80) typedef union _noname13_  pthread_cond_t; */
-# 80 "/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h"
-union _noname14_ {
+/* (l80) typedef union _noname10_ pthread_cond_t; */
+# 80 "/usr/include/bits/pthreadtypes.h"
+union _noname11_ {
     struct __pthread_rwlock_arch_t __data;
     char __size[ 56];
     long int __align;
   };
 
-/* (l91) typedef union _noname14_  pthread_rwlock_t; */
-# 91 "/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h"
-union _noname15_ {
+/* (l91) typedef union _noname11_ pthread_rwlock_t; */
+# 91 "/usr/include/bits/pthreadtypes.h"
+union _noname12_ {
     char __size[ 8];
     long int __align;
   };
 
-/* (l97) typedef union _noname15_  pthread_rwlockattr_t; */
-# 97 "/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h"
+/* (l97) typedef union _noname12_ pthread_rwlockattr_t; */
+# 97 "/usr/include/bits/pthreadtypes.h"
 /* (l103) typedef volatile int pthread_spinlock_t; */
-# 103 "/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h"
-union _noname16_ {
+# 103 "/usr/include/bits/pthreadtypes.h"
+union _noname13_ {
     char __size[ 32];
     long int __align;
   };
 
-/* (l112) typedef union _noname16_  pthread_barrier_t; */
-# 112 "/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h"
-union _noname17_ {
+/* (l112) typedef union _noname13_ pthread_barrier_t; */
+# 112 "/usr/include/bits/pthreadtypes.h"
+union _noname14_ {
     char __size[ 4];
     int __align;
   };
 
-/* (l118) typedef union _noname17_  pthread_barrierattr_t; */
-# 118 "/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h"
+/* (l118) typedef union _noname14_ pthread_barrierattr_t; */
+# 118 "/usr/include/bits/pthreadtypes.h"
 # 401 "/usr/include/stdlib.h"
 extern long int random(void);
 extern void srandom(unsigned int __seed);
@@ -1142,10 +1202,10 @@ struct random_data {
     int rand_sep;
     signed int (* end_ptr);
   };
-extern int random_r(struct random_data * __buf, signed int (* __result));
+extern int random_r(struct random_data *restrict __buf, signed int (*restrict __result));
 extern int srandom_r(unsigned int __seed, struct random_data * __buf);
-extern int initstate_r(unsigned int __seed, char * __statebuf, long unsigned int __statelen, struct random_data * __buf);
-extern int setstate_r(char * __statebuf, struct random_data * __buf);
+extern int initstate_r(unsigned int __seed, char *restrict __statebuf, long unsigned int __statelen, struct random_data *restrict __buf);
+extern int setstate_r(char *restrict __statebuf, struct random_data *restrict __buf);
 extern int rand(void);
 extern void srand(unsigned int __seed);
 extern int rand_r(unsigned int * __seed);
@@ -1165,12 +1225,12 @@ struct drand48_data {
     unsigned short int __init;
     unsigned long long int __a;
   };
-extern int drand48_r(struct drand48_data * __buffer, double * __result);
-extern int erand48_r(unsigned short int __xsubi[ 3], struct drand48_data * __buffer, double * __result);
-extern int lrand48_r(struct drand48_data * __buffer, long int * __result);
-extern int nrand48_r(unsigned short int __xsubi[ 3], struct drand48_data * __buffer, long int * __result);
-extern int mrand48_r(struct drand48_data * __buffer, long int * __result);
-extern int jrand48_r(unsigned short int __xsubi[ 3], struct drand48_data * __buffer, long int * __result);
+extern int drand48_r(struct drand48_data *restrict __buffer, double *restrict __result);
+extern int erand48_r(unsigned short int __xsubi[ 3], struct drand48_data *restrict __buffer, double *restrict __result);
+extern int lrand48_r(struct drand48_data *restrict __buffer, long int *restrict __result);
+extern int nrand48_r(unsigned short int __xsubi[ 3], struct drand48_data *restrict __buffer, long int *restrict __result);
+extern int mrand48_r(struct drand48_data *restrict __buffer, long int *restrict __result);
+extern int jrand48_r(unsigned short int __xsubi[ 3], struct drand48_data *restrict __buffer, long int *restrict __result);
 extern int srand48_r(long int __seedval, struct drand48_data * __buffer);
 extern int seed48_r(unsigned short int __seed16v[ 3], struct drand48_data * __buffer);
 extern int lcong48_r(unsigned short int __param[ 7], struct drand48_data * __buffer);
@@ -1201,7 +1261,7 @@ extern int mkstemp(char * __template);
 extern int mkstemps(char * __template, int __suffixlen);
 extern char * mkdtemp(char * __template);
 extern int system(const char * __command);
-extern char * realpath(const char * __name, char * __resolved);
+extern char * realpath(const char *restrict __name, char *restrict __resolved);
 
 /* (l805) typedef int (* __compar_fn_t) (const void *, const void *); */
 # 805 "/usr/include/stdlib.h"
@@ -1210,43 +1270,43 @@ extern void qsort(void * __base, long unsigned int __nmemb, long unsigned int __
 extern int abs(int __x);
 extern long int labs(long int __x);
 extern long long int llabs(long long int __x);
-extern struct _noname5_ div(int __numer, int __denom);
-extern struct _noname6_ ldiv(long int __numer, long int __denom);
-extern struct _noname7_ lldiv(long long int __numer, long long int __denom);
-extern char * ecvt(double __value, int __ndigit, int * __decpt, int * __sign);
-extern char * fcvt(double __value, int __ndigit, int * __decpt, int * __sign);
+extern struct _noname2_ div(int __numer, int __denom);
+extern struct _noname3_ ldiv(long int __numer, long int __denom);
+extern struct _noname4_ lldiv(long long int __numer, long long int __denom);
+extern char * ecvt(double __value, int __ndigit, int *restrict __decpt, int *restrict __sign);
+extern char * fcvt(double __value, int __ndigit, int *restrict __decpt, int *restrict __sign);
 extern char * gcvt(double __value, int __ndigit, char * __buf);
-extern char * qecvt(long double __value, int __ndigit, int * __decpt, int * __sign);
-extern char * qfcvt(long double __value, int __ndigit, int * __decpt, int * __sign);
+extern char * qecvt(long double __value, int __ndigit, int *restrict __decpt, int *restrict __sign);
+extern char * qfcvt(long double __value, int __ndigit, int *restrict __decpt, int *restrict __sign);
 extern char * qgcvt(long double __value, int __ndigit, char * __buf);
-extern int ecvt_r(double __value, int __ndigit, int * __decpt, int * __sign, char * __buf, long unsigned int __len);
-extern int fcvt_r(double __value, int __ndigit, int * __decpt, int * __sign, char * __buf, long unsigned int __len);
-extern int qecvt_r(long double __value, int __ndigit, int * __decpt, int * __sign, char * __buf, long unsigned int __len);
-extern int qfcvt_r(long double __value, int __ndigit, int * __decpt, int * __sign, char * __buf, long unsigned int __len);
+extern int ecvt_r(double __value, int __ndigit, int *restrict __decpt, int *restrict __sign, char *restrict __buf, long unsigned int __len);
+extern int fcvt_r(double __value, int __ndigit, int *restrict __decpt, int *restrict __sign, char *restrict __buf, long unsigned int __len);
+extern int qecvt_r(long double __value, int __ndigit, int *restrict __decpt, int *restrict __sign, char *restrict __buf, long unsigned int __len);
+extern int qfcvt_r(long double __value, int __ndigit, int *restrict __decpt, int *restrict __sign, char *restrict __buf, long unsigned int __len);
 extern int mblen(const char * __s, long unsigned int __n);
-extern int mbtowc(int (* __pwc), const char * __s, long unsigned int __n);
+extern int mbtowc(int (*restrict __pwc), const char *restrict __s, long unsigned int __n);
 extern int wctomb(char * __s, int __wchar);
-extern long unsigned int mbstowcs(int (* __pwcs), const char * __s, long unsigned int __n);
-extern long unsigned int wcstombs(char * __s, const int (* __pwcs), long unsigned int __n);
+extern long unsigned int mbstowcs(int (*restrict __pwcs), const char *restrict __s, long unsigned int __n);
+extern long unsigned int wcstombs(char *restrict __s, const int (*restrict __pwcs), long unsigned int __n);
 extern int rpmatch(const char * __response);
-extern int getsubopt(char ** __optionp, char *const * __tokens, char ** __valuep);
+extern int getsubopt(char **restrict __optionp, char *const *restrict __tokens, char **restrict __valuep);
 extern int getloadavg(double __loadavg[], int __nelem);
-# 43 "/usr/include/string.h"
-extern void * memcpy(void * __dest, const void * __src, long unsigned int __n);
+# 44 "/usr/include/string.h"
+extern void * memcpy(void *restrict __dest, const void *restrict __src, long unsigned int __n);
 extern void * memmove(void * __dest, const void * __src, long unsigned int __n);
-extern void * memccpy(void * __dest, const void * __src, int __c, long unsigned int __n);
+extern void * memccpy(void *restrict __dest, const void *restrict __src, int __c, long unsigned int __n);
 extern void * memset(void * __s, int __c, long unsigned int __n);
 extern int memcmp(const void * __s1, const void * __s2, long unsigned int __n);
 extern void * memchr(const void * __s, int __c, long unsigned int __n);
-extern char * strcpy(char * __dest, const char * __src);
-extern char * strncpy(char * __dest, const char * __src, long unsigned int __n);
-extern char * strcat(char * __dest, const char * __src);
-extern char * strncat(char * __dest, const char * __src, long unsigned int __n);
+extern char * strcpy(char *restrict __dest, const char *restrict __src);
+extern char * strncpy(char *restrict __dest, const char *restrict __src, long unsigned int __n);
+extern char * strcat(char *restrict __dest, const char *restrict __src);
+extern char * strncat(char *restrict __dest, const char *restrict __src, long unsigned int __n);
 extern int strcmp(const char * __s1, const char * __s2);
 extern int strncmp(const char * __s1, const char * __s2, long unsigned int __n);
 extern int strcoll(const char * __s1, const char * __s2);
-extern long unsigned int strxfrm(char * __dest, const char * __src, long unsigned int __n);
-# 40 "/usr/include/x86_64-linux-gnu/bits/types/__locale_t.h"
+extern long unsigned int strxfrm(char *restrict __dest, const char *restrict __src, long unsigned int __n);
+# 40 "/usr/include/bits/types/__locale_t.h"
 struct __locale_struct {
     struct __locale_data * __locales[ 13];
     const unsigned short int * __ctype_b;
@@ -1255,11 +1315,11 @@ struct __locale_struct {
     const char * __names[ 13];
   };
 
-/* (l42) typedef struct __locale_struct  * __locale_t; */
-# 42 "/usr/include/x86_64-linux-gnu/bits/types/__locale_t.h"
+/* (l42) typedef struct __locale_struct * __locale_t; */
+# 42 "/usr/include/bits/types/__locale_t.h"
 /* (l24) typedef __locale_t locale_t; */
-# 24 "/usr/include/x86_64-linux-gnu/bits/types/locale_t.h"
-# 156 "/usr/include/string.h"
+# 24 "/usr/include/bits/types/locale_t.h"
+# 157 "/usr/include/string.h"
 extern int strcoll_l(const char * __s1, const char * __s2, struct __locale_struct * __l);
 extern long unsigned int strxfrm_l(char * __dest, const char * __src, long unsigned int __n, struct __locale_struct * __l);
 extern char * strdup(const char * __s);
@@ -1270,9 +1330,9 @@ extern long unsigned int strcspn(const char * __s, const char * __reject);
 extern long unsigned int strspn(const char * __s, const char * __accept);
 extern char * strpbrk(const char * __s, const char * __accept);
 extern char * strstr(const char * __haystack, const char * __needle);
-extern char * strtok(char * __s, const char * __delim);
-extern char * __strtok_r(char * __s, const char * __delim, char ** __save_ptr);
-extern char * strtok_r(char * __s, const char * __delim, char ** __save_ptr);
+extern char * strtok(char *restrict __s, const char *restrict __delim);
+extern char * __strtok_r(char *restrict __s, const char *restrict __delim, char **restrict __save_ptr);
+extern char * strtok_r(char *restrict __s, const char *restrict __delim, char **restrict __save_ptr);
 extern long unsigned int strlen(const char * __s);
 extern long unsigned int strnlen(const char * __string, long unsigned int __maxlen);
 extern char * strerror(int __errnum);
@@ -1291,14 +1351,14 @@ extern int strcasecmp(const char * __s1, const char * __s2);
 extern int strncasecmp(const char * __s1, const char * __s2, long unsigned int __n);
 extern int strcasecmp_l(const char * __s1, const char * __s2, struct __locale_struct * __loc);
 extern int strncasecmp_l(const char * __s1, const char * __s2, long unsigned int __n, struct __locale_struct * __loc);
-# 435 "/usr/include/string.h"
+# 436 "/usr/include/string.h"
 extern void explicit_bzero(void * __s, long unsigned int __n);
-extern char * strsep(char ** __stringp, const char * __delim);
+extern char * strsep(char **restrict __stringp, const char *restrict __delim);
 extern char * strsignal(int __sig);
-extern char * __stpcpy(char * __dest, const char * __src);
-extern char * stpcpy(char * __dest, const char * __src);
-extern char * __stpncpy(char * __dest, const char * __src, long unsigned int __n);
-extern char * stpncpy(char * __dest, const char * __src, long unsigned int __n);
+extern char * __stpcpy(char *restrict __dest, const char *restrict __src);
+extern char * stpcpy(char *restrict __dest, const char *restrict __src);
+extern char * __stpncpy(char *restrict __dest, const char *restrict __src, long unsigned int __n);
+extern char * stpncpy(char *restrict __dest, const char *restrict __src, long unsigned int __n);
 # 27 "bots.h"
 extern int bots_sequential_flag;
 extern int bots_benchmark_flag;
@@ -1332,15 +1392,15 @@ extern int bots_arg_size_2;
 long bots_usecs();
 void bots_error(int error, char * message);
 void bots_warning(int warning, char * message);
-enum _noname18_ {
+enum _noname15_ {
     BOTS_VERBOSE_NONE = 0, BOTS_VERBOSE_DEFAULT, BOTS_VERBOSE_DEBUG
   };
 
-/* (l78) typedef enum _noname18_  bots_verbose_mode_t; */
+/* (l78) typedef enum _noname15_ bots_verbose_mode_t; */
 # 78 "bots.h"
 # 80 "bots.h"
-extern enum _noname18_ bots_verbose_mode;
-# 36 "/usr/local/include/ompi/omp.h"
+extern enum _noname15_ bots_verbose_mode;
+# 36 "/u/mbanisharifdehkordi/software/ompi-install/include/ompi/omp.h"
 int omp_in_parallel(void);
 int omp_get_thread_num(void);
 void omp_set_num_threads(int num_threads);
@@ -1355,26 +1415,34 @@ enum omp_sched_t {
     omp_sched_static = 1, omp_sched_dynamic = 2, omp_sched_guided = 3, omp_sched_auto = 4
   };
 
-/* (l54) typedef enum omp_sched_t  omp_sched_t; */
-# 54 "/usr/local/include/ompi/omp.h"
+/* (l54) typedef enum omp_sched_t omp_sched_t; */
+# 54 "/u/mbanisharifdehkordi/software/ompi-install/include/ompi/omp.h"
 enum omp_proc_bind_t {
-    omp_proc_bind_false = 0, omp_proc_bind_true = 1, omp_proc_bind_master = 2, omp_proc_bind_close = 3, omp_proc_bind_spread = 4
+    omp_proc_bind_false = 0, omp_proc_bind_true = 1, omp_proc_bind_primary = 2, omp_proc_bind_master = omp_proc_bind_primary, omp_proc_bind_close = 3, omp_proc_bind_spread = 4
   };
 
-/* (l64) typedef enum omp_proc_bind_t  omp_proc_bind_t; */
-# 64 "/usr/local/include/ompi/omp.h"
-/* (l67) typedef void * omp_lock_t; */
-# 67 "/usr/local/include/ompi/omp.h"
-# 69 "/usr/local/include/ompi/omp.h"
+/* (l65) typedef enum omp_proc_bind_t omp_proc_bind_t; */
+# 65 "/u/mbanisharifdehkordi/software/ompi-install/include/ompi/omp.h"
+enum omp_lock_hint_t {
+    omp_lock_hint_none = 0, omp_lock_hint_uncontended = 1, omp_lock_hint_contended = 2, omp_lock_hint_nonspeculative = 4, omp_lock_hint_speculative = 8
+  };
+
+/* (l75) typedef enum omp_lock_hint_t omp_lock_hint_t; */
+# 75 "/u/mbanisharifdehkordi/software/ompi-install/include/ompi/omp.h"
+/* (l78) typedef void * omp_lock_t; */
+# 78 "/u/mbanisharifdehkordi/software/ompi-install/include/ompi/omp.h"
+# 80 "/u/mbanisharifdehkordi/software/ompi-install/include/ompi/omp.h"
 void omp_init_lock(void * (* lock));
+void omp_init_lock_with_hint(void * (* lock), enum omp_lock_hint_t hint);
 void omp_destroy_lock(void * (* lock));
 void omp_set_lock(void * (* lock));
 void omp_unset_lock(void * (* lock));
 int omp_test_lock(void * (* lock));
 
-/* (l76) typedef void * omp_nest_lock_t; */
-# 76 "/usr/local/include/ompi/omp.h"
+/* (l88) typedef void * omp_nest_lock_t; */
+# 88 "/u/mbanisharifdehkordi/software/ompi-install/include/ompi/omp.h"
 void omp_init_nest_lock(void * (* lock));
+void omp_init_next_lock_with_hint(void * (* lock), enum omp_lock_hint_t hint);
 void omp_destroy_nest_lock(void * (* lock));
 void omp_set_nest_lock(void * (* lock));
 void omp_unset_nest_lock(void * (* lock));
@@ -1396,63 +1464,82 @@ enum omp_proc_bind_t omp_get_proc_bind(void);
 int omp_get_num_teams(void);
 int omp_get_team_num(void);
 int omp_is_initial_device(void);
+int omp_get_max_task_priority(void);
+int omp_get_num_places(void);
+int omp_get_place_num_procs(int place_num);
+void omp_get_place_proc_ids(int place_num, int * ids);
+int omp_get_place_num(void);
+int omp_get_partition_num_places(void);
+void omp_get_partition_place_nums(int * place_nums);
 void omp_set_default_device(int device_num);
 int omp_get_default_device(void);
+int omp_get_initial_device(void);
 int omp_get_num_devices(void);
+void omp_set_affinity_format(const char * format);
+unsigned long omp_get_affinity_format(char * buffer, unsigned long size);
+void omp_display_affinity(const char * format);
+unsigned long omp_capture_affinity(char * buffer, unsigned long size, const char * format);
+int omp_target_is_present(void * ptr, int devid);
+void * omp_target_alloc(unsigned long size, int devid);
+void omp_target_free(void * devaddr, int devid);
+int omp_target_memcpy(void * dst, void * src, unsigned long length, unsigned long dst_off, unsigned long src_off, int dst_devid, int src_devid);
+int omp_target_memcpy_rect(void * dst, void * src, unsigned long elemsize, int numdims, unsigned long * volume, unsigned long * dst_offs, unsigned long * src_offs, unsigned long * dst_dims, unsigned long * src_dims, int dst_devid, int src_devid);
+int omp_target_associate_ptr(void * hostptr, void * devptr, unsigned long size, unsigned long devoff, int devid);
+int omp_target_disassociate_ptr(void * hostptr, int devid);
 
 /* (l5) typedef double REAL; */
 # 5 "fft.h"
-struct _noname19_ {
+struct _noname16_ {
     double re;
     double im;
   };
 
-/* (l10) typedef struct _noname19_  COMPLEX; */
+/* (l10) typedef struct _noname16_ COMPLEX; */
 # 10 "fft.h"
 # 15 "fft.h"
-void compute_w_coefficients(int n, int a, int b, struct _noname19_ (* W));
-void compute_w_coefficients_seq(int n, int a, int b, struct _noname19_ (* W));
+void compute_w_coefficients(int n, int a, int b, struct _noname16_ (* W));
+void compute_w_coefficients_seq(int n, int a, int b, struct _noname16_ (* W));
 int factor(int n);
-void unshuffle(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out), int r, int m);
-void unshuffle_seq(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out), int r, int m);
-void fft_twiddle_gen1(struct _noname19_ (* in), struct _noname19_ (* out), struct _noname19_ (* W), int r, int m, int nW, int nWdnti, int nWdntm);
-void fft_twiddle_gen(int i, int i1, struct _noname19_ (* in), struct _noname19_ (* out), struct _noname19_ (* W), int nW, int nWdn, int r, int m);
-void fft_twiddle_gen_seq(int i, int i1, struct _noname19_ (* in), struct _noname19_ (* out), struct _noname19_ (* W), int nW, int nWdn, int r, int m);
-void fft_base_2(struct _noname19_ (* in), struct _noname19_ (* out));
-void fft_twiddle_2(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out), struct _noname19_ (* W), int nW, int nWdn, int m);
-void fft_twiddle_2_seq(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out), struct _noname19_ (* W), int nW, int nWdn, int m);
-void fft_unshuffle_2(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out), int m);
-void fft_unshuffle_2_seq(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out), int m);
-void fft_base_4(struct _noname19_ (* in), struct _noname19_ (* out));
-void fft_twiddle_4(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out), struct _noname19_ (* W), int nW, int nWdn, int m);
-void fft_twiddle_4_seq(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out), struct _noname19_ (* W), int nW, int nWdn, int m);
-void fft_unshuffle_4(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out), int m);
-void fft_unshuffle_4_seq(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out), int m);
-void fft_base_8(struct _noname19_ (* in), struct _noname19_ (* out));
-void fft_twiddle_8(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out), struct _noname19_ (* W), int nW, int nWdn, int m);
-void fft_twiddle_8_seq(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out), struct _noname19_ (* W), int nW, int nWdn, int m);
-void fft_unshuffle_8(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out), int m);
-void fft_unshuffle_8_seq(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out), int m);
-void fft_base_16(struct _noname19_ (* in), struct _noname19_ (* out));
-void fft_twiddle_16(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out), struct _noname19_ (* W), int nW, int nWdn, int m);
-void fft_twiddle_16_seq(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out), struct _noname19_ (* W), int nW, int nWdn, int m);
-void fft_unshuffle_16(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out), int m);
-void fft_unshuffle_16_seq(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out), int m);
-void fft_base_32(struct _noname19_ (* in), struct _noname19_ (* out));
-void fft_twiddle_32(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out), struct _noname19_ (* W), int nW, int nWdn, int m);
-void fft_twiddle_32_seq(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out), struct _noname19_ (* W), int nW, int nWdn, int m);
-void fft_unshuffle_32(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out), int m);
-void fft_unshuffle_32_seq(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out), int m);
-void fft_aux(int n, struct _noname19_ (* in), struct _noname19_ (* out), int * factors, struct _noname19_ (* W), int nW);
-void fft_aux_seq(int n, struct _noname19_ (* in), struct _noname19_ (* out), int * factors, struct _noname19_ (* W), int nW);
-void fft(int n, struct _noname19_ (* in), struct _noname19_ (* out));
-void fft_seq(int n, struct _noname19_ (* in), struct _noname19_ (* out));
-int test_correctness(int n, struct _noname19_ (* out1), struct _noname19_ (* out2));
-static void * _taskFunc0_(void *);
+void unshuffle(int a, int b, struct _noname16_ (* in), struct _noname16_ (* out), int r, int m);
+void unshuffle_seq(int a, int b, struct _noname16_ (* in), struct _noname16_ (* out), int r, int m);
+void fft_twiddle_gen1(struct _noname16_ (* in), struct _noname16_ (* out), struct _noname16_ (* W), int r, int m, int nW, int nWdnti, int nWdntm);
+void fft_twiddle_gen(int i, int i1, struct _noname16_ (* in), struct _noname16_ (* out), struct _noname16_ (* W), int nW, int nWdn, int r, int m);
+void fft_twiddle_gen_seq(int i, int i1, struct _noname16_ (* in), struct _noname16_ (* out), struct _noname16_ (* W), int nW, int nWdn, int r, int m);
+void fft_base_2(struct _noname16_ (* in), struct _noname16_ (* out));
+void fft_twiddle_2(int a, int b, struct _noname16_ (* in), struct _noname16_ (* out), struct _noname16_ (* W), int nW, int nWdn, int m);
+void fft_twiddle_2_seq(int a, int b, struct _noname16_ (* in), struct _noname16_ (* out), struct _noname16_ (* W), int nW, int nWdn, int m);
+void fft_unshuffle_2(int a, int b, struct _noname16_ (* in), struct _noname16_ (* out), int m);
+void fft_unshuffle_2_seq(int a, int b, struct _noname16_ (* in), struct _noname16_ (* out), int m);
+void fft_base_4(struct _noname16_ (* in), struct _noname16_ (* out));
+void fft_twiddle_4(int a, int b, struct _noname16_ (* in), struct _noname16_ (* out), struct _noname16_ (* W), int nW, int nWdn, int m);
+void fft_twiddle_4_seq(int a, int b, struct _noname16_ (* in), struct _noname16_ (* out), struct _noname16_ (* W), int nW, int nWdn, int m);
+void fft_unshuffle_4(int a, int b, struct _noname16_ (* in), struct _noname16_ (* out), int m);
+void fft_unshuffle_4_seq(int a, int b, struct _noname16_ (* in), struct _noname16_ (* out), int m);
+void fft_base_8(struct _noname16_ (* in), struct _noname16_ (* out));
+void fft_twiddle_8(int a, int b, struct _noname16_ (* in), struct _noname16_ (* out), struct _noname16_ (* W), int nW, int nWdn, int m);
+void fft_twiddle_8_seq(int a, int b, struct _noname16_ (* in), struct _noname16_ (* out), struct _noname16_ (* W), int nW, int nWdn, int m);
+void fft_unshuffle_8(int a, int b, struct _noname16_ (* in), struct _noname16_ (* out), int m);
+void fft_unshuffle_8_seq(int a, int b, struct _noname16_ (* in), struct _noname16_ (* out), int m);
+void fft_base_16(struct _noname16_ (* in), struct _noname16_ (* out));
+void fft_twiddle_16(int a, int b, struct _noname16_ (* in), struct _noname16_ (* out), struct _noname16_ (* W), int nW, int nWdn, int m);
+void fft_twiddle_16_seq(int a, int b, struct _noname16_ (* in), struct _noname16_ (* out), struct _noname16_ (* W), int nW, int nWdn, int m);
+void fft_unshuffle_16(int a, int b, struct _noname16_ (* in), struct _noname16_ (* out), int m);
+void fft_unshuffle_16_seq(int a, int b, struct _noname16_ (* in), struct _noname16_ (* out), int m);
+void fft_base_32(struct _noname16_ (* in), struct _noname16_ (* out));
+void fft_twiddle_32(int a, int b, struct _noname16_ (* in), struct _noname16_ (* out), struct _noname16_ (* W), int nW, int nWdn, int m);
+void fft_twiddle_32_seq(int a, int b, struct _noname16_ (* in), struct _noname16_ (* out), struct _noname16_ (* W), int nW, int nWdn, int m);
+void fft_unshuffle_32(int a, int b, struct _noname16_ (* in), struct _noname16_ (* out), int m);
+void fft_unshuffle_32_seq(int a, int b, struct _noname16_ (* in), struct _noname16_ (* out), int m);
+void fft_aux(int n, struct _noname16_ (* in), struct _noname16_ (* out), int * factors, struct _noname16_ (* W), int nW);
+void fft_aux_seq(int n, struct _noname16_ (* in), struct _noname16_ (* out), int * factors, struct _noname16_ (* W), int nW);
+void fft(int n, struct _noname16_ (* in), struct _noname16_ (* out));
+void fft_seq(int n, struct _noname16_ (* in), struct _noname16_ (* out));
+int test_correctness(int n, struct _noname16_ (* out1), struct _noname16_ (* out2));
 static void * _taskFunc1_(void *);
+static void * _taskFunc0_(void *);
 
 
-void compute_w_coefficients(int n, int a, int b, struct _noname19_ (* W))
+void compute_w_coefficients(int n, int a, int b, struct _noname16_ (* W))
 # 42 "fft.c"
 {
   register double twoPiOverN;
@@ -1477,6 +1564,9 @@ void compute_w_coefficients(int n, int a, int b, struct _noname19_ (* W))
     {
       int ab = (a + b) / 2;
 
+      /* (l58) #pragma omp task untied
+ */
+      # 58 "fft.c"
       if (omp_in_final() || ort_task_throttling())
         {
           void * _itn;
@@ -1485,7 +1575,7 @@ void compute_w_coefficients(int n, int a, int b, struct _noname19_ (* W))
           int _fip_n = n, n = _fip_n;
           int _fip_a = a, a = _fip_a;
           int _fip_ab = ab, ab = _fip_ab;
-          struct _noname19_ (* _fip_W) = W, (* W) = _fip_W;
+          struct _noname16_ (* _fip_W) = W, (* W) = _fip_W;
 
           _itn = ort_task_immediate_start(0);
           {
@@ -1497,13 +1587,12 @@ void compute_w_coefficients(int n, int a, int b, struct _noname19_ (* W))
           ort_task_immediate_end(_itn);
         }
       else
-        /* (l58) #pragma omp task untied */
         {
           struct __taskenv__ {
               int n;
               int a;
               int ab;
-              struct _noname19_ (* W);
+              struct _noname16_ (* W);
             } * _tenv;
 
           _tenv = (struct __taskenv__ *) ort_taskenv_alloc(sizeof(struct __taskenv__), _taskFunc0_);
@@ -1512,8 +1601,12 @@ void compute_w_coefficients(int n, int a, int b, struct _noname19_ (* W))
           _tenv->a = a;
           _tenv->ab = ab;
           _tenv->W = W;
-          ort_new_task(_taskFunc0_, (void *) _tenv, 0, 1);
+          ort_new_task(_taskFunc0_, (void *) _tenv, 0, 0, 1, 0, (void *) 0, 0, 0, 0);
+          /* no other operations */
         }
+      /* (l60) #pragma omp task untied
+ */
+      # 60 "fft.c"
       if (omp_in_final() || ort_task_throttling())
         {
           void * _itn;
@@ -1522,7 +1615,7 @@ void compute_w_coefficients(int n, int a, int b, struct _noname19_ (* W))
           int _fip_n = n, n = _fip_n;
           int _fip_ab = ab, ab = _fip_ab;
           int _fip_b = b, b = _fip_b;
-          struct _noname19_ (* _fip_W) = W, (* W) = _fip_W;
+          struct _noname16_ (* _fip_W) = W, (* W) = _fip_W;
 
           _itn = ort_task_immediate_start(0);
           {
@@ -1534,13 +1627,12 @@ void compute_w_coefficients(int n, int a, int b, struct _noname19_ (* W))
           ort_task_immediate_end(_itn);
         }
       else
-        /* (l60) #pragma omp task untied */
         {
           struct __taskenv__ {
               int n;
               int ab;
               int b;
-              struct _noname19_ (* W);
+              struct _noname16_ (* W);
             } * _tenv;
 
           _tenv = (struct __taskenv__ *) ort_taskenv_alloc(sizeof(struct __taskenv__), _taskFunc1_);
@@ -1549,46 +1641,16 @@ void compute_w_coefficients(int n, int a, int b, struct _noname19_ (* W))
           _tenv->ab = ab;
           _tenv->b = b;
           _tenv->W = W;
-          ort_new_task(_taskFunc1_, (void *) _tenv, 0, 1);
+          ort_new_task(_taskFunc1_, (void *) _tenv, 0, 0, 1, 0, (void *) 0, 0, 0, 0);
+          /* no other operations */
         }
-      /* (l62) #pragma omp taskwait  */
+      /* (l62) #pragma omp taskwait 
+ */
       # 62 "fft.c"
       ort_taskwait(0);
     }
 }
 
-/* Outlined code for (l60) #pragma omp task untied */
-
-static void * _taskFunc1_(void * __arg)
-{
-  struct __taskenv__ {
-      int n;
-      int ab;
-      int b;
-      struct _noname19_ (* W);
-    };
-  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
-
-  /* byvalue variables */
-  int n = _tenv->n;
-  int ab = _tenv->ab;
-  int b = _tenv->b;
-  struct _noname19_ (* W) = _tenv->W;
-
-  /* byresult variables */
-  /* (l60) #pragma omp task untied -- body moved below */
-  # 60 "fft.c"
-  {
-    # 61 "fft.c"
-    compute_w_coefficients(n, ab + 1, b, W);
-    CANCEL_task_60 :
-      ;
-  }
-  ort_taskenv_free(_tenv, _taskFunc1_);
-  return ((void *) 0);
-}
-
-/* Outlined code for (l58) #pragma omp task untied */
 
 static void * _taskFunc0_(void * __arg)
 {
@@ -1596,7 +1658,7 @@ static void * _taskFunc0_(void * __arg)
       int n;
       int a;
       int ab;
-      struct _noname19_ (* W);
+      struct _noname16_ (* W);
     };
   struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
 
@@ -1604,10 +1666,11 @@ static void * _taskFunc0_(void * __arg)
   int n = _tenv->n;
   int a = _tenv->a;
   int ab = _tenv->ab;
-  struct _noname19_ (* W) = _tenv->W;
+  struct _noname16_ (* W) = _tenv->W;
 
-  /* byresult variables */
-  /* (l58) #pragma omp task untied -- body moved below */
+  /* no initializations */
+  /* (l58) #pragma omp task untied
+ -- body moved below */
   # 58 "fft.c"
   {
     # 59 "fft.c"
@@ -1615,12 +1678,45 @@ static void * _taskFunc0_(void * __arg)
     CANCEL_task_58 :
       ;
   }
+  /* no other operations */
   ort_taskenv_free(_tenv, _taskFunc0_);
   return ((void *) 0);
 }
 
 
-void compute_w_coefficients_seq(int n, int a, int b, struct _noname19_ (* W))
+static void * _taskFunc1_(void * __arg)
+{
+  struct __taskenv__ {
+      int n;
+      int ab;
+      int b;
+      struct _noname16_ (* W);
+    };
+  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
+
+  /* byvalue variables */
+  int n = _tenv->n;
+  int ab = _tenv->ab;
+  int b = _tenv->b;
+  struct _noname16_ (* W) = _tenv->W;
+
+  /* no initializations */
+  /* (l60) #pragma omp task untied
+ -- body moved below */
+  # 60 "fft.c"
+  {
+    # 61 "fft.c"
+    compute_w_coefficients(n, ab + 1, b, W);
+    CANCEL_task_60 :
+      ;
+  }
+  /* no other operations */
+  ort_taskenv_free(_tenv, _taskFunc1_);
+  return ((void *) 0);
+}
+
+
+void compute_w_coefficients_seq(int n, int a, int b, struct _noname16_ (* W))
 # 66 "fft.c"
 {
   register double twoPiOverN;
@@ -1673,16 +1769,16 @@ int factor(int n)
   return (n);
 }
 
-static void * _taskFunc2_(void *);
 static void * _taskFunc3_(void *);
+static void * _taskFunc2_(void *);
 
 
-void unshuffle(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out), int r, int m)
+void unshuffle(int a, int b, struct _noname16_ (* in), struct _noname16_ (* out), int r, int m)
 {
   int i, j;
   int r4 = r & (~0x3);
-  const struct _noname19_ (* ip);
-  struct _noname19_ (* jp);
+  const struct _noname16_ (* ip);
+  struct _noname16_ (* jp);
 
   if (b - a < 16)
     {
@@ -1711,6 +1807,9 @@ void unshuffle(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out)
     {
       int ab = (a + b) / 2;
 
+      /* (l135) #pragma omp task untied
+ */
+      # 135 "fft.c"
       if (omp_in_final() || ort_task_throttling())
         {
           void * _itn;
@@ -1718,8 +1817,8 @@ void unshuffle(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out)
           /* byvalue variables */
           int _fip_a = a, a = _fip_a;
           int _fip_ab = ab, ab = _fip_ab;
-          struct _noname19_ (* _fip_in) = in, (* in) = _fip_in;
-          struct _noname19_ (* _fip_out) = out, (* out) = _fip_out;
+          struct _noname16_ (* _fip_in) = in, (* in) = _fip_in;
+          struct _noname16_ (* _fip_out) = out, (* out) = _fip_out;
           int _fip_r = r, r = _fip_r;
           int _fip_m = m, m = _fip_m;
 
@@ -1733,13 +1832,12 @@ void unshuffle(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out)
           ort_task_immediate_end(_itn);
         }
       else
-        /* (l135) #pragma omp task untied */
         {
           struct __taskenv__ {
               int a;
               int ab;
-              struct _noname19_ (* in);
-              struct _noname19_ (* out);
+              struct _noname16_ (* in);
+              struct _noname16_ (* out);
               int r;
               int m;
             } * _tenv;
@@ -1752,8 +1850,12 @@ void unshuffle(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out)
           _tenv->out = out;
           _tenv->r = r;
           _tenv->m = m;
-          ort_new_task(_taskFunc2_, (void *) _tenv, 0, 1);
+          ort_new_task(_taskFunc2_, (void *) _tenv, 0, 0, 1, 0, (void *) 0, 0, 0, 0);
+          /* no other operations */
         }
+      /* (l137) #pragma omp task untied
+ */
+      # 137 "fft.c"
       if (omp_in_final() || ort_task_throttling())
         {
           void * _itn;
@@ -1761,8 +1863,8 @@ void unshuffle(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out)
           /* byvalue variables */
           int _fip_ab = ab, ab = _fip_ab;
           int _fip_b = b, b = _fip_b;
-          struct _noname19_ (* _fip_in) = in, (* in) = _fip_in;
-          struct _noname19_ (* _fip_out) = out, (* out) = _fip_out;
+          struct _noname16_ (* _fip_in) = in, (* in) = _fip_in;
+          struct _noname16_ (* _fip_out) = out, (* out) = _fip_out;
           int _fip_r = r, r = _fip_r;
           int _fip_m = m, m = _fip_m;
 
@@ -1776,13 +1878,12 @@ void unshuffle(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out)
           ort_task_immediate_end(_itn);
         }
       else
-        /* (l137) #pragma omp task untied */
         {
           struct __taskenv__ {
               int ab;
               int b;
-              struct _noname19_ (* in);
-              struct _noname19_ (* out);
+              struct _noname16_ (* in);
+              struct _noname16_ (* out);
               int r;
               int m;
             } * _tenv;
@@ -1795,58 +1896,24 @@ void unshuffle(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out)
           _tenv->out = out;
           _tenv->r = r;
           _tenv->m = m;
-          ort_new_task(_taskFunc3_, (void *) _tenv, 0, 1);
+          ort_new_task(_taskFunc3_, (void *) _tenv, 0, 0, 1, 0, (void *) 0, 0, 0, 0);
+          /* no other operations */
         }
-      /* (l139) #pragma omp taskwait  */
+      /* (l139) #pragma omp taskwait 
+ */
       # 139 "fft.c"
       ort_taskwait(0);
     }
 }
 
-/* Outlined code for (l137) #pragma omp task untied */
-
-static void * _taskFunc3_(void * __arg)
-{
-  struct __taskenv__ {
-      int ab;
-      int b;
-      struct _noname19_ (* in);
-      struct _noname19_ (* out);
-      int r;
-      int m;
-    };
-  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
-
-  /* byvalue variables */
-  int ab = _tenv->ab;
-  int b = _tenv->b;
-  struct _noname19_ (* in) = _tenv->in;
-  struct _noname19_ (* out) = _tenv->out;
-  int r = _tenv->r;
-  int m = _tenv->m;
-
-  /* byresult variables */
-  /* (l137) #pragma omp task untied -- body moved below */
-  # 137 "fft.c"
-  {
-    # 138 "fft.c"
-    unshuffle(ab, b, in, out, r, m);
-    CANCEL_task_137 :
-      ;
-  }
-  ort_taskenv_free(_tenv, _taskFunc3_);
-  return ((void *) 0);
-}
-
-/* Outlined code for (l135) #pragma omp task untied */
 
 static void * _taskFunc2_(void * __arg)
 {
   struct __taskenv__ {
       int a;
       int ab;
-      struct _noname19_ (* in);
-      struct _noname19_ (* out);
+      struct _noname16_ (* in);
+      struct _noname16_ (* out);
       int r;
       int m;
     };
@@ -1855,13 +1922,14 @@ static void * _taskFunc2_(void * __arg)
   /* byvalue variables */
   int a = _tenv->a;
   int ab = _tenv->ab;
-  struct _noname19_ (* in) = _tenv->in;
-  struct _noname19_ (* out) = _tenv->out;
+  struct _noname16_ (* in) = _tenv->in;
+  struct _noname16_ (* out) = _tenv->out;
   int r = _tenv->r;
   int m = _tenv->m;
 
-  /* byresult variables */
-  /* (l135) #pragma omp task untied -- body moved below */
+  /* no initializations */
+  /* (l135) #pragma omp task untied
+ -- body moved below */
   # 135 "fft.c"
   {
     # 136 "fft.c"
@@ -1869,18 +1937,55 @@ static void * _taskFunc2_(void * __arg)
     CANCEL_task_135 :
       ;
   }
+  /* no other operations */
   ort_taskenv_free(_tenv, _taskFunc2_);
   return ((void *) 0);
 }
 
 
-void unshuffle_seq(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out), int r, int m)
+static void * _taskFunc3_(void * __arg)
+{
+  struct __taskenv__ {
+      int ab;
+      int b;
+      struct _noname16_ (* in);
+      struct _noname16_ (* out);
+      int r;
+      int m;
+    };
+  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
+
+  /* byvalue variables */
+  int ab = _tenv->ab;
+  int b = _tenv->b;
+  struct _noname16_ (* in) = _tenv->in;
+  struct _noname16_ (* out) = _tenv->out;
+  int r = _tenv->r;
+  int m = _tenv->m;
+
+  /* no initializations */
+  /* (l137) #pragma omp task untied
+ -- body moved below */
+  # 137 "fft.c"
+  {
+    # 138 "fft.c"
+    unshuffle(ab, b, in, out, r, m);
+    CANCEL_task_137 :
+      ;
+  }
+  /* no other operations */
+  ort_taskenv_free(_tenv, _taskFunc3_);
+  return ((void *) 0);
+}
+
+
+void unshuffle_seq(int a, int b, struct _noname16_ (* in), struct _noname16_ (* out), int r, int m)
 # 143 "fft.c"
 {
   int i, j;
   int r4 = r & (~0x3);
-  const struct _noname19_ (* ip);
-  struct _noname19_ (* jp);
+  const struct _noname16_ (* ip);
+  struct _noname16_ (* jp);
 
   if (b - a < 16)
     {
@@ -1915,11 +2020,11 @@ void unshuffle_seq(int a, int b, struct _noname19_ (* in), struct _noname19_ (* 
 }
 
 
-void fft_twiddle_gen1(struct _noname19_ (* in), struct _noname19_ (* out), struct _noname19_ (* W), int r, int m, int nW, int nWdnti, int nWdntm)
+void fft_twiddle_gen1(struct _noname16_ (* in), struct _noname16_ (* out), struct _noname16_ (* W), int r, int m, int nW, int nWdnti, int nWdntm)
 {
   int j, k;
-  struct _noname19_ (* jp);
-  struct _noname19_ (* kp);
+  struct _noname16_ (* jp);
+  struct _noname16_ (* kp);
 
   # 199 "fft.c"
   for (k = 0, kp = out; k < r; ++k, kp += m)
@@ -1952,24 +2057,27 @@ void fft_twiddle_gen1(struct _noname19_ (* in), struct _noname19_ (* out), struc
     }
 }
 
-static void * _taskFunc4_(void *);
-static void * _taskFunc5_(void *);
 static void * _taskFunc6_(void *);
+static void * _taskFunc5_(void *);
+static void * _taskFunc4_(void *);
 
 
-void fft_twiddle_gen(int i, int i1, struct _noname19_ (* in), struct _noname19_ (* out), struct _noname19_ (* W), int nW, int nWdn, int r, int m)
+void fft_twiddle_gen(int i, int i1, struct _noname16_ (* in), struct _noname16_ (* out), struct _noname16_ (* W), int nW, int nWdn, int r, int m)
 {
   if (i == i1 - 1)
     {
+      /* (l205) #pragma omp task untied
+ */
+      # 205 "fft.c"
       if (omp_in_final() || ort_task_throttling())
         {
           void * _itn;
 
           /* byvalue variables */
-          struct _noname19_ (* _fip_in) = in, (* in) = _fip_in;
+          struct _noname16_ (* _fip_in) = in, (* in) = _fip_in;
           int _fip_i = i, i = _fip_i;
-          struct _noname19_ (* _fip_out) = out, (* out) = _fip_out;
-          struct _noname19_ (* _fip_W) = W, (* W) = _fip_W;
+          struct _noname16_ (* _fip_out) = out, (* out) = _fip_out;
+          struct _noname16_ (* _fip_W) = W, (* W) = _fip_W;
           int _fip_r = r, r = _fip_r;
           int _fip_m = m, m = _fip_m;
           int _fip_nW = nW, nW = _fip_nW;
@@ -1985,13 +2093,12 @@ void fft_twiddle_gen(int i, int i1, struct _noname19_ (* in), struct _noname19_ 
           ort_task_immediate_end(_itn);
         }
       else
-        /* (l205) #pragma omp task untied */
         {
           struct __taskenv__ {
-              struct _noname19_ (* in);
+              struct _noname16_ (* in);
               int i;
-              struct _noname19_ (* out);
-              struct _noname19_ (* W);
+              struct _noname16_ (* out);
+              struct _noname16_ (* W);
               int r;
               int m;
               int nW;
@@ -2008,7 +2115,8 @@ void fft_twiddle_gen(int i, int i1, struct _noname19_ (* in), struct _noname19_ 
           _tenv->m = m;
           _tenv->nW = nW;
           _tenv->nWdn = nWdn;
-          ort_new_task(_taskFunc4_, (void *) _tenv, 0, 1);
+          ort_new_task(_taskFunc4_, (void *) _tenv, 0, 0, 1, 0, (void *) 0, 0, 0, 0);
+          /* no other operations */
         }
     }
   else
@@ -2016,6 +2124,9 @@ void fft_twiddle_gen(int i, int i1, struct _noname19_ (* in), struct _noname19_ 
     {
       int i2 = (i + i1) / 2;
 
+      /* (l210) #pragma omp task untied
+ */
+      # 210 "fft.c"
       if (omp_in_final() || ort_task_throttling())
         {
           void * _itn;
@@ -2023,9 +2134,9 @@ void fft_twiddle_gen(int i, int i1, struct _noname19_ (* in), struct _noname19_ 
           /* byvalue variables */
           int _fip_i = i, i = _fip_i;
           int _fip_i2 = i2, i2 = _fip_i2;
-          struct _noname19_ (* _fip_in) = in, (* in) = _fip_in;
-          struct _noname19_ (* _fip_out) = out, (* out) = _fip_out;
-          struct _noname19_ (* _fip_W) = W, (* W) = _fip_W;
+          struct _noname16_ (* _fip_in) = in, (* in) = _fip_in;
+          struct _noname16_ (* _fip_out) = out, (* out) = _fip_out;
+          struct _noname16_ (* _fip_W) = W, (* W) = _fip_W;
           int _fip_nW = nW, nW = _fip_nW;
           int _fip_nWdn = nWdn, nWdn = _fip_nWdn;
           int _fip_r = r, r = _fip_r;
@@ -2041,14 +2152,13 @@ void fft_twiddle_gen(int i, int i1, struct _noname19_ (* in), struct _noname19_ 
           ort_task_immediate_end(_itn);
         }
       else
-        /* (l210) #pragma omp task untied */
         {
           struct __taskenv__ {
               int i;
               int i2;
-              struct _noname19_ (* in);
-              struct _noname19_ (* out);
-              struct _noname19_ (* W);
+              struct _noname16_ (* in);
+              struct _noname16_ (* out);
+              struct _noname16_ (* W);
               int nW;
               int nWdn;
               int r;
@@ -2066,8 +2176,12 @@ void fft_twiddle_gen(int i, int i1, struct _noname19_ (* in), struct _noname19_ 
           _tenv->nWdn = nWdn;
           _tenv->r = r;
           _tenv->m = m;
-          ort_new_task(_taskFunc5_, (void *) _tenv, 0, 1);
+          ort_new_task(_taskFunc5_, (void *) _tenv, 0, 0, 1, 0, (void *) 0, 0, 0, 0);
+          /* no other operations */
         }
+      /* (l213) #pragma omp task untied
+ */
+      # 213 "fft.c"
       if (omp_in_final() || ort_task_throttling())
         {
           void * _itn;
@@ -2075,9 +2189,9 @@ void fft_twiddle_gen(int i, int i1, struct _noname19_ (* in), struct _noname19_ 
           /* byvalue variables */
           int _fip_i2 = i2, i2 = _fip_i2;
           int _fip_i1 = i1, i1 = _fip_i1;
-          struct _noname19_ (* _fip_in) = in, (* in) = _fip_in;
-          struct _noname19_ (* _fip_out) = out, (* out) = _fip_out;
-          struct _noname19_ (* _fip_W) = W, (* W) = _fip_W;
+          struct _noname16_ (* _fip_in) = in, (* in) = _fip_in;
+          struct _noname16_ (* _fip_out) = out, (* out) = _fip_out;
+          struct _noname16_ (* _fip_W) = W, (* W) = _fip_W;
           int _fip_nW = nW, nW = _fip_nW;
           int _fip_nWdn = nWdn, nWdn = _fip_nWdn;
           int _fip_r = r, r = _fip_r;
@@ -2093,14 +2207,13 @@ void fft_twiddle_gen(int i, int i1, struct _noname19_ (* in), struct _noname19_ 
           ort_task_immediate_end(_itn);
         }
       else
-        /* (l213) #pragma omp task untied */
         {
           struct __taskenv__ {
               int i2;
               int i1;
-              struct _noname19_ (* in);
-              struct _noname19_ (* out);
-              struct _noname19_ (* W);
+              struct _noname16_ (* in);
+              struct _noname16_ (* out);
+              struct _noname16_ (* W);
               int nW;
               int nWdn;
               int r;
@@ -2118,24 +2231,107 @@ void fft_twiddle_gen(int i, int i1, struct _noname19_ (* in), struct _noname19_ 
           _tenv->nWdn = nWdn;
           _tenv->r = r;
           _tenv->m = m;
-          ort_new_task(_taskFunc6_, (void *) _tenv, 0, 1);
+          ort_new_task(_taskFunc6_, (void *) _tenv, 0, 0, 1, 0, (void *) 0, 0, 0, 0);
+          /* no other operations */
         }
     }
-  /* (l217) #pragma omp taskwait  */
+  /* (l217) #pragma omp taskwait 
+ */
   # 217 "fft.c"
   ort_taskwait(0);
 }
 
-/* Outlined code for (l213) #pragma omp task untied */
+
+static void * _taskFunc4_(void * __arg)
+{
+  struct __taskenv__ {
+      struct _noname16_ (* in);
+      int i;
+      struct _noname16_ (* out);
+      struct _noname16_ (* W);
+      int r;
+      int m;
+      int nW;
+      int nWdn;
+    };
+  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
+
+  /* byvalue variables */
+  struct _noname16_ (* in) = _tenv->in;
+  int i = _tenv->i;
+  struct _noname16_ (* out) = _tenv->out;
+  struct _noname16_ (* W) = _tenv->W;
+  int r = _tenv->r;
+  int m = _tenv->m;
+  int nW = _tenv->nW;
+  int nWdn = _tenv->nWdn;
+
+  /* no initializations */
+  /* (l205) #pragma omp task untied
+ -- body moved below */
+  # 205 "fft.c"
+  {
+    # 207 "fft.c"
+    fft_twiddle_gen1(in + i, out + i, W, r, m, nW, nWdn * i, nWdn * m);
+    CANCEL_task_205 :
+      ;
+  }
+  /* no other operations */
+  ort_taskenv_free(_tenv, _taskFunc4_);
+  return ((void *) 0);
+}
+
+
+static void * _taskFunc5_(void * __arg)
+{
+  struct __taskenv__ {
+      int i;
+      int i2;
+      struct _noname16_ (* in);
+      struct _noname16_ (* out);
+      struct _noname16_ (* W);
+      int nW;
+      int nWdn;
+      int r;
+      int m;
+    };
+  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
+
+  /* byvalue variables */
+  int i = _tenv->i;
+  int i2 = _tenv->i2;
+  struct _noname16_ (* in) = _tenv->in;
+  struct _noname16_ (* out) = _tenv->out;
+  struct _noname16_ (* W) = _tenv->W;
+  int nW = _tenv->nW;
+  int nWdn = _tenv->nWdn;
+  int r = _tenv->r;
+  int m = _tenv->m;
+
+  /* no initializations */
+  /* (l210) #pragma omp task untied
+ -- body moved below */
+  # 210 "fft.c"
+  {
+    # 212 "fft.c"
+    fft_twiddle_gen(i, i2, in, out, W, nW, nWdn, r, m);
+    CANCEL_task_210 :
+      ;
+  }
+  /* no other operations */
+  ort_taskenv_free(_tenv, _taskFunc5_);
+  return ((void *) 0);
+}
+
 
 static void * _taskFunc6_(void * __arg)
 {
   struct __taskenv__ {
       int i2;
       int i1;
-      struct _noname19_ (* in);
-      struct _noname19_ (* out);
-      struct _noname19_ (* W);
+      struct _noname16_ (* in);
+      struct _noname16_ (* out);
+      struct _noname16_ (* W);
       int nW;
       int nWdn;
       int r;
@@ -2146,16 +2342,17 @@ static void * _taskFunc6_(void * __arg)
   /* byvalue variables */
   int i2 = _tenv->i2;
   int i1 = _tenv->i1;
-  struct _noname19_ (* in) = _tenv->in;
-  struct _noname19_ (* out) = _tenv->out;
-  struct _noname19_ (* W) = _tenv->W;
+  struct _noname16_ (* in) = _tenv->in;
+  struct _noname16_ (* out) = _tenv->out;
+  struct _noname16_ (* W) = _tenv->W;
   int nW = _tenv->nW;
   int nWdn = _tenv->nWdn;
   int r = _tenv->r;
   int m = _tenv->m;
 
-  /* byresult variables */
-  /* (l213) #pragma omp task untied -- body moved below */
+  /* no initializations */
+  /* (l213) #pragma omp task untied
+ -- body moved below */
   # 213 "fft.c"
   {
     # 215 "fft.c"
@@ -2163,92 +2360,13 @@ static void * _taskFunc6_(void * __arg)
     CANCEL_task_213 :
       ;
   }
+  /* no other operations */
   ort_taskenv_free(_tenv, _taskFunc6_);
   return ((void *) 0);
 }
 
-/* Outlined code for (l210) #pragma omp task untied */
 
-static void * _taskFunc5_(void * __arg)
-{
-  struct __taskenv__ {
-      int i;
-      int i2;
-      struct _noname19_ (* in);
-      struct _noname19_ (* out);
-      struct _noname19_ (* W);
-      int nW;
-      int nWdn;
-      int r;
-      int m;
-    };
-  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
-
-  /* byvalue variables */
-  int i = _tenv->i;
-  int i2 = _tenv->i2;
-  struct _noname19_ (* in) = _tenv->in;
-  struct _noname19_ (* out) = _tenv->out;
-  struct _noname19_ (* W) = _tenv->W;
-  int nW = _tenv->nW;
-  int nWdn = _tenv->nWdn;
-  int r = _tenv->r;
-  int m = _tenv->m;
-
-  /* byresult variables */
-  /* (l210) #pragma omp task untied -- body moved below */
-  # 210 "fft.c"
-  {
-    # 212 "fft.c"
-    fft_twiddle_gen(i, i2, in, out, W, nW, nWdn, r, m);
-    CANCEL_task_210 :
-      ;
-  }
-  ort_taskenv_free(_tenv, _taskFunc5_);
-  return ((void *) 0);
-}
-
-/* Outlined code for (l205) #pragma omp task untied */
-
-static void * _taskFunc4_(void * __arg)
-{
-  struct __taskenv__ {
-      struct _noname19_ (* in);
-      int i;
-      struct _noname19_ (* out);
-      struct _noname19_ (* W);
-      int r;
-      int m;
-      int nW;
-      int nWdn;
-    };
-  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
-
-  /* byvalue variables */
-  struct _noname19_ (* in) = _tenv->in;
-  int i = _tenv->i;
-  struct _noname19_ (* out) = _tenv->out;
-  struct _noname19_ (* W) = _tenv->W;
-  int r = _tenv->r;
-  int m = _tenv->m;
-  int nW = _tenv->nW;
-  int nWdn = _tenv->nWdn;
-
-  /* byresult variables */
-  /* (l205) #pragma omp task untied -- body moved below */
-  # 205 "fft.c"
-  {
-    # 207 "fft.c"
-    fft_twiddle_gen1(in + i, out + i, W, r, m, nW, nWdn * i, nWdn * m);
-    CANCEL_task_205 :
-      ;
-  }
-  ort_taskenv_free(_tenv, _taskFunc4_);
-  return ((void *) 0);
-}
-
-
-void fft_twiddle_gen_seq(int i, int i1, struct _noname19_ (* in), struct _noname19_ (* out), struct _noname19_ (* W), int nW, int nWdn, int r, int m)
+void fft_twiddle_gen_seq(int i, int i1, struct _noname16_ (* in), struct _noname16_ (* out), struct _noname16_ (* W), int nW, int nWdn, int r, int m)
 # 221 "fft.c"
 {
   if (i == i1 - 1)
@@ -2265,7 +2383,7 @@ void fft_twiddle_gen_seq(int i, int i1, struct _noname19_ (* in), struct _noname
 }
 
 
-void fft_base_2(struct _noname19_ (* in), struct _noname19_ (* out))
+void fft_base_2(struct _noname16_ (* in), struct _noname16_ (* out))
 {
   double r1_0;
   double i1_0;
@@ -2283,15 +2401,15 @@ void fft_base_2(struct _noname19_ (* in), struct _noname19_ (* out))
   ((out[1]).im) = (i1_0 - i1_1);
 }
 
-static void * _taskFunc7_(void *);
 static void * _taskFunc8_(void *);
+static void * _taskFunc7_(void *);
 
 
-void fft_twiddle_2(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out), struct _noname19_ (* W), int nW, int nWdn, int m)
+void fft_twiddle_2(int a, int b, struct _noname16_ (* in), struct _noname16_ (* out), struct _noname16_ (* W), int nW, int nWdn, int m)
 {
   int l1, i;
-  struct _noname19_ (* jp);
-  struct _noname19_ (* kp);
+  struct _noname16_ (* jp);
+  struct _noname16_ (* kp);
   double tmpr;
   double tmpi;
   double wr;
@@ -2329,6 +2447,9 @@ void fft_twiddle_2(int a, int b, struct _noname19_ (* in), struct _noname19_ (* 
     {
       int ab = (a + b) / 2;
 
+      /* (l275) #pragma omp task untied
+ */
+      # 275 "fft.c"
       if (omp_in_final() || ort_task_throttling())
         {
           void * _itn;
@@ -2336,9 +2457,9 @@ void fft_twiddle_2(int a, int b, struct _noname19_ (* in), struct _noname19_ (* 
           /* byvalue variables */
           int _fip_a = a, a = _fip_a;
           int _fip_ab = ab, ab = _fip_ab;
-          struct _noname19_ (* _fip_in) = in, (* in) = _fip_in;
-          struct _noname19_ (* _fip_out) = out, (* out) = _fip_out;
-          struct _noname19_ (* _fip_W) = W, (* W) = _fip_W;
+          struct _noname16_ (* _fip_in) = in, (* in) = _fip_in;
+          struct _noname16_ (* _fip_out) = out, (* out) = _fip_out;
+          struct _noname16_ (* _fip_W) = W, (* W) = _fip_W;
           int _fip_nW = nW, nW = _fip_nW;
           int _fip_nWdn = nWdn, nWdn = _fip_nWdn;
           int _fip_m = m, m = _fip_m;
@@ -2353,14 +2474,13 @@ void fft_twiddle_2(int a, int b, struct _noname19_ (* in), struct _noname19_ (* 
           ort_task_immediate_end(_itn);
         }
       else
-        /* (l275) #pragma omp task untied */
         {
           struct __taskenv__ {
               int a;
               int ab;
-              struct _noname19_ (* in);
-              struct _noname19_ (* out);
-              struct _noname19_ (* W);
+              struct _noname16_ (* in);
+              struct _noname16_ (* out);
+              struct _noname16_ (* W);
               int nW;
               int nWdn;
               int m;
@@ -2376,8 +2496,12 @@ void fft_twiddle_2(int a, int b, struct _noname19_ (* in), struct _noname19_ (* 
           _tenv->nW = nW;
           _tenv->nWdn = nWdn;
           _tenv->m = m;
-          ort_new_task(_taskFunc7_, (void *) _tenv, 0, 1);
+          ort_new_task(_taskFunc7_, (void *) _tenv, 0, 0, 1, 0, (void *) 0, 0, 0, 0);
+          /* no other operations */
         }
+      /* (l277) #pragma omp task untied
+ */
+      # 277 "fft.c"
       if (omp_in_final() || ort_task_throttling())
         {
           void * _itn;
@@ -2385,9 +2509,9 @@ void fft_twiddle_2(int a, int b, struct _noname19_ (* in), struct _noname19_ (* 
           /* byvalue variables */
           int _fip_ab = ab, ab = _fip_ab;
           int _fip_b = b, b = _fip_b;
-          struct _noname19_ (* _fip_in) = in, (* in) = _fip_in;
-          struct _noname19_ (* _fip_out) = out, (* out) = _fip_out;
-          struct _noname19_ (* _fip_W) = W, (* W) = _fip_W;
+          struct _noname16_ (* _fip_in) = in, (* in) = _fip_in;
+          struct _noname16_ (* _fip_out) = out, (* out) = _fip_out;
+          struct _noname16_ (* _fip_W) = W, (* W) = _fip_W;
           int _fip_nW = nW, nW = _fip_nW;
           int _fip_nWdn = nWdn, nWdn = _fip_nWdn;
           int _fip_m = m, m = _fip_m;
@@ -2402,14 +2526,13 @@ void fft_twiddle_2(int a, int b, struct _noname19_ (* in), struct _noname19_ (* 
           ort_task_immediate_end(_itn);
         }
       else
-        /* (l277) #pragma omp task untied */
         {
           struct __taskenv__ {
               int ab;
               int b;
-              struct _noname19_ (* in);
-              struct _noname19_ (* out);
-              struct _noname19_ (* W);
+              struct _noname16_ (* in);
+              struct _noname16_ (* out);
+              struct _noname16_ (* W);
               int nW;
               int nWdn;
               int m;
@@ -2425,63 +2548,25 @@ void fft_twiddle_2(int a, int b, struct _noname19_ (* in), struct _noname19_ (* 
           _tenv->nW = nW;
           _tenv->nWdn = nWdn;
           _tenv->m = m;
-          ort_new_task(_taskFunc8_, (void *) _tenv, 0, 1);
+          ort_new_task(_taskFunc8_, (void *) _tenv, 0, 0, 1, 0, (void *) 0, 0, 0, 0);
+          /* no other operations */
         }
-      /* (l279) #pragma omp taskwait  */
+      /* (l279) #pragma omp taskwait 
+ */
       # 279 "fft.c"
       ort_taskwait(0);
     }
 }
 
-/* Outlined code for (l277) #pragma omp task untied */
-
-static void * _taskFunc8_(void * __arg)
-{
-  struct __taskenv__ {
-      int ab;
-      int b;
-      struct _noname19_ (* in);
-      struct _noname19_ (* out);
-      struct _noname19_ (* W);
-      int nW;
-      int nWdn;
-      int m;
-    };
-  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
-
-  /* byvalue variables */
-  int ab = _tenv->ab;
-  int b = _tenv->b;
-  struct _noname19_ (* in) = _tenv->in;
-  struct _noname19_ (* out) = _tenv->out;
-  struct _noname19_ (* W) = _tenv->W;
-  int nW = _tenv->nW;
-  int nWdn = _tenv->nWdn;
-  int m = _tenv->m;
-
-  /* byresult variables */
-  /* (l277) #pragma omp task untied -- body moved below */
-  # 277 "fft.c"
-  {
-    # 278 "fft.c"
-    fft_twiddle_2(ab, b, in, out, W, nW, nWdn, m);
-    CANCEL_task_277 :
-      ;
-  }
-  ort_taskenv_free(_tenv, _taskFunc8_);
-  return ((void *) 0);
-}
-
-/* Outlined code for (l275) #pragma omp task untied */
 
 static void * _taskFunc7_(void * __arg)
 {
   struct __taskenv__ {
       int a;
       int ab;
-      struct _noname19_ (* in);
-      struct _noname19_ (* out);
-      struct _noname19_ (* W);
+      struct _noname16_ (* in);
+      struct _noname16_ (* out);
+      struct _noname16_ (* W);
       int nW;
       int nWdn;
       int m;
@@ -2491,15 +2576,16 @@ static void * _taskFunc7_(void * __arg)
   /* byvalue variables */
   int a = _tenv->a;
   int ab = _tenv->ab;
-  struct _noname19_ (* in) = _tenv->in;
-  struct _noname19_ (* out) = _tenv->out;
-  struct _noname19_ (* W) = _tenv->W;
+  struct _noname16_ (* in) = _tenv->in;
+  struct _noname16_ (* out) = _tenv->out;
+  struct _noname16_ (* W) = _tenv->W;
   int nW = _tenv->nW;
   int nWdn = _tenv->nWdn;
   int m = _tenv->m;
 
-  /* byresult variables */
-  /* (l275) #pragma omp task untied -- body moved below */
+  /* no initializations */
+  /* (l275) #pragma omp task untied
+ -- body moved below */
   # 275 "fft.c"
   {
     # 276 "fft.c"
@@ -2507,17 +2593,58 @@ static void * _taskFunc7_(void * __arg)
     CANCEL_task_275 :
       ;
   }
+  /* no other operations */
   ort_taskenv_free(_tenv, _taskFunc7_);
   return ((void *) 0);
 }
 
 
-void fft_twiddle_2_seq(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out), struct _noname19_ (* W), int nW, int nWdn, int m)
+static void * _taskFunc8_(void * __arg)
+{
+  struct __taskenv__ {
+      int ab;
+      int b;
+      struct _noname16_ (* in);
+      struct _noname16_ (* out);
+      struct _noname16_ (* W);
+      int nW;
+      int nWdn;
+      int m;
+    };
+  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
+
+  /* byvalue variables */
+  int ab = _tenv->ab;
+  int b = _tenv->b;
+  struct _noname16_ (* in) = _tenv->in;
+  struct _noname16_ (* out) = _tenv->out;
+  struct _noname16_ (* W) = _tenv->W;
+  int nW = _tenv->nW;
+  int nWdn = _tenv->nWdn;
+  int m = _tenv->m;
+
+  /* no initializations */
+  /* (l277) #pragma omp task untied
+ -- body moved below */
+  # 277 "fft.c"
+  {
+    # 278 "fft.c"
+    fft_twiddle_2(ab, b, in, out, W, nW, nWdn, m);
+    CANCEL_task_277 :
+      ;
+  }
+  /* no other operations */
+  ort_taskenv_free(_tenv, _taskFunc8_);
+  return ((void *) 0);
+}
+
+
+void fft_twiddle_2_seq(int a, int b, struct _noname16_ (* in), struct _noname16_ (* out), struct _noname16_ (* W), int nW, int nWdn, int m)
 # 283 "fft.c"
 {
   int l1, i;
-  struct _noname19_ (* jp);
-  struct _noname19_ (* kp);
+  struct _noname16_ (* jp);
+  struct _noname16_ (* kp);
   double tmpr;
   double tmpi;
   double wr;
@@ -2560,15 +2687,15 @@ void fft_twiddle_2_seq(int a, int b, struct _noname19_ (* in), struct _noname19_
     }
 }
 
-static void * _taskFunc9_(void *);
 static void * _taskFunc10_(void *);
+static void * _taskFunc9_(void *);
 
 
-void fft_unshuffle_2(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out), int m)
+void fft_unshuffle_2(int a, int b, struct _noname16_ (* in), struct _noname16_ (* out), int m)
 {
   int i;
-  const struct _noname19_ (* ip);
-  struct _noname19_ (* jp);
+  const struct _noname16_ (* ip);
+  struct _noname16_ (* jp);
 
   if ((b - a) < 128)
     {
@@ -2585,6 +2712,9 @@ void fft_unshuffle_2(int a, int b, struct _noname19_ (* in), struct _noname19_ (
     {
       int ab = (a + b) / 2;
 
+      /* (l329) #pragma omp task untied
+ */
+      # 329 "fft.c"
       if (omp_in_final() || ort_task_throttling())
         {
           void * _itn;
@@ -2592,8 +2722,8 @@ void fft_unshuffle_2(int a, int b, struct _noname19_ (* in), struct _noname19_ (
           /* byvalue variables */
           int _fip_a = a, a = _fip_a;
           int _fip_ab = ab, ab = _fip_ab;
-          struct _noname19_ (* _fip_in) = in, (* in) = _fip_in;
-          struct _noname19_ (* _fip_out) = out, (* out) = _fip_out;
+          struct _noname16_ (* _fip_in) = in, (* in) = _fip_in;
+          struct _noname16_ (* _fip_out) = out, (* out) = _fip_out;
           int _fip_m = m, m = _fip_m;
 
           _itn = ort_task_immediate_start(0);
@@ -2606,13 +2736,12 @@ void fft_unshuffle_2(int a, int b, struct _noname19_ (* in), struct _noname19_ (
           ort_task_immediate_end(_itn);
         }
       else
-        /* (l329) #pragma omp task untied */
         {
           struct __taskenv__ {
               int a;
               int ab;
-              struct _noname19_ (* in);
-              struct _noname19_ (* out);
+              struct _noname16_ (* in);
+              struct _noname16_ (* out);
               int m;
             } * _tenv;
 
@@ -2623,8 +2752,12 @@ void fft_unshuffle_2(int a, int b, struct _noname19_ (* in), struct _noname19_ (
           _tenv->in = in;
           _tenv->out = out;
           _tenv->m = m;
-          ort_new_task(_taskFunc9_, (void *) _tenv, 0, 1);
+          ort_new_task(_taskFunc9_, (void *) _tenv, 0, 0, 1, 0, (void *) 0, 0, 0, 0);
+          /* no other operations */
         }
+      /* (l331) #pragma omp task untied
+ */
+      # 331 "fft.c"
       if (omp_in_final() || ort_task_throttling())
         {
           void * _itn;
@@ -2632,8 +2765,8 @@ void fft_unshuffle_2(int a, int b, struct _noname19_ (* in), struct _noname19_ (
           /* byvalue variables */
           int _fip_ab = ab, ab = _fip_ab;
           int _fip_b = b, b = _fip_b;
-          struct _noname19_ (* _fip_in) = in, (* in) = _fip_in;
-          struct _noname19_ (* _fip_out) = out, (* out) = _fip_out;
+          struct _noname16_ (* _fip_in) = in, (* in) = _fip_in;
+          struct _noname16_ (* _fip_out) = out, (* out) = _fip_out;
           int _fip_m = m, m = _fip_m;
 
           _itn = ort_task_immediate_start(0);
@@ -2646,13 +2779,12 @@ void fft_unshuffle_2(int a, int b, struct _noname19_ (* in), struct _noname19_ (
           ort_task_immediate_end(_itn);
         }
       else
-        /* (l331) #pragma omp task untied */
         {
           struct __taskenv__ {
               int ab;
               int b;
-              struct _noname19_ (* in);
-              struct _noname19_ (* out);
+              struct _noname16_ (* in);
+              struct _noname16_ (* out);
               int m;
             } * _tenv;
 
@@ -2663,56 +2795,24 @@ void fft_unshuffle_2(int a, int b, struct _noname19_ (* in), struct _noname19_ (
           _tenv->in = in;
           _tenv->out = out;
           _tenv->m = m;
-          ort_new_task(_taskFunc10_, (void *) _tenv, 0, 1);
+          ort_new_task(_taskFunc10_, (void *) _tenv, 0, 0, 1, 0, (void *) 0, 0, 0, 0);
+          /* no other operations */
         }
-      /* (l333) #pragma omp taskwait  */
+      /* (l333) #pragma omp taskwait 
+ */
       # 333 "fft.c"
       ort_taskwait(0);
     }
 }
 
-/* Outlined code for (l331) #pragma omp task untied */
-
-static void * _taskFunc10_(void * __arg)
-{
-  struct __taskenv__ {
-      int ab;
-      int b;
-      struct _noname19_ (* in);
-      struct _noname19_ (* out);
-      int m;
-    };
-  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
-
-  /* byvalue variables */
-  int ab = _tenv->ab;
-  int b = _tenv->b;
-  struct _noname19_ (* in) = _tenv->in;
-  struct _noname19_ (* out) = _tenv->out;
-  int m = _tenv->m;
-
-  /* byresult variables */
-  /* (l331) #pragma omp task untied -- body moved below */
-  # 331 "fft.c"
-  {
-    # 332 "fft.c"
-    fft_unshuffle_2(ab, b, in, out, m);
-    CANCEL_task_331 :
-      ;
-  }
-  ort_taskenv_free(_tenv, _taskFunc10_);
-  return ((void *) 0);
-}
-
-/* Outlined code for (l329) #pragma omp task untied */
 
 static void * _taskFunc9_(void * __arg)
 {
   struct __taskenv__ {
       int a;
       int ab;
-      struct _noname19_ (* in);
-      struct _noname19_ (* out);
+      struct _noname16_ (* in);
+      struct _noname16_ (* out);
       int m;
     };
   struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
@@ -2720,12 +2820,13 @@ static void * _taskFunc9_(void * __arg)
   /* byvalue variables */
   int a = _tenv->a;
   int ab = _tenv->ab;
-  struct _noname19_ (* in) = _tenv->in;
-  struct _noname19_ (* out) = _tenv->out;
+  struct _noname16_ (* in) = _tenv->in;
+  struct _noname16_ (* out) = _tenv->out;
   int m = _tenv->m;
 
-  /* byresult variables */
-  /* (l329) #pragma omp task untied -- body moved below */
+  /* no initializations */
+  /* (l329) #pragma omp task untied
+ -- body moved below */
   # 329 "fft.c"
   {
     # 330 "fft.c"
@@ -2733,17 +2834,52 @@ static void * _taskFunc9_(void * __arg)
     CANCEL_task_329 :
       ;
   }
+  /* no other operations */
   ort_taskenv_free(_tenv, _taskFunc9_);
   return ((void *) 0);
 }
 
 
-void fft_unshuffle_2_seq(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out), int m)
+static void * _taskFunc10_(void * __arg)
+{
+  struct __taskenv__ {
+      int ab;
+      int b;
+      struct _noname16_ (* in);
+      struct _noname16_ (* out);
+      int m;
+    };
+  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
+
+  /* byvalue variables */
+  int ab = _tenv->ab;
+  int b = _tenv->b;
+  struct _noname16_ (* in) = _tenv->in;
+  struct _noname16_ (* out) = _tenv->out;
+  int m = _tenv->m;
+
+  /* no initializations */
+  /* (l331) #pragma omp task untied
+ -- body moved below */
+  # 331 "fft.c"
+  {
+    # 332 "fft.c"
+    fft_unshuffle_2(ab, b, in, out, m);
+    CANCEL_task_331 :
+      ;
+  }
+  /* no other operations */
+  ort_taskenv_free(_tenv, _taskFunc10_);
+  return ((void *) 0);
+}
+
+
+void fft_unshuffle_2_seq(int a, int b, struct _noname16_ (* in), struct _noname16_ (* out), int m)
 # 337 "fft.c"
 {
   int i;
-  const struct _noname19_ (* ip);
-  struct _noname19_ (* jp);
+  const struct _noname16_ (* ip);
+  struct _noname16_ (* jp);
 
   if ((b - a) < 128)
     {
@@ -2766,7 +2902,7 @@ void fft_unshuffle_2_seq(int a, int b, struct _noname19_ (* in), struct _noname1
 }
 
 
-void fft_base_4(struct _noname19_ (* in), struct _noname19_ (* out))
+void fft_base_4(struct _noname16_ (* in), struct _noname16_ (* out))
 {
   double r1_0;
   double i1_0;
@@ -2820,15 +2956,15 @@ void fft_base_4(struct _noname19_ (* in), struct _noname19_ (* out))
   ((out[3]).im) = (i1_2 + r1_3);
 }
 
-static void * _taskFunc11_(void *);
 static void * _taskFunc12_(void *);
+static void * _taskFunc11_(void *);
 
 
-void fft_twiddle_4(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out), struct _noname19_ (* W), int nW, int nWdn, int m)
+void fft_twiddle_4(int a, int b, struct _noname16_ (* in), struct _noname16_ (* out), struct _noname16_ (* W), int nW, int nWdn, int m)
 {
   int l1, i;
-  struct _noname19_ (* jp);
-  struct _noname19_ (* kp);
+  struct _noname16_ (* jp);
+  struct _noname16_ (* kp);
   double tmpr;
   double tmpi;
   double wr;
@@ -2910,6 +3046,9 @@ void fft_twiddle_4(int a, int b, struct _noname19_ (* in), struct _noname19_ (* 
     {
       int ab = (a + b) / 2;
 
+      /* (l456) #pragma omp task untied
+ */
+      # 456 "fft.c"
       if (omp_in_final() || ort_task_throttling())
         {
           void * _itn;
@@ -2917,9 +3056,9 @@ void fft_twiddle_4(int a, int b, struct _noname19_ (* in), struct _noname19_ (* 
           /* byvalue variables */
           int _fip_a = a, a = _fip_a;
           int _fip_ab = ab, ab = _fip_ab;
-          struct _noname19_ (* _fip_in) = in, (* in) = _fip_in;
-          struct _noname19_ (* _fip_out) = out, (* out) = _fip_out;
-          struct _noname19_ (* _fip_W) = W, (* W) = _fip_W;
+          struct _noname16_ (* _fip_in) = in, (* in) = _fip_in;
+          struct _noname16_ (* _fip_out) = out, (* out) = _fip_out;
+          struct _noname16_ (* _fip_W) = W, (* W) = _fip_W;
           int _fip_nW = nW, nW = _fip_nW;
           int _fip_nWdn = nWdn, nWdn = _fip_nWdn;
           int _fip_m = m, m = _fip_m;
@@ -2934,14 +3073,13 @@ void fft_twiddle_4(int a, int b, struct _noname19_ (* in), struct _noname19_ (* 
           ort_task_immediate_end(_itn);
         }
       else
-        /* (l456) #pragma omp task untied */
         {
           struct __taskenv__ {
               int a;
               int ab;
-              struct _noname19_ (* in);
-              struct _noname19_ (* out);
-              struct _noname19_ (* W);
+              struct _noname16_ (* in);
+              struct _noname16_ (* out);
+              struct _noname16_ (* W);
               int nW;
               int nWdn;
               int m;
@@ -2957,8 +3095,12 @@ void fft_twiddle_4(int a, int b, struct _noname19_ (* in), struct _noname19_ (* 
           _tenv->nW = nW;
           _tenv->nWdn = nWdn;
           _tenv->m = m;
-          ort_new_task(_taskFunc11_, (void *) _tenv, 0, 1);
+          ort_new_task(_taskFunc11_, (void *) _tenv, 0, 0, 1, 0, (void *) 0, 0, 0, 0);
+          /* no other operations */
         }
+      /* (l458) #pragma omp task untied
+ */
+      # 458 "fft.c"
       if (omp_in_final() || ort_task_throttling())
         {
           void * _itn;
@@ -2966,9 +3108,9 @@ void fft_twiddle_4(int a, int b, struct _noname19_ (* in), struct _noname19_ (* 
           /* byvalue variables */
           int _fip_ab = ab, ab = _fip_ab;
           int _fip_b = b, b = _fip_b;
-          struct _noname19_ (* _fip_in) = in, (* in) = _fip_in;
-          struct _noname19_ (* _fip_out) = out, (* out) = _fip_out;
-          struct _noname19_ (* _fip_W) = W, (* W) = _fip_W;
+          struct _noname16_ (* _fip_in) = in, (* in) = _fip_in;
+          struct _noname16_ (* _fip_out) = out, (* out) = _fip_out;
+          struct _noname16_ (* _fip_W) = W, (* W) = _fip_W;
           int _fip_nW = nW, nW = _fip_nW;
           int _fip_nWdn = nWdn, nWdn = _fip_nWdn;
           int _fip_m = m, m = _fip_m;
@@ -2983,14 +3125,13 @@ void fft_twiddle_4(int a, int b, struct _noname19_ (* in), struct _noname19_ (* 
           ort_task_immediate_end(_itn);
         }
       else
-        /* (l458) #pragma omp task untied */
         {
           struct __taskenv__ {
               int ab;
               int b;
-              struct _noname19_ (* in);
-              struct _noname19_ (* out);
-              struct _noname19_ (* W);
+              struct _noname16_ (* in);
+              struct _noname16_ (* out);
+              struct _noname16_ (* W);
               int nW;
               int nWdn;
               int m;
@@ -3006,63 +3147,25 @@ void fft_twiddle_4(int a, int b, struct _noname19_ (* in), struct _noname19_ (* 
           _tenv->nW = nW;
           _tenv->nWdn = nWdn;
           _tenv->m = m;
-          ort_new_task(_taskFunc12_, (void *) _tenv, 0, 1);
+          ort_new_task(_taskFunc12_, (void *) _tenv, 0, 0, 1, 0, (void *) 0, 0, 0, 0);
+          /* no other operations */
         }
-      /* (l460) #pragma omp taskwait  */
+      /* (l460) #pragma omp taskwait 
+ */
       # 460 "fft.c"
       ort_taskwait(0);
     }
 }
 
-/* Outlined code for (l458) #pragma omp task untied */
-
-static void * _taskFunc12_(void * __arg)
-{
-  struct __taskenv__ {
-      int ab;
-      int b;
-      struct _noname19_ (* in);
-      struct _noname19_ (* out);
-      struct _noname19_ (* W);
-      int nW;
-      int nWdn;
-      int m;
-    };
-  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
-
-  /* byvalue variables */
-  int ab = _tenv->ab;
-  int b = _tenv->b;
-  struct _noname19_ (* in) = _tenv->in;
-  struct _noname19_ (* out) = _tenv->out;
-  struct _noname19_ (* W) = _tenv->W;
-  int nW = _tenv->nW;
-  int nWdn = _tenv->nWdn;
-  int m = _tenv->m;
-
-  /* byresult variables */
-  /* (l458) #pragma omp task untied -- body moved below */
-  # 458 "fft.c"
-  {
-    # 459 "fft.c"
-    fft_twiddle_4(ab, b, in, out, W, nW, nWdn, m);
-    CANCEL_task_458 :
-      ;
-  }
-  ort_taskenv_free(_tenv, _taskFunc12_);
-  return ((void *) 0);
-}
-
-/* Outlined code for (l456) #pragma omp task untied */
 
 static void * _taskFunc11_(void * __arg)
 {
   struct __taskenv__ {
       int a;
       int ab;
-      struct _noname19_ (* in);
-      struct _noname19_ (* out);
-      struct _noname19_ (* W);
+      struct _noname16_ (* in);
+      struct _noname16_ (* out);
+      struct _noname16_ (* W);
       int nW;
       int nWdn;
       int m;
@@ -3072,15 +3175,16 @@ static void * _taskFunc11_(void * __arg)
   /* byvalue variables */
   int a = _tenv->a;
   int ab = _tenv->ab;
-  struct _noname19_ (* in) = _tenv->in;
-  struct _noname19_ (* out) = _tenv->out;
-  struct _noname19_ (* W) = _tenv->W;
+  struct _noname16_ (* in) = _tenv->in;
+  struct _noname16_ (* out) = _tenv->out;
+  struct _noname16_ (* W) = _tenv->W;
   int nW = _tenv->nW;
   int nWdn = _tenv->nWdn;
   int m = _tenv->m;
 
-  /* byresult variables */
-  /* (l456) #pragma omp task untied -- body moved below */
+  /* no initializations */
+  /* (l456) #pragma omp task untied
+ -- body moved below */
   # 456 "fft.c"
   {
     # 457 "fft.c"
@@ -3088,17 +3192,58 @@ static void * _taskFunc11_(void * __arg)
     CANCEL_task_456 :
       ;
   }
+  /* no other operations */
   ort_taskenv_free(_tenv, _taskFunc11_);
   return ((void *) 0);
 }
 
 
-void fft_twiddle_4_seq(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out), struct _noname19_ (* W), int nW, int nWdn, int m)
+static void * _taskFunc12_(void * __arg)
+{
+  struct __taskenv__ {
+      int ab;
+      int b;
+      struct _noname16_ (* in);
+      struct _noname16_ (* out);
+      struct _noname16_ (* W);
+      int nW;
+      int nWdn;
+      int m;
+    };
+  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
+
+  /* byvalue variables */
+  int ab = _tenv->ab;
+  int b = _tenv->b;
+  struct _noname16_ (* in) = _tenv->in;
+  struct _noname16_ (* out) = _tenv->out;
+  struct _noname16_ (* W) = _tenv->W;
+  int nW = _tenv->nW;
+  int nWdn = _tenv->nWdn;
+  int m = _tenv->m;
+
+  /* no initializations */
+  /* (l458) #pragma omp task untied
+ -- body moved below */
+  # 458 "fft.c"
+  {
+    # 459 "fft.c"
+    fft_twiddle_4(ab, b, in, out, W, nW, nWdn, m);
+    CANCEL_task_458 :
+      ;
+  }
+  /* no other operations */
+  ort_taskenv_free(_tenv, _taskFunc12_);
+  return ((void *) 0);
+}
+
+
+void fft_twiddle_4_seq(int a, int b, struct _noname16_ (* in), struct _noname16_ (* out), struct _noname16_ (* W), int nW, int nWdn, int m)
 # 464 "fft.c"
 {
   int l1, i;
-  struct _noname19_ (* jp);
-  struct _noname19_ (* kp);
+  struct _noname16_ (* jp);
+  struct _noname16_ (* kp);
   double tmpr;
   double tmpi;
   double wr;
@@ -3185,15 +3330,15 @@ void fft_twiddle_4_seq(int a, int b, struct _noname19_ (* in), struct _noname19_
     }
 }
 
-static void * _taskFunc13_(void *);
 static void * _taskFunc14_(void *);
+static void * _taskFunc13_(void *);
 
 
-void fft_unshuffle_4(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out), int m)
+void fft_unshuffle_4(int a, int b, struct _noname16_ (* in), struct _noname16_ (* out), int m)
 {
   int i;
-  const struct _noname19_ (* ip);
-  struct _noname19_ (* jp);
+  const struct _noname16_ (* ip);
+  struct _noname16_ (* jp);
 
   if ((b - a) < 128)
     {
@@ -3214,6 +3359,9 @@ void fft_unshuffle_4(int a, int b, struct _noname19_ (* in), struct _noname19_ (
     {
       int ab = (a + b) / 2;
 
+      /* (l548) #pragma omp task untied
+ */
+      # 548 "fft.c"
       if (omp_in_final() || ort_task_throttling())
         {
           void * _itn;
@@ -3221,8 +3369,8 @@ void fft_unshuffle_4(int a, int b, struct _noname19_ (* in), struct _noname19_ (
           /* byvalue variables */
           int _fip_a = a, a = _fip_a;
           int _fip_ab = ab, ab = _fip_ab;
-          struct _noname19_ (* _fip_in) = in, (* in) = _fip_in;
-          struct _noname19_ (* _fip_out) = out, (* out) = _fip_out;
+          struct _noname16_ (* _fip_in) = in, (* in) = _fip_in;
+          struct _noname16_ (* _fip_out) = out, (* out) = _fip_out;
           int _fip_m = m, m = _fip_m;
 
           _itn = ort_task_immediate_start(0);
@@ -3235,13 +3383,12 @@ void fft_unshuffle_4(int a, int b, struct _noname19_ (* in), struct _noname19_ (
           ort_task_immediate_end(_itn);
         }
       else
-        /* (l548) #pragma omp task untied */
         {
           struct __taskenv__ {
               int a;
               int ab;
-              struct _noname19_ (* in);
-              struct _noname19_ (* out);
+              struct _noname16_ (* in);
+              struct _noname16_ (* out);
               int m;
             } * _tenv;
 
@@ -3252,8 +3399,12 @@ void fft_unshuffle_4(int a, int b, struct _noname19_ (* in), struct _noname19_ (
           _tenv->in = in;
           _tenv->out = out;
           _tenv->m = m;
-          ort_new_task(_taskFunc13_, (void *) _tenv, 0, 1);
+          ort_new_task(_taskFunc13_, (void *) _tenv, 0, 0, 1, 0, (void *) 0, 0, 0, 0);
+          /* no other operations */
         }
+      /* (l550) #pragma omp task untied
+ */
+      # 550 "fft.c"
       if (omp_in_final() || ort_task_throttling())
         {
           void * _itn;
@@ -3261,8 +3412,8 @@ void fft_unshuffle_4(int a, int b, struct _noname19_ (* in), struct _noname19_ (
           /* byvalue variables */
           int _fip_ab = ab, ab = _fip_ab;
           int _fip_b = b, b = _fip_b;
-          struct _noname19_ (* _fip_in) = in, (* in) = _fip_in;
-          struct _noname19_ (* _fip_out) = out, (* out) = _fip_out;
+          struct _noname16_ (* _fip_in) = in, (* in) = _fip_in;
+          struct _noname16_ (* _fip_out) = out, (* out) = _fip_out;
           int _fip_m = m, m = _fip_m;
 
           _itn = ort_task_immediate_start(0);
@@ -3275,13 +3426,12 @@ void fft_unshuffle_4(int a, int b, struct _noname19_ (* in), struct _noname19_ (
           ort_task_immediate_end(_itn);
         }
       else
-        /* (l550) #pragma omp task untied */
         {
           struct __taskenv__ {
               int ab;
               int b;
-              struct _noname19_ (* in);
-              struct _noname19_ (* out);
+              struct _noname16_ (* in);
+              struct _noname16_ (* out);
               int m;
             } * _tenv;
 
@@ -3292,56 +3442,24 @@ void fft_unshuffle_4(int a, int b, struct _noname19_ (* in), struct _noname19_ (
           _tenv->in = in;
           _tenv->out = out;
           _tenv->m = m;
-          ort_new_task(_taskFunc14_, (void *) _tenv, 0, 1);
+          ort_new_task(_taskFunc14_, (void *) _tenv, 0, 0, 1, 0, (void *) 0, 0, 0, 0);
+          /* no other operations */
         }
-      /* (l552) #pragma omp taskwait  */
+      /* (l552) #pragma omp taskwait 
+ */
       # 552 "fft.c"
       ort_taskwait(0);
     }
 }
 
-/* Outlined code for (l550) #pragma omp task untied */
-
-static void * _taskFunc14_(void * __arg)
-{
-  struct __taskenv__ {
-      int ab;
-      int b;
-      struct _noname19_ (* in);
-      struct _noname19_ (* out);
-      int m;
-    };
-  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
-
-  /* byvalue variables */
-  int ab = _tenv->ab;
-  int b = _tenv->b;
-  struct _noname19_ (* in) = _tenv->in;
-  struct _noname19_ (* out) = _tenv->out;
-  int m = _tenv->m;
-
-  /* byresult variables */
-  /* (l550) #pragma omp task untied -- body moved below */
-  # 550 "fft.c"
-  {
-    # 551 "fft.c"
-    fft_unshuffle_4(ab, b, in, out, m);
-    CANCEL_task_550 :
-      ;
-  }
-  ort_taskenv_free(_tenv, _taskFunc14_);
-  return ((void *) 0);
-}
-
-/* Outlined code for (l548) #pragma omp task untied */
 
 static void * _taskFunc13_(void * __arg)
 {
   struct __taskenv__ {
       int a;
       int ab;
-      struct _noname19_ (* in);
-      struct _noname19_ (* out);
+      struct _noname16_ (* in);
+      struct _noname16_ (* out);
       int m;
     };
   struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
@@ -3349,12 +3467,13 @@ static void * _taskFunc13_(void * __arg)
   /* byvalue variables */
   int a = _tenv->a;
   int ab = _tenv->ab;
-  struct _noname19_ (* in) = _tenv->in;
-  struct _noname19_ (* out) = _tenv->out;
+  struct _noname16_ (* in) = _tenv->in;
+  struct _noname16_ (* out) = _tenv->out;
   int m = _tenv->m;
 
-  /* byresult variables */
-  /* (l548) #pragma omp task untied -- body moved below */
+  /* no initializations */
+  /* (l548) #pragma omp task untied
+ -- body moved below */
   # 548 "fft.c"
   {
     # 549 "fft.c"
@@ -3362,17 +3481,52 @@ static void * _taskFunc13_(void * __arg)
     CANCEL_task_548 :
       ;
   }
+  /* no other operations */
   ort_taskenv_free(_tenv, _taskFunc13_);
   return ((void *) 0);
 }
 
 
-void fft_unshuffle_4_seq(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out), int m)
+static void * _taskFunc14_(void * __arg)
+{
+  struct __taskenv__ {
+      int ab;
+      int b;
+      struct _noname16_ (* in);
+      struct _noname16_ (* out);
+      int m;
+    };
+  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
+
+  /* byvalue variables */
+  int ab = _tenv->ab;
+  int b = _tenv->b;
+  struct _noname16_ (* in) = _tenv->in;
+  struct _noname16_ (* out) = _tenv->out;
+  int m = _tenv->m;
+
+  /* no initializations */
+  /* (l550) #pragma omp task untied
+ -- body moved below */
+  # 550 "fft.c"
+  {
+    # 551 "fft.c"
+    fft_unshuffle_4(ab, b, in, out, m);
+    CANCEL_task_550 :
+      ;
+  }
+  /* no other operations */
+  ort_taskenv_free(_tenv, _taskFunc14_);
+  return ((void *) 0);
+}
+
+
+void fft_unshuffle_4_seq(int a, int b, struct _noname16_ (* in), struct _noname16_ (* out), int m)
 # 556 "fft.c"
 {
   int i;
-  const struct _noname19_ (* ip);
-  struct _noname19_ (* jp);
+  const struct _noname16_ (* ip);
+  struct _noname16_ (* jp);
 
   if ((b - a) < 128)
     {
@@ -3399,7 +3553,7 @@ void fft_unshuffle_4_seq(int a, int b, struct _noname19_ (* in), struct _noname1
 }
 
 
-void fft_base_8(struct _noname19_ (* in), struct _noname19_ (* out))
+void fft_base_8(struct _noname16_ (* in), struct _noname16_ (* out))
 {
   double tmpr;
   double tmpi;
@@ -3551,15 +3705,15 @@ void fft_base_8(struct _noname19_ (* in), struct _noname19_ (* out))
   }
 }
 
-static void * _taskFunc15_(void *);
 static void * _taskFunc16_(void *);
+static void * _taskFunc15_(void *);
 
 
-void fft_twiddle_8(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out), struct _noname19_ (* W), int nW, int nWdn, int m)
+void fft_twiddle_8(int a, int b, struct _noname16_ (* in), struct _noname16_ (* out), struct _noname16_ (* W), int nW, int nWdn, int m)
 {
   int l1, i;
-  struct _noname19_ (* jp);
-  struct _noname19_ (* kp);
+  struct _noname16_ (* jp);
+  struct _noname16_ (* kp);
   double tmpr;
   double tmpi;
   double wr;
@@ -3749,6 +3903,9 @@ void fft_twiddle_8(int a, int b, struct _noname19_ (* in), struct _noname19_ (* 
     {
       int ab = (a + b) / 2;
 
+      /* (l834) #pragma omp task untied
+ */
+      # 834 "fft.c"
       if (omp_in_final() || ort_task_throttling())
         {
           void * _itn;
@@ -3756,9 +3913,9 @@ void fft_twiddle_8(int a, int b, struct _noname19_ (* in), struct _noname19_ (* 
           /* byvalue variables */
           int _fip_a = a, a = _fip_a;
           int _fip_ab = ab, ab = _fip_ab;
-          struct _noname19_ (* _fip_in) = in, (* in) = _fip_in;
-          struct _noname19_ (* _fip_out) = out, (* out) = _fip_out;
-          struct _noname19_ (* _fip_W) = W, (* W) = _fip_W;
+          struct _noname16_ (* _fip_in) = in, (* in) = _fip_in;
+          struct _noname16_ (* _fip_out) = out, (* out) = _fip_out;
+          struct _noname16_ (* _fip_W) = W, (* W) = _fip_W;
           int _fip_nW = nW, nW = _fip_nW;
           int _fip_nWdn = nWdn, nWdn = _fip_nWdn;
           int _fip_m = m, m = _fip_m;
@@ -3773,14 +3930,13 @@ void fft_twiddle_8(int a, int b, struct _noname19_ (* in), struct _noname19_ (* 
           ort_task_immediate_end(_itn);
         }
       else
-        /* (l834) #pragma omp task untied */
         {
           struct __taskenv__ {
               int a;
               int ab;
-              struct _noname19_ (* in);
-              struct _noname19_ (* out);
-              struct _noname19_ (* W);
+              struct _noname16_ (* in);
+              struct _noname16_ (* out);
+              struct _noname16_ (* W);
               int nW;
               int nWdn;
               int m;
@@ -3796,8 +3952,12 @@ void fft_twiddle_8(int a, int b, struct _noname19_ (* in), struct _noname19_ (* 
           _tenv->nW = nW;
           _tenv->nWdn = nWdn;
           _tenv->m = m;
-          ort_new_task(_taskFunc15_, (void *) _tenv, 0, 1);
+          ort_new_task(_taskFunc15_, (void *) _tenv, 0, 0, 1, 0, (void *) 0, 0, 0, 0);
+          /* no other operations */
         }
+      /* (l836) #pragma omp task untied
+ */
+      # 836 "fft.c"
       if (omp_in_final() || ort_task_throttling())
         {
           void * _itn;
@@ -3805,9 +3965,9 @@ void fft_twiddle_8(int a, int b, struct _noname19_ (* in), struct _noname19_ (* 
           /* byvalue variables */
           int _fip_ab = ab, ab = _fip_ab;
           int _fip_b = b, b = _fip_b;
-          struct _noname19_ (* _fip_in) = in, (* in) = _fip_in;
-          struct _noname19_ (* _fip_out) = out, (* out) = _fip_out;
-          struct _noname19_ (* _fip_W) = W, (* W) = _fip_W;
+          struct _noname16_ (* _fip_in) = in, (* in) = _fip_in;
+          struct _noname16_ (* _fip_out) = out, (* out) = _fip_out;
+          struct _noname16_ (* _fip_W) = W, (* W) = _fip_W;
           int _fip_nW = nW, nW = _fip_nW;
           int _fip_nWdn = nWdn, nWdn = _fip_nWdn;
           int _fip_m = m, m = _fip_m;
@@ -3822,14 +3982,13 @@ void fft_twiddle_8(int a, int b, struct _noname19_ (* in), struct _noname19_ (* 
           ort_task_immediate_end(_itn);
         }
       else
-        /* (l836) #pragma omp task untied */
         {
           struct __taskenv__ {
               int ab;
               int b;
-              struct _noname19_ (* in);
-              struct _noname19_ (* out);
-              struct _noname19_ (* W);
+              struct _noname16_ (* in);
+              struct _noname16_ (* out);
+              struct _noname16_ (* W);
               int nW;
               int nWdn;
               int m;
@@ -3845,63 +4004,25 @@ void fft_twiddle_8(int a, int b, struct _noname19_ (* in), struct _noname19_ (* 
           _tenv->nW = nW;
           _tenv->nWdn = nWdn;
           _tenv->m = m;
-          ort_new_task(_taskFunc16_, (void *) _tenv, 0, 1);
+          ort_new_task(_taskFunc16_, (void *) _tenv, 0, 0, 1, 0, (void *) 0, 0, 0, 0);
+          /* no other operations */
         }
-      /* (l838) #pragma omp taskwait  */
+      /* (l838) #pragma omp taskwait 
+ */
       # 838 "fft.c"
       ort_taskwait(0);
     }
 }
 
-/* Outlined code for (l836) #pragma omp task untied */
-
-static void * _taskFunc16_(void * __arg)
-{
-  struct __taskenv__ {
-      int ab;
-      int b;
-      struct _noname19_ (* in);
-      struct _noname19_ (* out);
-      struct _noname19_ (* W);
-      int nW;
-      int nWdn;
-      int m;
-    };
-  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
-
-  /* byvalue variables */
-  int ab = _tenv->ab;
-  int b = _tenv->b;
-  struct _noname19_ (* in) = _tenv->in;
-  struct _noname19_ (* out) = _tenv->out;
-  struct _noname19_ (* W) = _tenv->W;
-  int nW = _tenv->nW;
-  int nWdn = _tenv->nWdn;
-  int m = _tenv->m;
-
-  /* byresult variables */
-  /* (l836) #pragma omp task untied -- body moved below */
-  # 836 "fft.c"
-  {
-    # 837 "fft.c"
-    fft_twiddle_8(ab, b, in, out, W, nW, nWdn, m);
-    CANCEL_task_836 :
-      ;
-  }
-  ort_taskenv_free(_tenv, _taskFunc16_);
-  return ((void *) 0);
-}
-
-/* Outlined code for (l834) #pragma omp task untied */
 
 static void * _taskFunc15_(void * __arg)
 {
   struct __taskenv__ {
       int a;
       int ab;
-      struct _noname19_ (* in);
-      struct _noname19_ (* out);
-      struct _noname19_ (* W);
+      struct _noname16_ (* in);
+      struct _noname16_ (* out);
+      struct _noname16_ (* W);
       int nW;
       int nWdn;
       int m;
@@ -3911,15 +4032,16 @@ static void * _taskFunc15_(void * __arg)
   /* byvalue variables */
   int a = _tenv->a;
   int ab = _tenv->ab;
-  struct _noname19_ (* in) = _tenv->in;
-  struct _noname19_ (* out) = _tenv->out;
-  struct _noname19_ (* W) = _tenv->W;
+  struct _noname16_ (* in) = _tenv->in;
+  struct _noname16_ (* out) = _tenv->out;
+  struct _noname16_ (* W) = _tenv->W;
   int nW = _tenv->nW;
   int nWdn = _tenv->nWdn;
   int m = _tenv->m;
 
-  /* byresult variables */
-  /* (l834) #pragma omp task untied -- body moved below */
+  /* no initializations */
+  /* (l834) #pragma omp task untied
+ -- body moved below */
   # 834 "fft.c"
   {
     # 835 "fft.c"
@@ -3927,17 +4049,58 @@ static void * _taskFunc15_(void * __arg)
     CANCEL_task_834 :
       ;
   }
+  /* no other operations */
   ort_taskenv_free(_tenv, _taskFunc15_);
   return ((void *) 0);
 }
 
 
-void fft_twiddle_8_seq(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out), struct _noname19_ (* W), int nW, int nWdn, int m)
+static void * _taskFunc16_(void * __arg)
+{
+  struct __taskenv__ {
+      int ab;
+      int b;
+      struct _noname16_ (* in);
+      struct _noname16_ (* out);
+      struct _noname16_ (* W);
+      int nW;
+      int nWdn;
+      int m;
+    };
+  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
+
+  /* byvalue variables */
+  int ab = _tenv->ab;
+  int b = _tenv->b;
+  struct _noname16_ (* in) = _tenv->in;
+  struct _noname16_ (* out) = _tenv->out;
+  struct _noname16_ (* W) = _tenv->W;
+  int nW = _tenv->nW;
+  int nWdn = _tenv->nWdn;
+  int m = _tenv->m;
+
+  /* no initializations */
+  /* (l836) #pragma omp task untied
+ -- body moved below */
+  # 836 "fft.c"
+  {
+    # 837 "fft.c"
+    fft_twiddle_8(ab, b, in, out, W, nW, nWdn, m);
+    CANCEL_task_836 :
+      ;
+  }
+  /* no other operations */
+  ort_taskenv_free(_tenv, _taskFunc16_);
+  return ((void *) 0);
+}
+
+
+void fft_twiddle_8_seq(int a, int b, struct _noname16_ (* in), struct _noname16_ (* out), struct _noname16_ (* W), int nW, int nWdn, int m)
 # 842 "fft.c"
 {
   int l1, i;
-  struct _noname19_ (* jp);
-  struct _noname19_ (* kp);
+  struct _noname16_ (* jp);
+  struct _noname16_ (* kp);
   double tmpr;
   double tmpi;
   double wr;
@@ -4132,15 +4295,15 @@ void fft_twiddle_8_seq(int a, int b, struct _noname19_ (* in), struct _noname19_
     }
 }
 
-static void * _taskFunc17_(void *);
 static void * _taskFunc18_(void *);
+static void * _taskFunc17_(void *);
 
 
-void fft_unshuffle_8(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out), int m)
+void fft_unshuffle_8(int a, int b, struct _noname16_ (* in), struct _noname16_ (* out), int m)
 {
   int i;
-  const struct _noname19_ (* ip);
-  struct _noname19_ (* jp);
+  const struct _noname16_ (* ip);
+  struct _noname16_ (* jp);
 
   if ((b - a) < 128)
     {
@@ -4169,6 +4332,9 @@ void fft_unshuffle_8(int a, int b, struct _noname19_ (* in), struct _noname19_ (
     {
       int ab = (a + b) / 2;
 
+      /* (l1018) #pragma omp task untied
+ */
+      # 1018 "fft.c"
       if (omp_in_final() || ort_task_throttling())
         {
           void * _itn;
@@ -4176,8 +4342,8 @@ void fft_unshuffle_8(int a, int b, struct _noname19_ (* in), struct _noname19_ (
           /* byvalue variables */
           int _fip_a = a, a = _fip_a;
           int _fip_ab = ab, ab = _fip_ab;
-          struct _noname19_ (* _fip_in) = in, (* in) = _fip_in;
-          struct _noname19_ (* _fip_out) = out, (* out) = _fip_out;
+          struct _noname16_ (* _fip_in) = in, (* in) = _fip_in;
+          struct _noname16_ (* _fip_out) = out, (* out) = _fip_out;
           int _fip_m = m, m = _fip_m;
 
           _itn = ort_task_immediate_start(0);
@@ -4190,13 +4356,12 @@ void fft_unshuffle_8(int a, int b, struct _noname19_ (* in), struct _noname19_ (
           ort_task_immediate_end(_itn);
         }
       else
-        /* (l1018) #pragma omp task untied */
         {
           struct __taskenv__ {
               int a;
               int ab;
-              struct _noname19_ (* in);
-              struct _noname19_ (* out);
+              struct _noname16_ (* in);
+              struct _noname16_ (* out);
               int m;
             } * _tenv;
 
@@ -4207,8 +4372,12 @@ void fft_unshuffle_8(int a, int b, struct _noname19_ (* in), struct _noname19_ (
           _tenv->in = in;
           _tenv->out = out;
           _tenv->m = m;
-          ort_new_task(_taskFunc17_, (void *) _tenv, 0, 1);
+          ort_new_task(_taskFunc17_, (void *) _tenv, 0, 0, 1, 0, (void *) 0, 0, 0, 0);
+          /* no other operations */
         }
+      /* (l1020) #pragma omp task untied
+ */
+      # 1020 "fft.c"
       if (omp_in_final() || ort_task_throttling())
         {
           void * _itn;
@@ -4216,8 +4385,8 @@ void fft_unshuffle_8(int a, int b, struct _noname19_ (* in), struct _noname19_ (
           /* byvalue variables */
           int _fip_ab = ab, ab = _fip_ab;
           int _fip_b = b, b = _fip_b;
-          struct _noname19_ (* _fip_in) = in, (* in) = _fip_in;
-          struct _noname19_ (* _fip_out) = out, (* out) = _fip_out;
+          struct _noname16_ (* _fip_in) = in, (* in) = _fip_in;
+          struct _noname16_ (* _fip_out) = out, (* out) = _fip_out;
           int _fip_m = m, m = _fip_m;
 
           _itn = ort_task_immediate_start(0);
@@ -4230,13 +4399,12 @@ void fft_unshuffle_8(int a, int b, struct _noname19_ (* in), struct _noname19_ (
           ort_task_immediate_end(_itn);
         }
       else
-        /* (l1020) #pragma omp task untied */
         {
           struct __taskenv__ {
               int ab;
               int b;
-              struct _noname19_ (* in);
-              struct _noname19_ (* out);
+              struct _noname16_ (* in);
+              struct _noname16_ (* out);
               int m;
             } * _tenv;
 
@@ -4247,56 +4415,24 @@ void fft_unshuffle_8(int a, int b, struct _noname19_ (* in), struct _noname19_ (
           _tenv->in = in;
           _tenv->out = out;
           _tenv->m = m;
-          ort_new_task(_taskFunc18_, (void *) _tenv, 0, 1);
+          ort_new_task(_taskFunc18_, (void *) _tenv, 0, 0, 1, 0, (void *) 0, 0, 0, 0);
+          /* no other operations */
         }
-      /* (l1022) #pragma omp taskwait  */
+      /* (l1022) #pragma omp taskwait 
+ */
       # 1022 "fft.c"
       ort_taskwait(0);
     }
 }
 
-/* Outlined code for (l1020) #pragma omp task untied */
-
-static void * _taskFunc18_(void * __arg)
-{
-  struct __taskenv__ {
-      int ab;
-      int b;
-      struct _noname19_ (* in);
-      struct _noname19_ (* out);
-      int m;
-    };
-  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
-
-  /* byvalue variables */
-  int ab = _tenv->ab;
-  int b = _tenv->b;
-  struct _noname19_ (* in) = _tenv->in;
-  struct _noname19_ (* out) = _tenv->out;
-  int m = _tenv->m;
-
-  /* byresult variables */
-  /* (l1020) #pragma omp task untied -- body moved below */
-  # 1020 "fft.c"
-  {
-    # 1021 "fft.c"
-    fft_unshuffle_8(ab, b, in, out, m);
-    CANCEL_task_1020 :
-      ;
-  }
-  ort_taskenv_free(_tenv, _taskFunc18_);
-  return ((void *) 0);
-}
-
-/* Outlined code for (l1018) #pragma omp task untied */
 
 static void * _taskFunc17_(void * __arg)
 {
   struct __taskenv__ {
       int a;
       int ab;
-      struct _noname19_ (* in);
-      struct _noname19_ (* out);
+      struct _noname16_ (* in);
+      struct _noname16_ (* out);
       int m;
     };
   struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
@@ -4304,12 +4440,13 @@ static void * _taskFunc17_(void * __arg)
   /* byvalue variables */
   int a = _tenv->a;
   int ab = _tenv->ab;
-  struct _noname19_ (* in) = _tenv->in;
-  struct _noname19_ (* out) = _tenv->out;
+  struct _noname16_ (* in) = _tenv->in;
+  struct _noname16_ (* out) = _tenv->out;
   int m = _tenv->m;
 
-  /* byresult variables */
-  /* (l1018) #pragma omp task untied -- body moved below */
+  /* no initializations */
+  /* (l1018) #pragma omp task untied
+ -- body moved below */
   # 1018 "fft.c"
   {
     # 1019 "fft.c"
@@ -4317,17 +4454,52 @@ static void * _taskFunc17_(void * __arg)
     CANCEL_task_1018 :
       ;
   }
+  /* no other operations */
   ort_taskenv_free(_tenv, _taskFunc17_);
   return ((void *) 0);
 }
 
 
-void fft_unshuffle_8_seq(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out), int m)
+static void * _taskFunc18_(void * __arg)
+{
+  struct __taskenv__ {
+      int ab;
+      int b;
+      struct _noname16_ (* in);
+      struct _noname16_ (* out);
+      int m;
+    };
+  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
+
+  /* byvalue variables */
+  int ab = _tenv->ab;
+  int b = _tenv->b;
+  struct _noname16_ (* in) = _tenv->in;
+  struct _noname16_ (* out) = _tenv->out;
+  int m = _tenv->m;
+
+  /* no initializations */
+  /* (l1020) #pragma omp task untied
+ -- body moved below */
+  # 1020 "fft.c"
+  {
+    # 1021 "fft.c"
+    fft_unshuffle_8(ab, b, in, out, m);
+    CANCEL_task_1020 :
+      ;
+  }
+  /* no other operations */
+  ort_taskenv_free(_tenv, _taskFunc18_);
+  return ((void *) 0);
+}
+
+
+void fft_unshuffle_8_seq(int a, int b, struct _noname16_ (* in), struct _noname16_ (* out), int m)
 # 1026 "fft.c"
 {
   int i;
-  const struct _noname19_ (* ip);
-  struct _noname19_ (* jp);
+  const struct _noname16_ (* ip);
+  struct _noname16_ (* jp);
 
   if ((b - a) < 128)
     {
@@ -4362,7 +4534,7 @@ void fft_unshuffle_8_seq(int a, int b, struct _noname19_ (* in), struct _noname1
 }
 
 
-void fft_base_16(struct _noname19_ (* in), struct _noname19_ (* out))
+void fft_base_16(struct _noname16_ (* in), struct _noname16_ (* out))
 {
   double tmpr;
   double tmpi;
@@ -4738,15 +4910,15 @@ void fft_base_16(struct _noname19_ (* in), struct _noname19_ (* out))
   }
 }
 
-static void * _taskFunc19_(void *);
 static void * _taskFunc20_(void *);
+static void * _taskFunc19_(void *);
 
 
-void fft_twiddle_16(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out), struct _noname19_ (* W), int nW, int nWdn, int m)
+void fft_twiddle_16(int a, int b, struct _noname16_ (* in), struct _noname16_ (* out), struct _noname16_ (* W), int nW, int nWdn, int m)
 {
   int l1, i;
-  struct _noname19_ (* jp);
-  struct _noname19_ (* kp);
+  struct _noname16_ (* jp);
+  struct _noname16_ (* kp);
   double tmpr;
   double tmpi;
   double wr;
@@ -5192,6 +5364,9 @@ void fft_twiddle_16(int a, int b, struct _noname19_ (* in), struct _noname19_ (*
     {
       int ab = (a + b) / 2;
 
+      /* (l1680) #pragma omp task untied
+ */
+      # 1680 "fft.c"
       if (omp_in_final() || ort_task_throttling())
         {
           void * _itn;
@@ -5199,9 +5374,9 @@ void fft_twiddle_16(int a, int b, struct _noname19_ (* in), struct _noname19_ (*
           /* byvalue variables */
           int _fip_a = a, a = _fip_a;
           int _fip_ab = ab, ab = _fip_ab;
-          struct _noname19_ (* _fip_in) = in, (* in) = _fip_in;
-          struct _noname19_ (* _fip_out) = out, (* out) = _fip_out;
-          struct _noname19_ (* _fip_W) = W, (* W) = _fip_W;
+          struct _noname16_ (* _fip_in) = in, (* in) = _fip_in;
+          struct _noname16_ (* _fip_out) = out, (* out) = _fip_out;
+          struct _noname16_ (* _fip_W) = W, (* W) = _fip_W;
           int _fip_nW = nW, nW = _fip_nW;
           int _fip_nWdn = nWdn, nWdn = _fip_nWdn;
           int _fip_m = m, m = _fip_m;
@@ -5216,14 +5391,13 @@ void fft_twiddle_16(int a, int b, struct _noname19_ (* in), struct _noname19_ (*
           ort_task_immediate_end(_itn);
         }
       else
-        /* (l1680) #pragma omp task untied */
         {
           struct __taskenv__ {
               int a;
               int ab;
-              struct _noname19_ (* in);
-              struct _noname19_ (* out);
-              struct _noname19_ (* W);
+              struct _noname16_ (* in);
+              struct _noname16_ (* out);
+              struct _noname16_ (* W);
               int nW;
               int nWdn;
               int m;
@@ -5239,8 +5413,12 @@ void fft_twiddle_16(int a, int b, struct _noname19_ (* in), struct _noname19_ (*
           _tenv->nW = nW;
           _tenv->nWdn = nWdn;
           _tenv->m = m;
-          ort_new_task(_taskFunc19_, (void *) _tenv, 0, 1);
+          ort_new_task(_taskFunc19_, (void *) _tenv, 0, 0, 1, 0, (void *) 0, 0, 0, 0);
+          /* no other operations */
         }
+      /* (l1682) #pragma omp task untied
+ */
+      # 1682 "fft.c"
       if (omp_in_final() || ort_task_throttling())
         {
           void * _itn;
@@ -5248,9 +5426,9 @@ void fft_twiddle_16(int a, int b, struct _noname19_ (* in), struct _noname19_ (*
           /* byvalue variables */
           int _fip_ab = ab, ab = _fip_ab;
           int _fip_b = b, b = _fip_b;
-          struct _noname19_ (* _fip_in) = in, (* in) = _fip_in;
-          struct _noname19_ (* _fip_out) = out, (* out) = _fip_out;
-          struct _noname19_ (* _fip_W) = W, (* W) = _fip_W;
+          struct _noname16_ (* _fip_in) = in, (* in) = _fip_in;
+          struct _noname16_ (* _fip_out) = out, (* out) = _fip_out;
+          struct _noname16_ (* _fip_W) = W, (* W) = _fip_W;
           int _fip_nW = nW, nW = _fip_nW;
           int _fip_nWdn = nWdn, nWdn = _fip_nWdn;
           int _fip_m = m, m = _fip_m;
@@ -5265,14 +5443,13 @@ void fft_twiddle_16(int a, int b, struct _noname19_ (* in), struct _noname19_ (*
           ort_task_immediate_end(_itn);
         }
       else
-        /* (l1682) #pragma omp task untied */
         {
           struct __taskenv__ {
               int ab;
               int b;
-              struct _noname19_ (* in);
-              struct _noname19_ (* out);
-              struct _noname19_ (* W);
+              struct _noname16_ (* in);
+              struct _noname16_ (* out);
+              struct _noname16_ (* W);
               int nW;
               int nWdn;
               int m;
@@ -5288,63 +5465,25 @@ void fft_twiddle_16(int a, int b, struct _noname19_ (* in), struct _noname19_ (*
           _tenv->nW = nW;
           _tenv->nWdn = nWdn;
           _tenv->m = m;
-          ort_new_task(_taskFunc20_, (void *) _tenv, 0, 1);
+          ort_new_task(_taskFunc20_, (void *) _tenv, 0, 0, 1, 0, (void *) 0, 0, 0, 0);
+          /* no other operations */
         }
-      /* (l1684) #pragma omp taskwait  */
+      /* (l1684) #pragma omp taskwait 
+ */
       # 1684 "fft.c"
       ort_taskwait(0);
     }
 }
 
-/* Outlined code for (l1682) #pragma omp task untied */
-
-static void * _taskFunc20_(void * __arg)
-{
-  struct __taskenv__ {
-      int ab;
-      int b;
-      struct _noname19_ (* in);
-      struct _noname19_ (* out);
-      struct _noname19_ (* W);
-      int nW;
-      int nWdn;
-      int m;
-    };
-  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
-
-  /* byvalue variables */
-  int ab = _tenv->ab;
-  int b = _tenv->b;
-  struct _noname19_ (* in) = _tenv->in;
-  struct _noname19_ (* out) = _tenv->out;
-  struct _noname19_ (* W) = _tenv->W;
-  int nW = _tenv->nW;
-  int nWdn = _tenv->nWdn;
-  int m = _tenv->m;
-
-  /* byresult variables */
-  /* (l1682) #pragma omp task untied -- body moved below */
-  # 1682 "fft.c"
-  {
-    # 1683 "fft.c"
-    fft_twiddle_16(ab, b, in, out, W, nW, nWdn, m);
-    CANCEL_task_1682 :
-      ;
-  }
-  ort_taskenv_free(_tenv, _taskFunc20_);
-  return ((void *) 0);
-}
-
-/* Outlined code for (l1680) #pragma omp task untied */
 
 static void * _taskFunc19_(void * __arg)
 {
   struct __taskenv__ {
       int a;
       int ab;
-      struct _noname19_ (* in);
-      struct _noname19_ (* out);
-      struct _noname19_ (* W);
+      struct _noname16_ (* in);
+      struct _noname16_ (* out);
+      struct _noname16_ (* W);
       int nW;
       int nWdn;
       int m;
@@ -5354,15 +5493,16 @@ static void * _taskFunc19_(void * __arg)
   /* byvalue variables */
   int a = _tenv->a;
   int ab = _tenv->ab;
-  struct _noname19_ (* in) = _tenv->in;
-  struct _noname19_ (* out) = _tenv->out;
-  struct _noname19_ (* W) = _tenv->W;
+  struct _noname16_ (* in) = _tenv->in;
+  struct _noname16_ (* out) = _tenv->out;
+  struct _noname16_ (* W) = _tenv->W;
   int nW = _tenv->nW;
   int nWdn = _tenv->nWdn;
   int m = _tenv->m;
 
-  /* byresult variables */
-  /* (l1680) #pragma omp task untied -- body moved below */
+  /* no initializations */
+  /* (l1680) #pragma omp task untied
+ -- body moved below */
   # 1680 "fft.c"
   {
     # 1681 "fft.c"
@@ -5370,17 +5510,58 @@ static void * _taskFunc19_(void * __arg)
     CANCEL_task_1680 :
       ;
   }
+  /* no other operations */
   ort_taskenv_free(_tenv, _taskFunc19_);
   return ((void *) 0);
 }
 
 
-void fft_twiddle_16_seq(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out), struct _noname19_ (* W), int nW, int nWdn, int m)
+static void * _taskFunc20_(void * __arg)
+{
+  struct __taskenv__ {
+      int ab;
+      int b;
+      struct _noname16_ (* in);
+      struct _noname16_ (* out);
+      struct _noname16_ (* W);
+      int nW;
+      int nWdn;
+      int m;
+    };
+  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
+
+  /* byvalue variables */
+  int ab = _tenv->ab;
+  int b = _tenv->b;
+  struct _noname16_ (* in) = _tenv->in;
+  struct _noname16_ (* out) = _tenv->out;
+  struct _noname16_ (* W) = _tenv->W;
+  int nW = _tenv->nW;
+  int nWdn = _tenv->nWdn;
+  int m = _tenv->m;
+
+  /* no initializations */
+  /* (l1682) #pragma omp task untied
+ -- body moved below */
+  # 1682 "fft.c"
+  {
+    # 1683 "fft.c"
+    fft_twiddle_16(ab, b, in, out, W, nW, nWdn, m);
+    CANCEL_task_1682 :
+      ;
+  }
+  /* no other operations */
+  ort_taskenv_free(_tenv, _taskFunc20_);
+  return ((void *) 0);
+}
+
+
+void fft_twiddle_16_seq(int a, int b, struct _noname16_ (* in), struct _noname16_ (* out), struct _noname16_ (* W), int nW, int nWdn, int m)
 # 1688 "fft.c"
 {
   int l1, i;
-  struct _noname19_ (* jp);
-  struct _noname19_ (* kp);
+  struct _noname16_ (* jp);
+  struct _noname16_ (* kp);
   double tmpr;
   double tmpi;
   double wr;
@@ -5831,15 +6012,15 @@ void fft_twiddle_16_seq(int a, int b, struct _noname19_ (* in), struct _noname19
     }
 }
 
-static void * _taskFunc21_(void *);
 static void * _taskFunc22_(void *);
+static void * _taskFunc21_(void *);
 
 
-void fft_unshuffle_16(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out), int m)
+void fft_unshuffle_16(int a, int b, struct _noname16_ (* in), struct _noname16_ (* out), int m)
 {
   int i;
-  const struct _noname19_ (* ip);
-  struct _noname19_ (* jp);
+  const struct _noname16_ (* ip);
+  struct _noname16_ (* jp);
 
   if ((b - a) < 128)
     {
@@ -5884,6 +6065,9 @@ void fft_unshuffle_16(int a, int b, struct _noname19_ (* in), struct _noname19_ 
     {
       int ab = (a + b) / 2;
 
+      /* (l2080) #pragma omp task untied
+ */
+      # 2080 "fft.c"
       if (omp_in_final() || ort_task_throttling())
         {
           void * _itn;
@@ -5891,8 +6075,8 @@ void fft_unshuffle_16(int a, int b, struct _noname19_ (* in), struct _noname19_ 
           /* byvalue variables */
           int _fip_a = a, a = _fip_a;
           int _fip_ab = ab, ab = _fip_ab;
-          struct _noname19_ (* _fip_in) = in, (* in) = _fip_in;
-          struct _noname19_ (* _fip_out) = out, (* out) = _fip_out;
+          struct _noname16_ (* _fip_in) = in, (* in) = _fip_in;
+          struct _noname16_ (* _fip_out) = out, (* out) = _fip_out;
           int _fip_m = m, m = _fip_m;
 
           _itn = ort_task_immediate_start(0);
@@ -5905,13 +6089,12 @@ void fft_unshuffle_16(int a, int b, struct _noname19_ (* in), struct _noname19_ 
           ort_task_immediate_end(_itn);
         }
       else
-        /* (l2080) #pragma omp task untied */
         {
           struct __taskenv__ {
               int a;
               int ab;
-              struct _noname19_ (* in);
-              struct _noname19_ (* out);
+              struct _noname16_ (* in);
+              struct _noname16_ (* out);
               int m;
             } * _tenv;
 
@@ -5922,8 +6105,12 @@ void fft_unshuffle_16(int a, int b, struct _noname19_ (* in), struct _noname19_ 
           _tenv->in = in;
           _tenv->out = out;
           _tenv->m = m;
-          ort_new_task(_taskFunc21_, (void *) _tenv, 0, 1);
+          ort_new_task(_taskFunc21_, (void *) _tenv, 0, 0, 1, 0, (void *) 0, 0, 0, 0);
+          /* no other operations */
         }
+      /* (l2082) #pragma omp task untied
+ */
+      # 2082 "fft.c"
       if (omp_in_final() || ort_task_throttling())
         {
           void * _itn;
@@ -5931,8 +6118,8 @@ void fft_unshuffle_16(int a, int b, struct _noname19_ (* in), struct _noname19_ 
           /* byvalue variables */
           int _fip_ab = ab, ab = _fip_ab;
           int _fip_b = b, b = _fip_b;
-          struct _noname19_ (* _fip_in) = in, (* in) = _fip_in;
-          struct _noname19_ (* _fip_out) = out, (* out) = _fip_out;
+          struct _noname16_ (* _fip_in) = in, (* in) = _fip_in;
+          struct _noname16_ (* _fip_out) = out, (* out) = _fip_out;
           int _fip_m = m, m = _fip_m;
 
           _itn = ort_task_immediate_start(0);
@@ -5945,13 +6132,12 @@ void fft_unshuffle_16(int a, int b, struct _noname19_ (* in), struct _noname19_ 
           ort_task_immediate_end(_itn);
         }
       else
-        /* (l2082) #pragma omp task untied */
         {
           struct __taskenv__ {
               int ab;
               int b;
-              struct _noname19_ (* in);
-              struct _noname19_ (* out);
+              struct _noname16_ (* in);
+              struct _noname16_ (* out);
               int m;
             } * _tenv;
 
@@ -5962,56 +6148,24 @@ void fft_unshuffle_16(int a, int b, struct _noname19_ (* in), struct _noname19_ 
           _tenv->in = in;
           _tenv->out = out;
           _tenv->m = m;
-          ort_new_task(_taskFunc22_, (void *) _tenv, 0, 1);
+          ort_new_task(_taskFunc22_, (void *) _tenv, 0, 0, 1, 0, (void *) 0, 0, 0, 0);
+          /* no other operations */
         }
-      /* (l2084) #pragma omp taskwait  */
+      /* (l2084) #pragma omp taskwait 
+ */
       # 2084 "fft.c"
       ort_taskwait(0);
     }
 }
 
-/* Outlined code for (l2082) #pragma omp task untied */
-
-static void * _taskFunc22_(void * __arg)
-{
-  struct __taskenv__ {
-      int ab;
-      int b;
-      struct _noname19_ (* in);
-      struct _noname19_ (* out);
-      int m;
-    };
-  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
-
-  /* byvalue variables */
-  int ab = _tenv->ab;
-  int b = _tenv->b;
-  struct _noname19_ (* in) = _tenv->in;
-  struct _noname19_ (* out) = _tenv->out;
-  int m = _tenv->m;
-
-  /* byresult variables */
-  /* (l2082) #pragma omp task untied -- body moved below */
-  # 2082 "fft.c"
-  {
-    # 2083 "fft.c"
-    fft_unshuffle_16(ab, b, in, out, m);
-    CANCEL_task_2082 :
-      ;
-  }
-  ort_taskenv_free(_tenv, _taskFunc22_);
-  return ((void *) 0);
-}
-
-/* Outlined code for (l2080) #pragma omp task untied */
 
 static void * _taskFunc21_(void * __arg)
 {
   struct __taskenv__ {
       int a;
       int ab;
-      struct _noname19_ (* in);
-      struct _noname19_ (* out);
+      struct _noname16_ (* in);
+      struct _noname16_ (* out);
       int m;
     };
   struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
@@ -6019,12 +6173,13 @@ static void * _taskFunc21_(void * __arg)
   /* byvalue variables */
   int a = _tenv->a;
   int ab = _tenv->ab;
-  struct _noname19_ (* in) = _tenv->in;
-  struct _noname19_ (* out) = _tenv->out;
+  struct _noname16_ (* in) = _tenv->in;
+  struct _noname16_ (* out) = _tenv->out;
   int m = _tenv->m;
 
-  /* byresult variables */
-  /* (l2080) #pragma omp task untied -- body moved below */
+  /* no initializations */
+  /* (l2080) #pragma omp task untied
+ -- body moved below */
   # 2080 "fft.c"
   {
     # 2081 "fft.c"
@@ -6032,17 +6187,52 @@ static void * _taskFunc21_(void * __arg)
     CANCEL_task_2080 :
       ;
   }
+  /* no other operations */
   ort_taskenv_free(_tenv, _taskFunc21_);
   return ((void *) 0);
 }
 
 
-void fft_unshuffle_16_seq(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out), int m)
+static void * _taskFunc22_(void * __arg)
+{
+  struct __taskenv__ {
+      int ab;
+      int b;
+      struct _noname16_ (* in);
+      struct _noname16_ (* out);
+      int m;
+    };
+  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
+
+  /* byvalue variables */
+  int ab = _tenv->ab;
+  int b = _tenv->b;
+  struct _noname16_ (* in) = _tenv->in;
+  struct _noname16_ (* out) = _tenv->out;
+  int m = _tenv->m;
+
+  /* no initializations */
+  /* (l2082) #pragma omp task untied
+ -- body moved below */
+  # 2082 "fft.c"
+  {
+    # 2083 "fft.c"
+    fft_unshuffle_16(ab, b, in, out, m);
+    CANCEL_task_2082 :
+      ;
+  }
+  /* no other operations */
+  ort_taskenv_free(_tenv, _taskFunc22_);
+  return ((void *) 0);
+}
+
+
+void fft_unshuffle_16_seq(int a, int b, struct _noname16_ (* in), struct _noname16_ (* out), int m)
 # 2088 "fft.c"
 {
   int i;
-  const struct _noname19_ (* ip);
-  struct _noname19_ (* jp);
+  const struct _noname16_ (* ip);
+  struct _noname16_ (* jp);
 
   if ((b - a) < 128)
     {
@@ -6093,7 +6283,7 @@ void fft_unshuffle_16_seq(int a, int b, struct _noname19_ (* in), struct _noname
 }
 
 
-void fft_base_32(struct _noname19_ (* in), struct _noname19_ (* out))
+void fft_base_32(struct _noname16_ (* in), struct _noname16_ (* out))
 {
   double tmpr;
   double tmpi;
@@ -6997,15 +7187,15 @@ void fft_base_32(struct _noname19_ (* in), struct _noname19_ (* out))
   }
 }
 
-static void * _taskFunc23_(void *);
 static void * _taskFunc24_(void *);
+static void * _taskFunc23_(void *);
 
 
-void fft_twiddle_32(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out), struct _noname19_ (* W), int nW, int nWdn, int m)
+void fft_twiddle_32(int a, int b, struct _noname16_ (* in), struct _noname16_ (* out), struct _noname16_ (* W), int nW, int nWdn, int m)
 {
   int l1, i;
-  struct _noname19_ (* jp);
-  struct _noname19_ (* kp);
+  struct _noname16_ (* jp);
+  struct _noname16_ (* kp);
   double tmpr;
   double tmpi;
   double wr;
@@ -8043,6 +8233,9 @@ void fft_twiddle_32(int a, int b, struct _noname19_ (* in), struct _noname19_ (*
     {
       int ab = (a + b) / 2;
 
+      /* (l3622) #pragma omp task untied
+ */
+      # 3622 "fft.c"
       if (omp_in_final() || ort_task_throttling())
         {
           void * _itn;
@@ -8050,9 +8243,9 @@ void fft_twiddle_32(int a, int b, struct _noname19_ (* in), struct _noname19_ (*
           /* byvalue variables */
           int _fip_a = a, a = _fip_a;
           int _fip_ab = ab, ab = _fip_ab;
-          struct _noname19_ (* _fip_in) = in, (* in) = _fip_in;
-          struct _noname19_ (* _fip_out) = out, (* out) = _fip_out;
-          struct _noname19_ (* _fip_W) = W, (* W) = _fip_W;
+          struct _noname16_ (* _fip_in) = in, (* in) = _fip_in;
+          struct _noname16_ (* _fip_out) = out, (* out) = _fip_out;
+          struct _noname16_ (* _fip_W) = W, (* W) = _fip_W;
           int _fip_nW = nW, nW = _fip_nW;
           int _fip_nWdn = nWdn, nWdn = _fip_nWdn;
           int _fip_m = m, m = _fip_m;
@@ -8067,14 +8260,13 @@ void fft_twiddle_32(int a, int b, struct _noname19_ (* in), struct _noname19_ (*
           ort_task_immediate_end(_itn);
         }
       else
-        /* (l3622) #pragma omp task untied */
         {
           struct __taskenv__ {
               int a;
               int ab;
-              struct _noname19_ (* in);
-              struct _noname19_ (* out);
-              struct _noname19_ (* W);
+              struct _noname16_ (* in);
+              struct _noname16_ (* out);
+              struct _noname16_ (* W);
               int nW;
               int nWdn;
               int m;
@@ -8090,8 +8282,12 @@ void fft_twiddle_32(int a, int b, struct _noname19_ (* in), struct _noname19_ (*
           _tenv->nW = nW;
           _tenv->nWdn = nWdn;
           _tenv->m = m;
-          ort_new_task(_taskFunc23_, (void *) _tenv, 0, 1);
+          ort_new_task(_taskFunc23_, (void *) _tenv, 0, 0, 1, 0, (void *) 0, 0, 0, 0);
+          /* no other operations */
         }
+      /* (l3624) #pragma omp task untied
+ */
+      # 3624 "fft.c"
       if (omp_in_final() || ort_task_throttling())
         {
           void * _itn;
@@ -8099,9 +8295,9 @@ void fft_twiddle_32(int a, int b, struct _noname19_ (* in), struct _noname19_ (*
           /* byvalue variables */
           int _fip_ab = ab, ab = _fip_ab;
           int _fip_b = b, b = _fip_b;
-          struct _noname19_ (* _fip_in) = in, (* in) = _fip_in;
-          struct _noname19_ (* _fip_out) = out, (* out) = _fip_out;
-          struct _noname19_ (* _fip_W) = W, (* W) = _fip_W;
+          struct _noname16_ (* _fip_in) = in, (* in) = _fip_in;
+          struct _noname16_ (* _fip_out) = out, (* out) = _fip_out;
+          struct _noname16_ (* _fip_W) = W, (* W) = _fip_W;
           int _fip_nW = nW, nW = _fip_nW;
           int _fip_nWdn = nWdn, nWdn = _fip_nWdn;
           int _fip_m = m, m = _fip_m;
@@ -8116,14 +8312,13 @@ void fft_twiddle_32(int a, int b, struct _noname19_ (* in), struct _noname19_ (*
           ort_task_immediate_end(_itn);
         }
       else
-        /* (l3624) #pragma omp task untied */
         {
           struct __taskenv__ {
               int ab;
               int b;
-              struct _noname19_ (* in);
-              struct _noname19_ (* out);
-              struct _noname19_ (* W);
+              struct _noname16_ (* in);
+              struct _noname16_ (* out);
+              struct _noname16_ (* W);
               int nW;
               int nWdn;
               int m;
@@ -8139,63 +8334,25 @@ void fft_twiddle_32(int a, int b, struct _noname19_ (* in), struct _noname19_ (*
           _tenv->nW = nW;
           _tenv->nWdn = nWdn;
           _tenv->m = m;
-          ort_new_task(_taskFunc24_, (void *) _tenv, 0, 1);
+          ort_new_task(_taskFunc24_, (void *) _tenv, 0, 0, 1, 0, (void *) 0, 0, 0, 0);
+          /* no other operations */
         }
-      /* (l3626) #pragma omp taskwait  */
+      /* (l3626) #pragma omp taskwait 
+ */
       # 3626 "fft.c"
       ort_taskwait(0);
     }
 }
 
-/* Outlined code for (l3624) #pragma omp task untied */
-
-static void * _taskFunc24_(void * __arg)
-{
-  struct __taskenv__ {
-      int ab;
-      int b;
-      struct _noname19_ (* in);
-      struct _noname19_ (* out);
-      struct _noname19_ (* W);
-      int nW;
-      int nWdn;
-      int m;
-    };
-  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
-
-  /* byvalue variables */
-  int ab = _tenv->ab;
-  int b = _tenv->b;
-  struct _noname19_ (* in) = _tenv->in;
-  struct _noname19_ (* out) = _tenv->out;
-  struct _noname19_ (* W) = _tenv->W;
-  int nW = _tenv->nW;
-  int nWdn = _tenv->nWdn;
-  int m = _tenv->m;
-
-  /* byresult variables */
-  /* (l3624) #pragma omp task untied -- body moved below */
-  # 3624 "fft.c"
-  {
-    # 3625 "fft.c"
-    fft_twiddle_32(ab, b, in, out, W, nW, nWdn, m);
-    CANCEL_task_3624 :
-      ;
-  }
-  ort_taskenv_free(_tenv, _taskFunc24_);
-  return ((void *) 0);
-}
-
-/* Outlined code for (l3622) #pragma omp task untied */
 
 static void * _taskFunc23_(void * __arg)
 {
   struct __taskenv__ {
       int a;
       int ab;
-      struct _noname19_ (* in);
-      struct _noname19_ (* out);
-      struct _noname19_ (* W);
+      struct _noname16_ (* in);
+      struct _noname16_ (* out);
+      struct _noname16_ (* W);
       int nW;
       int nWdn;
       int m;
@@ -8205,15 +8362,16 @@ static void * _taskFunc23_(void * __arg)
   /* byvalue variables */
   int a = _tenv->a;
   int ab = _tenv->ab;
-  struct _noname19_ (* in) = _tenv->in;
-  struct _noname19_ (* out) = _tenv->out;
-  struct _noname19_ (* W) = _tenv->W;
+  struct _noname16_ (* in) = _tenv->in;
+  struct _noname16_ (* out) = _tenv->out;
+  struct _noname16_ (* W) = _tenv->W;
   int nW = _tenv->nW;
   int nWdn = _tenv->nWdn;
   int m = _tenv->m;
 
-  /* byresult variables */
-  /* (l3622) #pragma omp task untied -- body moved below */
+  /* no initializations */
+  /* (l3622) #pragma omp task untied
+ -- body moved below */
   # 3622 "fft.c"
   {
     # 3623 "fft.c"
@@ -8221,17 +8379,58 @@ static void * _taskFunc23_(void * __arg)
     CANCEL_task_3622 :
       ;
   }
+  /* no other operations */
   ort_taskenv_free(_tenv, _taskFunc23_);
   return ((void *) 0);
 }
 
 
-void fft_twiddle_32_seq(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out), struct _noname19_ (* W), int nW, int nWdn, int m)
+static void * _taskFunc24_(void * __arg)
+{
+  struct __taskenv__ {
+      int ab;
+      int b;
+      struct _noname16_ (* in);
+      struct _noname16_ (* out);
+      struct _noname16_ (* W);
+      int nW;
+      int nWdn;
+      int m;
+    };
+  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
+
+  /* byvalue variables */
+  int ab = _tenv->ab;
+  int b = _tenv->b;
+  struct _noname16_ (* in) = _tenv->in;
+  struct _noname16_ (* out) = _tenv->out;
+  struct _noname16_ (* W) = _tenv->W;
+  int nW = _tenv->nW;
+  int nWdn = _tenv->nWdn;
+  int m = _tenv->m;
+
+  /* no initializations */
+  /* (l3624) #pragma omp task untied
+ -- body moved below */
+  # 3624 "fft.c"
+  {
+    # 3625 "fft.c"
+    fft_twiddle_32(ab, b, in, out, W, nW, nWdn, m);
+    CANCEL_task_3624 :
+      ;
+  }
+  /* no other operations */
+  ort_taskenv_free(_tenv, _taskFunc24_);
+  return ((void *) 0);
+}
+
+
+void fft_twiddle_32_seq(int a, int b, struct _noname16_ (* in), struct _noname16_ (* out), struct _noname16_ (* W), int nW, int nWdn, int m)
 # 3630 "fft.c"
 {
   int l1, i;
-  struct _noname19_ (* jp);
-  struct _noname19_ (* kp);
+  struct _noname16_ (* jp);
+  struct _noname16_ (* kp);
   double tmpr;
   double tmpi;
   double wr;
@@ -9274,15 +9473,15 @@ void fft_twiddle_32_seq(int a, int b, struct _noname19_ (* in), struct _noname19
     }
 }
 
-static void * _taskFunc25_(void *);
 static void * _taskFunc26_(void *);
+static void * _taskFunc25_(void *);
 
 
-void fft_unshuffle_32(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out), int m)
+void fft_unshuffle_32(int a, int b, struct _noname16_ (* in), struct _noname16_ (* out), int m)
 {
   int i;
-  const struct _noname19_ (* ip);
-  struct _noname19_ (* jp);
+  const struct _noname16_ (* ip);
+  struct _noname16_ (* jp);
 
   if ((b - a) < 128)
     {
@@ -9359,6 +9558,9 @@ void fft_unshuffle_32(int a, int b, struct _noname19_ (* in), struct _noname19_ 
     {
       int ab = (a + b) / 2;
 
+      /* (l4518) #pragma omp task untied
+ */
+      # 4518 "fft.c"
       if (omp_in_final() || ort_task_throttling())
         {
           void * _itn;
@@ -9366,8 +9568,8 @@ void fft_unshuffle_32(int a, int b, struct _noname19_ (* in), struct _noname19_ 
           /* byvalue variables */
           int _fip_a = a, a = _fip_a;
           int _fip_ab = ab, ab = _fip_ab;
-          struct _noname19_ (* _fip_in) = in, (* in) = _fip_in;
-          struct _noname19_ (* _fip_out) = out, (* out) = _fip_out;
+          struct _noname16_ (* _fip_in) = in, (* in) = _fip_in;
+          struct _noname16_ (* _fip_out) = out, (* out) = _fip_out;
           int _fip_m = m, m = _fip_m;
 
           _itn = ort_task_immediate_start(0);
@@ -9380,13 +9582,12 @@ void fft_unshuffle_32(int a, int b, struct _noname19_ (* in), struct _noname19_ 
           ort_task_immediate_end(_itn);
         }
       else
-        /* (l4518) #pragma omp task untied */
         {
           struct __taskenv__ {
               int a;
               int ab;
-              struct _noname19_ (* in);
-              struct _noname19_ (* out);
+              struct _noname16_ (* in);
+              struct _noname16_ (* out);
               int m;
             } * _tenv;
 
@@ -9397,8 +9598,12 @@ void fft_unshuffle_32(int a, int b, struct _noname19_ (* in), struct _noname19_ 
           _tenv->in = in;
           _tenv->out = out;
           _tenv->m = m;
-          ort_new_task(_taskFunc25_, (void *) _tenv, 0, 1);
+          ort_new_task(_taskFunc25_, (void *) _tenv, 0, 0, 1, 0, (void *) 0, 0, 0, 0);
+          /* no other operations */
         }
+      /* (l4520) #pragma omp task untied
+ */
+      # 4520 "fft.c"
       if (omp_in_final() || ort_task_throttling())
         {
           void * _itn;
@@ -9406,8 +9611,8 @@ void fft_unshuffle_32(int a, int b, struct _noname19_ (* in), struct _noname19_ 
           /* byvalue variables */
           int _fip_ab = ab, ab = _fip_ab;
           int _fip_b = b, b = _fip_b;
-          struct _noname19_ (* _fip_in) = in, (* in) = _fip_in;
-          struct _noname19_ (* _fip_out) = out, (* out) = _fip_out;
+          struct _noname16_ (* _fip_in) = in, (* in) = _fip_in;
+          struct _noname16_ (* _fip_out) = out, (* out) = _fip_out;
           int _fip_m = m, m = _fip_m;
 
           _itn = ort_task_immediate_start(0);
@@ -9420,13 +9625,12 @@ void fft_unshuffle_32(int a, int b, struct _noname19_ (* in), struct _noname19_ 
           ort_task_immediate_end(_itn);
         }
       else
-        /* (l4520) #pragma omp task untied */
         {
           struct __taskenv__ {
               int ab;
               int b;
-              struct _noname19_ (* in);
-              struct _noname19_ (* out);
+              struct _noname16_ (* in);
+              struct _noname16_ (* out);
               int m;
             } * _tenv;
 
@@ -9437,56 +9641,24 @@ void fft_unshuffle_32(int a, int b, struct _noname19_ (* in), struct _noname19_ 
           _tenv->in = in;
           _tenv->out = out;
           _tenv->m = m;
-          ort_new_task(_taskFunc26_, (void *) _tenv, 0, 1);
+          ort_new_task(_taskFunc26_, (void *) _tenv, 0, 0, 1, 0, (void *) 0, 0, 0, 0);
+          /* no other operations */
         }
-      /* (l4522) #pragma omp taskwait  */
+      /* (l4522) #pragma omp taskwait 
+ */
       # 4522 "fft.c"
       ort_taskwait(0);
     }
 }
 
-/* Outlined code for (l4520) #pragma omp task untied */
-
-static void * _taskFunc26_(void * __arg)
-{
-  struct __taskenv__ {
-      int ab;
-      int b;
-      struct _noname19_ (* in);
-      struct _noname19_ (* out);
-      int m;
-    };
-  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
-
-  /* byvalue variables */
-  int ab = _tenv->ab;
-  int b = _tenv->b;
-  struct _noname19_ (* in) = _tenv->in;
-  struct _noname19_ (* out) = _tenv->out;
-  int m = _tenv->m;
-
-  /* byresult variables */
-  /* (l4520) #pragma omp task untied -- body moved below */
-  # 4520 "fft.c"
-  {
-    # 4521 "fft.c"
-    fft_unshuffle_32(ab, b, in, out, m);
-    CANCEL_task_4520 :
-      ;
-  }
-  ort_taskenv_free(_tenv, _taskFunc26_);
-  return ((void *) 0);
-}
-
-/* Outlined code for (l4518) #pragma omp task untied */
 
 static void * _taskFunc25_(void * __arg)
 {
   struct __taskenv__ {
       int a;
       int ab;
-      struct _noname19_ (* in);
-      struct _noname19_ (* out);
+      struct _noname16_ (* in);
+      struct _noname16_ (* out);
       int m;
     };
   struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
@@ -9494,12 +9666,13 @@ static void * _taskFunc25_(void * __arg)
   /* byvalue variables */
   int a = _tenv->a;
   int ab = _tenv->ab;
-  struct _noname19_ (* in) = _tenv->in;
-  struct _noname19_ (* out) = _tenv->out;
+  struct _noname16_ (* in) = _tenv->in;
+  struct _noname16_ (* out) = _tenv->out;
   int m = _tenv->m;
 
-  /* byresult variables */
-  /* (l4518) #pragma omp task untied -- body moved below */
+  /* no initializations */
+  /* (l4518) #pragma omp task untied
+ -- body moved below */
   # 4518 "fft.c"
   {
     # 4519 "fft.c"
@@ -9507,17 +9680,52 @@ static void * _taskFunc25_(void * __arg)
     CANCEL_task_4518 :
       ;
   }
+  /* no other operations */
   ort_taskenv_free(_tenv, _taskFunc25_);
   return ((void *) 0);
 }
 
 
-void fft_unshuffle_32_seq(int a, int b, struct _noname19_ (* in), struct _noname19_ (* out), int m)
+static void * _taskFunc26_(void * __arg)
+{
+  struct __taskenv__ {
+      int ab;
+      int b;
+      struct _noname16_ (* in);
+      struct _noname16_ (* out);
+      int m;
+    };
+  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
+
+  /* byvalue variables */
+  int ab = _tenv->ab;
+  int b = _tenv->b;
+  struct _noname16_ (* in) = _tenv->in;
+  struct _noname16_ (* out) = _tenv->out;
+  int m = _tenv->m;
+
+  /* no initializations */
+  /* (l4520) #pragma omp task untied
+ -- body moved below */
+  # 4520 "fft.c"
+  {
+    # 4521 "fft.c"
+    fft_unshuffle_32(ab, b, in, out, m);
+    CANCEL_task_4520 :
+      ;
+  }
+  /* no other operations */
+  ort_taskenv_free(_tenv, _taskFunc26_);
+  return ((void *) 0);
+}
+
+
+void fft_unshuffle_32_seq(int a, int b, struct _noname16_ (* in), struct _noname16_ (* out), int m)
 # 4526 "fft.c"
 {
   int i;
-  const struct _noname19_ (* ip);
-  struct _noname19_ (* jp);
+  const struct _noname16_ (* ip);
+  struct _noname16_ (* jp);
 
   if ((b - a) < 128)
     {
@@ -9599,21 +9807,21 @@ void fft_unshuffle_32_seq(int a, int b, struct _noname19_ (* in), struct _noname
     }
 }
 
-static void * _taskFunc27_(void *);
-static void * _taskFunc28_(void *);
-static void * _taskFunc29_(void *);
-static void * _taskFunc30_(void *);
-static void * _taskFunc31_(void *);
-static void * _taskFunc32_(void *);
-static void * _taskFunc33_(void *);
-static void * _taskFunc34_(void *);
-static void * _taskFunc35_(void *);
-static void * _taskFunc36_(void *);
-static void * _taskFunc37_(void *);
 static void * _taskFunc38_(void *);
+static void * _taskFunc37_(void *);
+static void * _taskFunc36_(void *);
+static void * _taskFunc35_(void *);
+static void * _taskFunc34_(void *);
+static void * _taskFunc33_(void *);
+static void * _taskFunc32_(void *);
+static void * _taskFunc31_(void *);
+static void * _taskFunc30_(void *);
+static void * _taskFunc29_(void *);
+static void * _taskFunc28_(void *);
+static void * _taskFunc27_(void *);
 
 
-void fft_aux(int n, struct _noname19_ (* in), struct _noname19_ (* out), int * factors, struct _noname19_ (* W), int nW)
+void fft_aux(int n, struct _noname16_ (* in), struct _noname16_ (* out), int * factors, struct _noname16_ (* W), int nW)
 {
   int r, m;
   int k;
@@ -9649,14 +9857,17 @@ void fft_aux(int n, struct _noname19_ (* in), struct _noname19_ (* out), int * f
     {
       if (r == 32)
         {
+          /* (l4660) #pragma omp task untied
+ */
+          # 4660 "fft.c"
           if (omp_in_final() || ort_task_throttling())
             {
               void * _itn;
 
               /* byvalue variables */
               int _fip_m = m, m = _fip_m;
-              struct _noname19_ (* _fip_in) = in, (* in) = _fip_in;
-              struct _noname19_ (* _fip_out) = out, (* out) = _fip_out;
+              struct _noname16_ (* _fip_in) = in, (* in) = _fip_in;
+              struct _noname16_ (* _fip_out) = out, (* out) = _fip_out;
 
               _itn = ort_task_immediate_start(0);
               {
@@ -9668,12 +9879,11 @@ void fft_aux(int n, struct _noname19_ (* in), struct _noname19_ (* out), int * f
               ort_task_immediate_end(_itn);
             }
           else
-            /* (l4660) #pragma omp task untied */
             {
               struct __taskenv__ {
                   int m;
-                  struct _noname19_ (* in);
-                  struct _noname19_ (* out);
+                  struct _noname16_ (* in);
+                  struct _noname16_ (* out);
                 } * _tenv;
 
               _tenv = (struct __taskenv__ *) ort_taskenv_alloc(sizeof(struct __taskenv__), _taskFunc27_);
@@ -9681,21 +9891,25 @@ void fft_aux(int n, struct _noname19_ (* in), struct _noname19_ (* out), int * f
               _tenv->m = m;
               _tenv->in = in;
               _tenv->out = out;
-              ort_new_task(_taskFunc27_, (void *) _tenv, 0, 1);
+              ort_new_task(_taskFunc27_, (void *) _tenv, 0, 0, 1, 0, (void *) 0, 0, 0, 0);
+              /* no other operations */
             }
         }
       else
         # 4675 "fft.c"
         if (r == 16)
           {
+            /* (l4663) #pragma omp task untied
+ */
+            # 4663 "fft.c"
             if (omp_in_final() || ort_task_throttling())
               {
                 void * _itn;
 
                 /* byvalue variables */
                 int _fip_m = m, m = _fip_m;
-                struct _noname19_ (* _fip_in) = in, (* in) = _fip_in;
-                struct _noname19_ (* _fip_out) = out, (* out) = _fip_out;
+                struct _noname16_ (* _fip_in) = in, (* in) = _fip_in;
+                struct _noname16_ (* _fip_out) = out, (* out) = _fip_out;
 
                 _itn = ort_task_immediate_start(0);
                 {
@@ -9707,12 +9921,11 @@ void fft_aux(int n, struct _noname19_ (* in), struct _noname19_ (* out), int * f
                 ort_task_immediate_end(_itn);
               }
             else
-              /* (l4663) #pragma omp task untied */
               {
                 struct __taskenv__ {
                     int m;
-                    struct _noname19_ (* in);
-                    struct _noname19_ (* out);
+                    struct _noname16_ (* in);
+                    struct _noname16_ (* out);
                   } * _tenv;
 
                 _tenv = (struct __taskenv__ *) ort_taskenv_alloc(sizeof(struct __taskenv__), _taskFunc28_);
@@ -9720,21 +9933,25 @@ void fft_aux(int n, struct _noname19_ (* in), struct _noname19_ (* out), int * f
                 _tenv->m = m;
                 _tenv->in = in;
                 _tenv->out = out;
-                ort_new_task(_taskFunc28_, (void *) _tenv, 0, 1);
+                ort_new_task(_taskFunc28_, (void *) _tenv, 0, 0, 1, 0, (void *) 0, 0, 0, 0);
+                /* no other operations */
               }
           }
         else
           # 4675 "fft.c"
           if (r == 8)
             {
+              /* (l4666) #pragma omp task untied
+ */
+              # 4666 "fft.c"
               if (omp_in_final() || ort_task_throttling())
                 {
                   void * _itn;
 
                   /* byvalue variables */
                   int _fip_m = m, m = _fip_m;
-                  struct _noname19_ (* _fip_in) = in, (* in) = _fip_in;
-                  struct _noname19_ (* _fip_out) = out, (* out) = _fip_out;
+                  struct _noname16_ (* _fip_in) = in, (* in) = _fip_in;
+                  struct _noname16_ (* _fip_out) = out, (* out) = _fip_out;
 
                   _itn = ort_task_immediate_start(0);
                   {
@@ -9746,12 +9963,11 @@ void fft_aux(int n, struct _noname19_ (* in), struct _noname19_ (* out), int * f
                   ort_task_immediate_end(_itn);
                 }
               else
-                /* (l4666) #pragma omp task untied */
                 {
                   struct __taskenv__ {
                       int m;
-                      struct _noname19_ (* in);
-                      struct _noname19_ (* out);
+                      struct _noname16_ (* in);
+                      struct _noname16_ (* out);
                     } * _tenv;
 
                   _tenv = (struct __taskenv__ *) ort_taskenv_alloc(sizeof(struct __taskenv__), _taskFunc29_);
@@ -9759,21 +9975,25 @@ void fft_aux(int n, struct _noname19_ (* in), struct _noname19_ (* out), int * f
                   _tenv->m = m;
                   _tenv->in = in;
                   _tenv->out = out;
-                  ort_new_task(_taskFunc29_, (void *) _tenv, 0, 1);
+                  ort_new_task(_taskFunc29_, (void *) _tenv, 0, 0, 1, 0, (void *) 0, 0, 0, 0);
+                  /* no other operations */
                 }
             }
           else
             # 4675 "fft.c"
             if (r == 4)
               {
+                /* (l4669) #pragma omp task untied
+ */
+                # 4669 "fft.c"
                 if (omp_in_final() || ort_task_throttling())
                   {
                     void * _itn;
 
                     /* byvalue variables */
                     int _fip_m = m, m = _fip_m;
-                    struct _noname19_ (* _fip_in) = in, (* in) = _fip_in;
-                    struct _noname19_ (* _fip_out) = out, (* out) = _fip_out;
+                    struct _noname16_ (* _fip_in) = in, (* in) = _fip_in;
+                    struct _noname16_ (* _fip_out) = out, (* out) = _fip_out;
 
                     _itn = ort_task_immediate_start(0);
                     {
@@ -9785,12 +10005,11 @@ void fft_aux(int n, struct _noname19_ (* in), struct _noname19_ (* out), int * f
                     ort_task_immediate_end(_itn);
                   }
                 else
-                  /* (l4669) #pragma omp task untied */
                   {
                     struct __taskenv__ {
                         int m;
-                        struct _noname19_ (* in);
-                        struct _noname19_ (* out);
+                        struct _noname16_ (* in);
+                        struct _noname16_ (* out);
                       } * _tenv;
 
                     _tenv = (struct __taskenv__ *) ort_taskenv_alloc(sizeof(struct __taskenv__), _taskFunc30_);
@@ -9798,21 +10017,25 @@ void fft_aux(int n, struct _noname19_ (* in), struct _noname19_ (* out), int * f
                     _tenv->m = m;
                     _tenv->in = in;
                     _tenv->out = out;
-                    ort_new_task(_taskFunc30_, (void *) _tenv, 0, 1);
+                    ort_new_task(_taskFunc30_, (void *) _tenv, 0, 0, 1, 0, (void *) 0, 0, 0, 0);
+                    /* no other operations */
                   }
               }
             else
               # 4675 "fft.c"
               if (r == 2)
                 {
+                  /* (l4672) #pragma omp task untied
+ */
+                  # 4672 "fft.c"
                   if (omp_in_final() || ort_task_throttling())
                     {
                       void * _itn;
 
                       /* byvalue variables */
                       int _fip_m = m, m = _fip_m;
-                      struct _noname19_ (* _fip_in) = in, (* in) = _fip_in;
-                      struct _noname19_ (* _fip_out) = out, (* out) = _fip_out;
+                      struct _noname16_ (* _fip_in) = in, (* in) = _fip_in;
+                      struct _noname16_ (* _fip_out) = out, (* out) = _fip_out;
 
                       _itn = ort_task_immediate_start(0);
                       {
@@ -9824,12 +10047,11 @@ void fft_aux(int n, struct _noname19_ (* in), struct _noname19_ (* out), int * f
                       ort_task_immediate_end(_itn);
                     }
                   else
-                    /* (l4672) #pragma omp task untied */
                     {
                       struct __taskenv__ {
                           int m;
-                          struct _noname19_ (* in);
-                          struct _noname19_ (* out);
+                          struct _noname16_ (* in);
+                          struct _noname16_ (* out);
                         } * _tenv;
 
                       _tenv = (struct __taskenv__ *) ort_taskenv_alloc(sizeof(struct __taskenv__), _taskFunc31_);
@@ -9837,29 +10059,34 @@ void fft_aux(int n, struct _noname19_ (* in), struct _noname19_ (* out), int * f
                       _tenv->m = m;
                       _tenv->in = in;
                       _tenv->out = out;
-                      ort_new_task(_taskFunc31_, (void *) _tenv, 0, 1);
+                      ort_new_task(_taskFunc31_, (void *) _tenv, 0, 0, 1, 0, (void *) 0, 0, 0, 0);
+                      /* no other operations */
                     }
                 }
               else
                 # 4675 "fft.c"
                 unshuffle(0, m, in, out, r, m);
-      /* (l4677) #pragma omp taskwait  */
+      /* (l4677) #pragma omp taskwait 
+ */
       # 4677 "fft.c"
       ort_taskwait(0);
       # 4682 "fft.c"
       for (k = 0; k < n; k += m)
         {
+          /* (l4680) #pragma omp task untied
+ */
+          # 4680 "fft.c"
           if (omp_in_final() || ort_task_throttling())
             {
               void * _itn;
 
               /* byvalue variables */
               int _fip_m = m, m = _fip_m;
-              struct _noname19_ (* _fip_out) = out, (* out) = _fip_out;
+              struct _noname16_ (* _fip_out) = out, (* out) = _fip_out;
               int _fip_k = k, k = _fip_k;
-              struct _noname19_ (* _fip_in) = in, (* in) = _fip_in;
+              struct _noname16_ (* _fip_in) = in, (* in) = _fip_in;
               int * _fip_factors = factors, * factors = _fip_factors;
-              struct _noname19_ (* _fip_W) = W, (* W) = _fip_W;
+              struct _noname16_ (* _fip_W) = W, (* W) = _fip_W;
               int _fip_nW = nW, nW = _fip_nW;
 
               _itn = ort_task_immediate_start(0);
@@ -9872,15 +10099,14 @@ void fft_aux(int n, struct _noname19_ (* in), struct _noname19_ (* out), int * f
               ort_task_immediate_end(_itn);
             }
           else
-            /* (l4680) #pragma omp task untied */
             {
               struct __taskenv__ {
                   int m;
-                  struct _noname19_ (* out);
+                  struct _noname16_ (* out);
                   int k;
-                  struct _noname19_ (* in);
+                  struct _noname16_ (* in);
                   int * factors;
-                  struct _noname19_ (* W);
+                  struct _noname16_ (* W);
                   int nW;
                 } * _tenv;
 
@@ -9893,25 +10119,30 @@ void fft_aux(int n, struct _noname19_ (* in), struct _noname19_ (* out), int * f
               _tenv->factors = factors;
               _tenv->W = W;
               _tenv->nW = nW;
-              ort_new_task(_taskFunc32_, (void *) _tenv, 0, 1);
+              ort_new_task(_taskFunc32_, (void *) _tenv, 0, 0, 1, 0, (void *) 0, 0, 0, 0);
+              /* no other operations */
             }
         }
-      /* (l4683) #pragma omp taskwait  */
+      /* (l4683) #pragma omp taskwait 
+ */
       # 4683 "fft.c"
       ort_taskwait(0);
     }
   # 4707 "fft.c"
   if (r == 2)
     {
+      /* (l4690) #pragma omp task untied
+ */
+      # 4690 "fft.c"
       if (omp_in_final() || ort_task_throttling())
         {
           void * _itn;
 
           /* byvalue variables */
           int _fip_m = m, m = _fip_m;
-          struct _noname19_ (* _fip_in) = in, (* in) = _fip_in;
-          struct _noname19_ (* _fip_out) = out, (* out) = _fip_out;
-          struct _noname19_ (* _fip_W) = W, (* W) = _fip_W;
+          struct _noname16_ (* _fip_in) = in, (* in) = _fip_in;
+          struct _noname16_ (* _fip_out) = out, (* out) = _fip_out;
+          struct _noname16_ (* _fip_W) = W, (* W) = _fip_W;
           int _fip_nW = nW, nW = _fip_nW;
           int _fip_n = n, n = _fip_n;
 
@@ -9925,13 +10156,12 @@ void fft_aux(int n, struct _noname19_ (* in), struct _noname19_ (* out), int * f
           ort_task_immediate_end(_itn);
         }
       else
-        /* (l4690) #pragma omp task untied */
         {
           struct __taskenv__ {
               int m;
-              struct _noname19_ (* in);
-              struct _noname19_ (* out);
-              struct _noname19_ (* W);
+              struct _noname16_ (* in);
+              struct _noname16_ (* out);
+              struct _noname16_ (* W);
               int nW;
               int n;
             } * _tenv;
@@ -9944,22 +10174,26 @@ void fft_aux(int n, struct _noname19_ (* in), struct _noname19_ (* out), int * f
           _tenv->W = W;
           _tenv->nW = nW;
           _tenv->n = n;
-          ort_new_task(_taskFunc33_, (void *) _tenv, 0, 1);
+          ort_new_task(_taskFunc33_, (void *) _tenv, 0, 0, 1, 0, (void *) 0, 0, 0, 0);
+          /* no other operations */
         }
     }
   else
     # 4707 "fft.c"
     if (r == 4)
       {
+        /* (l4693) #pragma omp task untied
+ */
+        # 4693 "fft.c"
         if (omp_in_final() || ort_task_throttling())
           {
             void * _itn;
 
             /* byvalue variables */
             int _fip_m = m, m = _fip_m;
-            struct _noname19_ (* _fip_in) = in, (* in) = _fip_in;
-            struct _noname19_ (* _fip_out) = out, (* out) = _fip_out;
-            struct _noname19_ (* _fip_W) = W, (* W) = _fip_W;
+            struct _noname16_ (* _fip_in) = in, (* in) = _fip_in;
+            struct _noname16_ (* _fip_out) = out, (* out) = _fip_out;
+            struct _noname16_ (* _fip_W) = W, (* W) = _fip_W;
             int _fip_nW = nW, nW = _fip_nW;
             int _fip_n = n, n = _fip_n;
 
@@ -9973,13 +10207,12 @@ void fft_aux(int n, struct _noname19_ (* in), struct _noname19_ (* out), int * f
             ort_task_immediate_end(_itn);
           }
         else
-          /* (l4693) #pragma omp task untied */
           {
             struct __taskenv__ {
                 int m;
-                struct _noname19_ (* in);
-                struct _noname19_ (* out);
-                struct _noname19_ (* W);
+                struct _noname16_ (* in);
+                struct _noname16_ (* out);
+                struct _noname16_ (* W);
                 int nW;
                 int n;
               } * _tenv;
@@ -9992,22 +10225,26 @@ void fft_aux(int n, struct _noname19_ (* in), struct _noname19_ (* out), int * f
             _tenv->W = W;
             _tenv->nW = nW;
             _tenv->n = n;
-            ort_new_task(_taskFunc34_, (void *) _tenv, 0, 1);
+            ort_new_task(_taskFunc34_, (void *) _tenv, 0, 0, 1, 0, (void *) 0, 0, 0, 0);
+            /* no other operations */
           }
       }
     else
       # 4707 "fft.c"
       if (r == 8)
         {
+          /* (l4696) #pragma omp task untied
+ */
+          # 4696 "fft.c"
           if (omp_in_final() || ort_task_throttling())
             {
               void * _itn;
 
               /* byvalue variables */
               int _fip_m = m, m = _fip_m;
-              struct _noname19_ (* _fip_in) = in, (* in) = _fip_in;
-              struct _noname19_ (* _fip_out) = out, (* out) = _fip_out;
-              struct _noname19_ (* _fip_W) = W, (* W) = _fip_W;
+              struct _noname16_ (* _fip_in) = in, (* in) = _fip_in;
+              struct _noname16_ (* _fip_out) = out, (* out) = _fip_out;
+              struct _noname16_ (* _fip_W) = W, (* W) = _fip_W;
               int _fip_nW = nW, nW = _fip_nW;
               int _fip_n = n, n = _fip_n;
 
@@ -10021,13 +10258,12 @@ void fft_aux(int n, struct _noname19_ (* in), struct _noname19_ (* out), int * f
               ort_task_immediate_end(_itn);
             }
           else
-            /* (l4696) #pragma omp task untied */
             {
               struct __taskenv__ {
                   int m;
-                  struct _noname19_ (* in);
-                  struct _noname19_ (* out);
-                  struct _noname19_ (* W);
+                  struct _noname16_ (* in);
+                  struct _noname16_ (* out);
+                  struct _noname16_ (* W);
                   int nW;
                   int n;
                 } * _tenv;
@@ -10040,22 +10276,26 @@ void fft_aux(int n, struct _noname19_ (* in), struct _noname19_ (* out), int * f
               _tenv->W = W;
               _tenv->nW = nW;
               _tenv->n = n;
-              ort_new_task(_taskFunc35_, (void *) _tenv, 0, 1);
+              ort_new_task(_taskFunc35_, (void *) _tenv, 0, 0, 1, 0, (void *) 0, 0, 0, 0);
+              /* no other operations */
             }
         }
       else
         # 4707 "fft.c"
         if (r == 16)
           {
+            /* (l4699) #pragma omp task untied
+ */
+            # 4699 "fft.c"
             if (omp_in_final() || ort_task_throttling())
               {
                 void * _itn;
 
                 /* byvalue variables */
                 int _fip_m = m, m = _fip_m;
-                struct _noname19_ (* _fip_in) = in, (* in) = _fip_in;
-                struct _noname19_ (* _fip_out) = out, (* out) = _fip_out;
-                struct _noname19_ (* _fip_W) = W, (* W) = _fip_W;
+                struct _noname16_ (* _fip_in) = in, (* in) = _fip_in;
+                struct _noname16_ (* _fip_out) = out, (* out) = _fip_out;
+                struct _noname16_ (* _fip_W) = W, (* W) = _fip_W;
                 int _fip_nW = nW, nW = _fip_nW;
                 int _fip_n = n, n = _fip_n;
 
@@ -10069,13 +10309,12 @@ void fft_aux(int n, struct _noname19_ (* in), struct _noname19_ (* out), int * f
                 ort_task_immediate_end(_itn);
               }
             else
-              /* (l4699) #pragma omp task untied */
               {
                 struct __taskenv__ {
                     int m;
-                    struct _noname19_ (* in);
-                    struct _noname19_ (* out);
-                    struct _noname19_ (* W);
+                    struct _noname16_ (* in);
+                    struct _noname16_ (* out);
+                    struct _noname16_ (* W);
                     int nW;
                     int n;
                   } * _tenv;
@@ -10088,22 +10327,26 @@ void fft_aux(int n, struct _noname19_ (* in), struct _noname19_ (* out), int * f
                 _tenv->W = W;
                 _tenv->nW = nW;
                 _tenv->n = n;
-                ort_new_task(_taskFunc36_, (void *) _tenv, 0, 1);
+                ort_new_task(_taskFunc36_, (void *) _tenv, 0, 0, 1, 0, (void *) 0, 0, 0, 0);
+                /* no other operations */
               }
           }
         else
           # 4707 "fft.c"
           if (r == 32)
             {
+              /* (l4702) #pragma omp task untied
+ */
+              # 4702 "fft.c"
               if (omp_in_final() || ort_task_throttling())
                 {
                   void * _itn;
 
                   /* byvalue variables */
                   int _fip_m = m, m = _fip_m;
-                  struct _noname19_ (* _fip_in) = in, (* in) = _fip_in;
-                  struct _noname19_ (* _fip_out) = out, (* out) = _fip_out;
-                  struct _noname19_ (* _fip_W) = W, (* W) = _fip_W;
+                  struct _noname16_ (* _fip_in) = in, (* in) = _fip_in;
+                  struct _noname16_ (* _fip_out) = out, (* out) = _fip_out;
+                  struct _noname16_ (* _fip_W) = W, (* W) = _fip_W;
                   int _fip_nW = nW, nW = _fip_nW;
                   int _fip_n = n, n = _fip_n;
 
@@ -10117,13 +10360,12 @@ void fft_aux(int n, struct _noname19_ (* in), struct _noname19_ (* out), int * f
                   ort_task_immediate_end(_itn);
                 }
               else
-                /* (l4702) #pragma omp task untied */
                 {
                   struct __taskenv__ {
                       int m;
-                      struct _noname19_ (* in);
-                      struct _noname19_ (* out);
-                      struct _noname19_ (* W);
+                      struct _noname16_ (* in);
+                      struct _noname16_ (* out);
+                      struct _noname16_ (* W);
                       int nW;
                       int n;
                     } * _tenv;
@@ -10136,21 +10378,25 @@ void fft_aux(int n, struct _noname19_ (* in), struct _noname19_ (* out), int * f
                   _tenv->W = W;
                   _tenv->nW = nW;
                   _tenv->n = n;
-                  ort_new_task(_taskFunc37_, (void *) _tenv, 0, 1);
+                  ort_new_task(_taskFunc37_, (void *) _tenv, 0, 0, 1, 0, (void *) 0, 0, 0, 0);
+                  /* no other operations */
                 }
             }
           else
             # 4704 "fft.c"
             {
+              /* (l4705) #pragma omp task untied
+ */
+              # 4705 "fft.c"
               if (omp_in_final() || ort_task_throttling())
                 {
                   void * _itn;
 
                   /* byvalue variables */
                   int _fip_m = m, m = _fip_m;
-                  struct _noname19_ (* _fip_in) = in, (* in) = _fip_in;
-                  struct _noname19_ (* _fip_out) = out, (* out) = _fip_out;
-                  struct _noname19_ (* _fip_W) = W, (* W) = _fip_W;
+                  struct _noname16_ (* _fip_in) = in, (* in) = _fip_in;
+                  struct _noname16_ (* _fip_out) = out, (* out) = _fip_out;
+                  struct _noname16_ (* _fip_W) = W, (* W) = _fip_W;
                   int _fip_nW = nW, nW = _fip_nW;
                   int _fip_n = n, n = _fip_n;
                   int _fip_r = r, r = _fip_r;
@@ -10165,13 +10411,12 @@ void fft_aux(int n, struct _noname19_ (* in), struct _noname19_ (* out), int * f
                   ort_task_immediate_end(_itn);
                 }
               else
-                /* (l4705) #pragma omp task untied */
                 {
                   struct __taskenv__ {
                       int m;
-                      struct _noname19_ (* in);
-                      struct _noname19_ (* out);
-                      struct _noname19_ (* W);
+                      struct _noname16_ (* in);
+                      struct _noname16_ (* out);
+                      struct _noname16_ (* W);
                       int nW;
                       int n;
                       int r;
@@ -10186,25 +10431,394 @@ void fft_aux(int n, struct _noname19_ (* in), struct _noname19_ (* out), int * f
                   _tenv->nW = nW;
                   _tenv->n = n;
                   _tenv->r = r;
-                  ort_new_task(_taskFunc38_, (void *) _tenv, 0, 1);
+                  ort_new_task(_taskFunc38_, (void *) _tenv, 0, 0, 1, 0, (void *) 0, 0, 0, 0);
+                  /* no other operations */
                 }
             }
-  /* (l4709) #pragma omp taskwait  */
+  /* (l4709) #pragma omp taskwait 
+ */
   # 4709 "fft.c"
   ort_taskwait(0);
   # 4711 "fft.c"
   return;
 }
 
-/* Outlined code for (l4705) #pragma omp task untied */
+
+static void * _taskFunc27_(void * __arg)
+{
+  struct __taskenv__ {
+      int m;
+      struct _noname16_ (* in);
+      struct _noname16_ (* out);
+    };
+  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
+
+  /* byvalue variables */
+  int m = _tenv->m;
+  struct _noname16_ (* in) = _tenv->in;
+  struct _noname16_ (* out) = _tenv->out;
+
+  /* no initializations */
+  /* (l4660) #pragma omp task untied
+ -- body moved below */
+  # 4660 "fft.c"
+  {
+    # 4661 "fft.c"
+    fft_unshuffle_32(0, m, in, out, m);
+    CANCEL_task_4660 :
+      ;
+  }
+  /* no other operations */
+  ort_taskenv_free(_tenv, _taskFunc27_);
+  return ((void *) 0);
+}
+
+
+static void * _taskFunc28_(void * __arg)
+{
+  struct __taskenv__ {
+      int m;
+      struct _noname16_ (* in);
+      struct _noname16_ (* out);
+    };
+  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
+
+  /* byvalue variables */
+  int m = _tenv->m;
+  struct _noname16_ (* in) = _tenv->in;
+  struct _noname16_ (* out) = _tenv->out;
+
+  /* no initializations */
+  /* (l4663) #pragma omp task untied
+ -- body moved below */
+  # 4663 "fft.c"
+  {
+    # 4664 "fft.c"
+    fft_unshuffle_16(0, m, in, out, m);
+    CANCEL_task_4663 :
+      ;
+  }
+  /* no other operations */
+  ort_taskenv_free(_tenv, _taskFunc28_);
+  return ((void *) 0);
+}
+
+
+static void * _taskFunc29_(void * __arg)
+{
+  struct __taskenv__ {
+      int m;
+      struct _noname16_ (* in);
+      struct _noname16_ (* out);
+    };
+  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
+
+  /* byvalue variables */
+  int m = _tenv->m;
+  struct _noname16_ (* in) = _tenv->in;
+  struct _noname16_ (* out) = _tenv->out;
+
+  /* no initializations */
+  /* (l4666) #pragma omp task untied
+ -- body moved below */
+  # 4666 "fft.c"
+  {
+    # 4667 "fft.c"
+    fft_unshuffle_8(0, m, in, out, m);
+    CANCEL_task_4666 :
+      ;
+  }
+  /* no other operations */
+  ort_taskenv_free(_tenv, _taskFunc29_);
+  return ((void *) 0);
+}
+
+
+static void * _taskFunc30_(void * __arg)
+{
+  struct __taskenv__ {
+      int m;
+      struct _noname16_ (* in);
+      struct _noname16_ (* out);
+    };
+  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
+
+  /* byvalue variables */
+  int m = _tenv->m;
+  struct _noname16_ (* in) = _tenv->in;
+  struct _noname16_ (* out) = _tenv->out;
+
+  /* no initializations */
+  /* (l4669) #pragma omp task untied
+ -- body moved below */
+  # 4669 "fft.c"
+  {
+    # 4670 "fft.c"
+    fft_unshuffle_4(0, m, in, out, m);
+    CANCEL_task_4669 :
+      ;
+  }
+  /* no other operations */
+  ort_taskenv_free(_tenv, _taskFunc30_);
+  return ((void *) 0);
+}
+
+
+static void * _taskFunc31_(void * __arg)
+{
+  struct __taskenv__ {
+      int m;
+      struct _noname16_ (* in);
+      struct _noname16_ (* out);
+    };
+  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
+
+  /* byvalue variables */
+  int m = _tenv->m;
+  struct _noname16_ (* in) = _tenv->in;
+  struct _noname16_ (* out) = _tenv->out;
+
+  /* no initializations */
+  /* (l4672) #pragma omp task untied
+ -- body moved below */
+  # 4672 "fft.c"
+  {
+    # 4673 "fft.c"
+    fft_unshuffle_2(0, m, in, out, m);
+    CANCEL_task_4672 :
+      ;
+  }
+  /* no other operations */
+  ort_taskenv_free(_tenv, _taskFunc31_);
+  return ((void *) 0);
+}
+
+
+static void * _taskFunc32_(void * __arg)
+{
+  struct __taskenv__ {
+      int m;
+      struct _noname16_ (* out);
+      int k;
+      struct _noname16_ (* in);
+      int * factors;
+      struct _noname16_ (* W);
+      int nW;
+    };
+  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
+
+  /* byvalue variables */
+  int m = _tenv->m;
+  struct _noname16_ (* out) = _tenv->out;
+  int k = _tenv->k;
+  struct _noname16_ (* in) = _tenv->in;
+  int * factors = _tenv->factors;
+  struct _noname16_ (* W) = _tenv->W;
+  int nW = _tenv->nW;
+
+  /* no initializations */
+  /* (l4680) #pragma omp task untied
+ -- body moved below */
+  # 4680 "fft.c"
+  {
+    # 4681 "fft.c"
+    fft_aux(m, out + k, in + k, factors + 1, W, nW);
+    CANCEL_task_4680 :
+      ;
+  }
+  /* no other operations */
+  ort_taskenv_free(_tenv, _taskFunc32_);
+  return ((void *) 0);
+}
+
+
+static void * _taskFunc33_(void * __arg)
+{
+  struct __taskenv__ {
+      int m;
+      struct _noname16_ (* in);
+      struct _noname16_ (* out);
+      struct _noname16_ (* W);
+      int nW;
+      int n;
+    };
+  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
+
+  /* byvalue variables */
+  int m = _tenv->m;
+  struct _noname16_ (* in) = _tenv->in;
+  struct _noname16_ (* out) = _tenv->out;
+  struct _noname16_ (* W) = _tenv->W;
+  int nW = _tenv->nW;
+  int n = _tenv->n;
+
+  /* no initializations */
+  /* (l4690) #pragma omp task untied
+ -- body moved below */
+  # 4690 "fft.c"
+  {
+    # 4691 "fft.c"
+    fft_twiddle_2(0, m, in, out, W, nW, nW / n, m);
+    CANCEL_task_4690 :
+      ;
+  }
+  /* no other operations */
+  ort_taskenv_free(_tenv, _taskFunc33_);
+  return ((void *) 0);
+}
+
+
+static void * _taskFunc34_(void * __arg)
+{
+  struct __taskenv__ {
+      int m;
+      struct _noname16_ (* in);
+      struct _noname16_ (* out);
+      struct _noname16_ (* W);
+      int nW;
+      int n;
+    };
+  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
+
+  /* byvalue variables */
+  int m = _tenv->m;
+  struct _noname16_ (* in) = _tenv->in;
+  struct _noname16_ (* out) = _tenv->out;
+  struct _noname16_ (* W) = _tenv->W;
+  int nW = _tenv->nW;
+  int n = _tenv->n;
+
+  /* no initializations */
+  /* (l4693) #pragma omp task untied
+ -- body moved below */
+  # 4693 "fft.c"
+  {
+    # 4694 "fft.c"
+    fft_twiddle_4(0, m, in, out, W, nW, nW / n, m);
+    CANCEL_task_4693 :
+      ;
+  }
+  /* no other operations */
+  ort_taskenv_free(_tenv, _taskFunc34_);
+  return ((void *) 0);
+}
+
+
+static void * _taskFunc35_(void * __arg)
+{
+  struct __taskenv__ {
+      int m;
+      struct _noname16_ (* in);
+      struct _noname16_ (* out);
+      struct _noname16_ (* W);
+      int nW;
+      int n;
+    };
+  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
+
+  /* byvalue variables */
+  int m = _tenv->m;
+  struct _noname16_ (* in) = _tenv->in;
+  struct _noname16_ (* out) = _tenv->out;
+  struct _noname16_ (* W) = _tenv->W;
+  int nW = _tenv->nW;
+  int n = _tenv->n;
+
+  /* no initializations */
+  /* (l4696) #pragma omp task untied
+ -- body moved below */
+  # 4696 "fft.c"
+  {
+    # 4697 "fft.c"
+    fft_twiddle_8(0, m, in, out, W, nW, nW / n, m);
+    CANCEL_task_4696 :
+      ;
+  }
+  /* no other operations */
+  ort_taskenv_free(_tenv, _taskFunc35_);
+  return ((void *) 0);
+}
+
+
+static void * _taskFunc36_(void * __arg)
+{
+  struct __taskenv__ {
+      int m;
+      struct _noname16_ (* in);
+      struct _noname16_ (* out);
+      struct _noname16_ (* W);
+      int nW;
+      int n;
+    };
+  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
+
+  /* byvalue variables */
+  int m = _tenv->m;
+  struct _noname16_ (* in) = _tenv->in;
+  struct _noname16_ (* out) = _tenv->out;
+  struct _noname16_ (* W) = _tenv->W;
+  int nW = _tenv->nW;
+  int n = _tenv->n;
+
+  /* no initializations */
+  /* (l4699) #pragma omp task untied
+ -- body moved below */
+  # 4699 "fft.c"
+  {
+    # 4700 "fft.c"
+    fft_twiddle_16(0, m, in, out, W, nW, nW / n, m);
+    CANCEL_task_4699 :
+      ;
+  }
+  /* no other operations */
+  ort_taskenv_free(_tenv, _taskFunc36_);
+  return ((void *) 0);
+}
+
+
+static void * _taskFunc37_(void * __arg)
+{
+  struct __taskenv__ {
+      int m;
+      struct _noname16_ (* in);
+      struct _noname16_ (* out);
+      struct _noname16_ (* W);
+      int nW;
+      int n;
+    };
+  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
+
+  /* byvalue variables */
+  int m = _tenv->m;
+  struct _noname16_ (* in) = _tenv->in;
+  struct _noname16_ (* out) = _tenv->out;
+  struct _noname16_ (* W) = _tenv->W;
+  int nW = _tenv->nW;
+  int n = _tenv->n;
+
+  /* no initializations */
+  /* (l4702) #pragma omp task untied
+ -- body moved below */
+  # 4702 "fft.c"
+  {
+    # 4703 "fft.c"
+    fft_twiddle_32(0, m, in, out, W, nW, nW / n, m);
+    CANCEL_task_4702 :
+      ;
+  }
+  /* no other operations */
+  ort_taskenv_free(_tenv, _taskFunc37_);
+  return ((void *) 0);
+}
+
 
 static void * _taskFunc38_(void * __arg)
 {
   struct __taskenv__ {
       int m;
-      struct _noname19_ (* in);
-      struct _noname19_ (* out);
-      struct _noname19_ (* W);
+      struct _noname16_ (* in);
+      struct _noname16_ (* out);
+      struct _noname16_ (* W);
       int nW;
       int n;
       int r;
@@ -10213,15 +10827,16 @@ static void * _taskFunc38_(void * __arg)
 
   /* byvalue variables */
   int m = _tenv->m;
-  struct _noname19_ (* in) = _tenv->in;
-  struct _noname19_ (* out) = _tenv->out;
-  struct _noname19_ (* W) = _tenv->W;
+  struct _noname16_ (* in) = _tenv->in;
+  struct _noname16_ (* out) = _tenv->out;
+  struct _noname16_ (* W) = _tenv->W;
   int nW = _tenv->nW;
   int n = _tenv->n;
   int r = _tenv->r;
 
-  /* byresult variables */
-  /* (l4705) #pragma omp task untied -- body moved below */
+  /* no initializations */
+  /* (l4705) #pragma omp task untied
+ -- body moved below */
   # 4705 "fft.c"
   {
     # 4706 "fft.c"
@@ -10229,369 +10844,13 @@ static void * _taskFunc38_(void * __arg)
     CANCEL_task_4705 :
       ;
   }
+  /* no other operations */
   ort_taskenv_free(_tenv, _taskFunc38_);
   return ((void *) 0);
 }
 
-/* Outlined code for (l4702) #pragma omp task untied */
 
-static void * _taskFunc37_(void * __arg)
-{
-  struct __taskenv__ {
-      int m;
-      struct _noname19_ (* in);
-      struct _noname19_ (* out);
-      struct _noname19_ (* W);
-      int nW;
-      int n;
-    };
-  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
-
-  /* byvalue variables */
-  int m = _tenv->m;
-  struct _noname19_ (* in) = _tenv->in;
-  struct _noname19_ (* out) = _tenv->out;
-  struct _noname19_ (* W) = _tenv->W;
-  int nW = _tenv->nW;
-  int n = _tenv->n;
-
-  /* byresult variables */
-  /* (l4702) #pragma omp task untied -- body moved below */
-  # 4702 "fft.c"
-  {
-    # 4703 "fft.c"
-    fft_twiddle_32(0, m, in, out, W, nW, nW / n, m);
-    CANCEL_task_4702 :
-      ;
-  }
-  ort_taskenv_free(_tenv, _taskFunc37_);
-  return ((void *) 0);
-}
-
-/* Outlined code for (l4699) #pragma omp task untied */
-
-static void * _taskFunc36_(void * __arg)
-{
-  struct __taskenv__ {
-      int m;
-      struct _noname19_ (* in);
-      struct _noname19_ (* out);
-      struct _noname19_ (* W);
-      int nW;
-      int n;
-    };
-  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
-
-  /* byvalue variables */
-  int m = _tenv->m;
-  struct _noname19_ (* in) = _tenv->in;
-  struct _noname19_ (* out) = _tenv->out;
-  struct _noname19_ (* W) = _tenv->W;
-  int nW = _tenv->nW;
-  int n = _tenv->n;
-
-  /* byresult variables */
-  /* (l4699) #pragma omp task untied -- body moved below */
-  # 4699 "fft.c"
-  {
-    # 4700 "fft.c"
-    fft_twiddle_16(0, m, in, out, W, nW, nW / n, m);
-    CANCEL_task_4699 :
-      ;
-  }
-  ort_taskenv_free(_tenv, _taskFunc36_);
-  return ((void *) 0);
-}
-
-/* Outlined code for (l4696) #pragma omp task untied */
-
-static void * _taskFunc35_(void * __arg)
-{
-  struct __taskenv__ {
-      int m;
-      struct _noname19_ (* in);
-      struct _noname19_ (* out);
-      struct _noname19_ (* W);
-      int nW;
-      int n;
-    };
-  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
-
-  /* byvalue variables */
-  int m = _tenv->m;
-  struct _noname19_ (* in) = _tenv->in;
-  struct _noname19_ (* out) = _tenv->out;
-  struct _noname19_ (* W) = _tenv->W;
-  int nW = _tenv->nW;
-  int n = _tenv->n;
-
-  /* byresult variables */
-  /* (l4696) #pragma omp task untied -- body moved below */
-  # 4696 "fft.c"
-  {
-    # 4697 "fft.c"
-    fft_twiddle_8(0, m, in, out, W, nW, nW / n, m);
-    CANCEL_task_4696 :
-      ;
-  }
-  ort_taskenv_free(_tenv, _taskFunc35_);
-  return ((void *) 0);
-}
-
-/* Outlined code for (l4693) #pragma omp task untied */
-
-static void * _taskFunc34_(void * __arg)
-{
-  struct __taskenv__ {
-      int m;
-      struct _noname19_ (* in);
-      struct _noname19_ (* out);
-      struct _noname19_ (* W);
-      int nW;
-      int n;
-    };
-  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
-
-  /* byvalue variables */
-  int m = _tenv->m;
-  struct _noname19_ (* in) = _tenv->in;
-  struct _noname19_ (* out) = _tenv->out;
-  struct _noname19_ (* W) = _tenv->W;
-  int nW = _tenv->nW;
-  int n = _tenv->n;
-
-  /* byresult variables */
-  /* (l4693) #pragma omp task untied -- body moved below */
-  # 4693 "fft.c"
-  {
-    # 4694 "fft.c"
-    fft_twiddle_4(0, m, in, out, W, nW, nW / n, m);
-    CANCEL_task_4693 :
-      ;
-  }
-  ort_taskenv_free(_tenv, _taskFunc34_);
-  return ((void *) 0);
-}
-
-/* Outlined code for (l4690) #pragma omp task untied */
-
-static void * _taskFunc33_(void * __arg)
-{
-  struct __taskenv__ {
-      int m;
-      struct _noname19_ (* in);
-      struct _noname19_ (* out);
-      struct _noname19_ (* W);
-      int nW;
-      int n;
-    };
-  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
-
-  /* byvalue variables */
-  int m = _tenv->m;
-  struct _noname19_ (* in) = _tenv->in;
-  struct _noname19_ (* out) = _tenv->out;
-  struct _noname19_ (* W) = _tenv->W;
-  int nW = _tenv->nW;
-  int n = _tenv->n;
-
-  /* byresult variables */
-  /* (l4690) #pragma omp task untied -- body moved below */
-  # 4690 "fft.c"
-  {
-    # 4691 "fft.c"
-    fft_twiddle_2(0, m, in, out, W, nW, nW / n, m);
-    CANCEL_task_4690 :
-      ;
-  }
-  ort_taskenv_free(_tenv, _taskFunc33_);
-  return ((void *) 0);
-}
-
-/* Outlined code for (l4680) #pragma omp task untied */
-
-static void * _taskFunc32_(void * __arg)
-{
-  struct __taskenv__ {
-      int m;
-      struct _noname19_ (* out);
-      int k;
-      struct _noname19_ (* in);
-      int * factors;
-      struct _noname19_ (* W);
-      int nW;
-    };
-  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
-
-  /* byvalue variables */
-  int m = _tenv->m;
-  struct _noname19_ (* out) = _tenv->out;
-  int k = _tenv->k;
-  struct _noname19_ (* in) = _tenv->in;
-  int * factors = _tenv->factors;
-  struct _noname19_ (* W) = _tenv->W;
-  int nW = _tenv->nW;
-
-  /* byresult variables */
-  /* (l4680) #pragma omp task untied -- body moved below */
-  # 4680 "fft.c"
-  {
-    # 4681 "fft.c"
-    fft_aux(m, out + k, in + k, factors + 1, W, nW);
-    CANCEL_task_4680 :
-      ;
-  }
-  ort_taskenv_free(_tenv, _taskFunc32_);
-  return ((void *) 0);
-}
-
-/* Outlined code for (l4672) #pragma omp task untied */
-
-static void * _taskFunc31_(void * __arg)
-{
-  struct __taskenv__ {
-      int m;
-      struct _noname19_ (* in);
-      struct _noname19_ (* out);
-    };
-  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
-
-  /* byvalue variables */
-  int m = _tenv->m;
-  struct _noname19_ (* in) = _tenv->in;
-  struct _noname19_ (* out) = _tenv->out;
-
-  /* byresult variables */
-  /* (l4672) #pragma omp task untied -- body moved below */
-  # 4672 "fft.c"
-  {
-    # 4673 "fft.c"
-    fft_unshuffle_2(0, m, in, out, m);
-    CANCEL_task_4672 :
-      ;
-  }
-  ort_taskenv_free(_tenv, _taskFunc31_);
-  return ((void *) 0);
-}
-
-/* Outlined code for (l4669) #pragma omp task untied */
-
-static void * _taskFunc30_(void * __arg)
-{
-  struct __taskenv__ {
-      int m;
-      struct _noname19_ (* in);
-      struct _noname19_ (* out);
-    };
-  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
-
-  /* byvalue variables */
-  int m = _tenv->m;
-  struct _noname19_ (* in) = _tenv->in;
-  struct _noname19_ (* out) = _tenv->out;
-
-  /* byresult variables */
-  /* (l4669) #pragma omp task untied -- body moved below */
-  # 4669 "fft.c"
-  {
-    # 4670 "fft.c"
-    fft_unshuffle_4(0, m, in, out, m);
-    CANCEL_task_4669 :
-      ;
-  }
-  ort_taskenv_free(_tenv, _taskFunc30_);
-  return ((void *) 0);
-}
-
-/* Outlined code for (l4666) #pragma omp task untied */
-
-static void * _taskFunc29_(void * __arg)
-{
-  struct __taskenv__ {
-      int m;
-      struct _noname19_ (* in);
-      struct _noname19_ (* out);
-    };
-  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
-
-  /* byvalue variables */
-  int m = _tenv->m;
-  struct _noname19_ (* in) = _tenv->in;
-  struct _noname19_ (* out) = _tenv->out;
-
-  /* byresult variables */
-  /* (l4666) #pragma omp task untied -- body moved below */
-  # 4666 "fft.c"
-  {
-    # 4667 "fft.c"
-    fft_unshuffle_8(0, m, in, out, m);
-    CANCEL_task_4666 :
-      ;
-  }
-  ort_taskenv_free(_tenv, _taskFunc29_);
-  return ((void *) 0);
-}
-
-/* Outlined code for (l4663) #pragma omp task untied */
-
-static void * _taskFunc28_(void * __arg)
-{
-  struct __taskenv__ {
-      int m;
-      struct _noname19_ (* in);
-      struct _noname19_ (* out);
-    };
-  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
-
-  /* byvalue variables */
-  int m = _tenv->m;
-  struct _noname19_ (* in) = _tenv->in;
-  struct _noname19_ (* out) = _tenv->out;
-
-  /* byresult variables */
-  /* (l4663) #pragma omp task untied -- body moved below */
-  # 4663 "fft.c"
-  {
-    # 4664 "fft.c"
-    fft_unshuffle_16(0, m, in, out, m);
-    CANCEL_task_4663 :
-      ;
-  }
-  ort_taskenv_free(_tenv, _taskFunc28_);
-  return ((void *) 0);
-}
-
-/* Outlined code for (l4660) #pragma omp task untied */
-
-static void * _taskFunc27_(void * __arg)
-{
-  struct __taskenv__ {
-      int m;
-      struct _noname19_ (* in);
-      struct _noname19_ (* out);
-    };
-  struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
-
-  /* byvalue variables */
-  int m = _tenv->m;
-  struct _noname19_ (* in) = _tenv->in;
-  struct _noname19_ (* out) = _tenv->out;
-
-  /* byresult variables */
-  /* (l4660) #pragma omp task untied -- body moved below */
-  # 4660 "fft.c"
-  {
-    # 4661 "fft.c"
-    fft_unshuffle_32(0, m, in, out, m);
-    CANCEL_task_4660 :
-      ;
-  }
-  ort_taskenv_free(_tenv, _taskFunc27_);
-  return ((void *) 0);
-}
-
-
-void fft_aux_seq(int n, struct _noname19_ (* in), struct _noname19_ (* out), int * factors, struct _noname19_ (* W), int nW)
+void fft_aux_seq(int n, struct _noname16_ (* in), struct _noname16_ (* out), int * factors, struct _noname16_ (* W), int nW)
 # 4715 "fft.c"
 {
   int r, m;
@@ -10666,19 +10925,19 @@ void fft_aux_seq(int n, struct _noname19_ (* in), struct _noname19_ (* out), int
   return;
 }
 
-static void * _taskFunc39_(void *);
-static void * _thrFunc0_(void *);
-static void * _taskFunc40_(void *);
 static void * _thrFunc1_(void *);
+static void * _taskFunc40_(void *);
+static void * _thrFunc0_(void *);
+static void * _taskFunc39_(void *);
 
 
-void fft(int n, struct _noname19_ (* in), struct _noname19_ (* out))
+void fft(int n, struct _noname16_ (* in), struct _noname16_ (* out))
 {
   int factors[ 40];
   int * p = factors;
   int l = n;
   int r;
-  struct _noname19_ (* W);
+  struct _noname16_ (* W);
 
   {
     if (bots_verbose_mode >= BOTS_VERBOSE_DEFAULT)
@@ -10687,18 +10946,20 @@ void fft(int n, struct _noname19_ (* in), struct _noname19_ (* out))
       }
   }
   ;
-  W = (struct _noname19_ (*)) malloc((n + 1) * sizeof(struct _noname19_ ));
-  /* (l4789) #pragma omp parallel  */
+  W = (struct _noname16_ (*)) malloc((n + 1) * sizeof(struct _noname16_));
+  /* (l4789) #pragma omp parallel 
+ */
   {
     struct __shvt__ {
         int (* n);
-        struct _noname19_ (* (* W));
+        struct _noname16_ (* (* W));
       } _shvars;
 
     /* byref variables */
     _shvars.n = &n;
     _shvars.W = &W;
-    ort_execute_parallel(_thrFunc0_, (void *) &_shvars, -1, 0, 1);
+    ort_execute_parallel(_thrFunc0_, (void *) &_shvars, -1, 0, 0);
+    /* no other operations */
   }
   # 4792 "fft.c"
   {
@@ -10723,14 +10984,15 @@ void fft(int n, struct _noname19_ (* in), struct _noname19_ (* out))
       }
   }
   ;
-  /* (l4806) #pragma omp parallel  */
+  /* (l4806) #pragma omp parallel 
+ */
   {
     struct __shvt__ {
         int (* n);
-        struct _noname19_ (* (* in));
-        struct _noname19_ (* (* out));
+        struct _noname16_ (* (* in));
+        struct _noname16_ (* (* out));
         int (* factors)[ 40];
-        struct _noname19_ (* (* W));
+        struct _noname16_ (* (* W));
       } _shvars;
 
     /* byref variables */
@@ -10739,7 +11001,8 @@ void fft(int n, struct _noname19_ (* in), struct _noname19_ (* out))
     _shvars.out = &out;
     _shvars.factors = &factors;
     _shvars.W = &W;
-    ort_execute_parallel(_thrFunc1_, (void *) &_shvars, -1, 0, 1);
+    ort_execute_parallel(_thrFunc1_, (void *) &_shvars, -1, 0, 0);
+    /* no other operations */
   }
   # 4809 "fft.c"
   {
@@ -10753,128 +11016,59 @@ void fft(int n, struct _noname19_ (* in), struct _noname19_ (* out))
   return;
 }
 
-/* Outlined code for (l4806) #pragma omp parallel  */
 
-static void * _thrFunc1_(void * __arg)
-{
-  struct __shvt__ {
-      int (* n);
-      struct _noname19_ (* (* in));
-      struct _noname19_ (* (* out));
-      int (* factors)[ 40];
-      struct _noname19_ (* (* W));
-    };
-  struct __shvt__ * _shvars = (struct __shvt__ *) __arg;
-
-  /* byref variables */
-  int (* n) = _shvars->n;
-  struct _noname19_ (* (* in)) = _shvars->in;
-  struct _noname19_ (* (* out)) = _shvars->out;
-  int (* factors)[ 40] = _shvars->factors;
-  struct _noname19_ (* (* W)) = _shvars->W;
-
-  /* byresult variables */
-  /* (l4806) #pragma omp parallel  -- body moved below */
-  # 4806 "fft.c"
-  {
-    /* (l4807) #pragma omp single  */
-    # 4807 "fft.c"
-    if (ort_mysingle(1))
-      if (omp_in_final() || ort_task_throttling())
-        {
-          void * _itn;
-
-          _itn = ort_task_immediate_start(0);
-          {
-            # 4809 "fft.c"
-            fft_aux((*n), (*in), (*out), (*factors), (*W), (*n));
-            CANCEL_task_4808 :
-              ;
-          }
-          ort_task_immediate_end(_itn);
-        }
-      else
-        /* (l4808) #pragma omp task untied */
-        {
-          struct __taskenv__ {
-              int (* n);
-              struct _noname19_ (* (* in));
-              struct _noname19_ (* (* out));
-              int (* factors)[ 40];
-              struct _noname19_ (* (* W));
-            };
-          struct __taskenv__ * _tenv;
-
-          _tenv = (struct __taskenv__ *) ort_taskenv_alloc(sizeof(struct __taskenv__), _taskFunc40_);
-          /* byref variables */
-          _tenv->n = &(*n);
-          _tenv->in = &(*in);
-          _tenv->out = &(*out);
-          _tenv->factors = &(*factors);
-          _tenv->W = &(*W);
-          ort_new_task(_taskFunc40_, (void *) _tenv, 0, 1);
-        }
-    ort_leaving_single();
-  }
-  CANCEL_parallel_4806 :
-    ort_taskwait(2);
-  return ((void *) 0);
-}
-
-/* Outlined code for (l4808) #pragma omp task untied */
-
-static void * _taskFunc40_(void * __arg)
+static void * _taskFunc39_(void * __arg)
 {
   struct __taskenv__ {
       int (* n);
-      struct _noname19_ (* (* in));
-      struct _noname19_ (* (* out));
-      int (* factors)[ 40];
-      struct _noname19_ (* (* W));
+      struct _noname16_ (* (* W));
     };
   struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
 
   /* byref variables */
   int (* n) = _tenv->n;
-  struct _noname19_ (* (* in)) = _tenv->in;
-  struct _noname19_ (* (* out)) = _tenv->out;
-  int (* factors)[ 40] = _tenv->factors;
-  struct _noname19_ (* (* W)) = _tenv->W;
+  struct _noname16_ (* (* W)) = _tenv->W;
 
-  /* byresult variables */
-  /* (l4808) #pragma omp task untied -- body moved below */
-  # 4808 "fft.c"
+  /* no initializations */
+  /* (l4791) #pragma omp task untied
+ -- body moved below */
+  # 4791 "fft.c"
   {
-    # 4809 "fft.c"
-    fft_aux((*n), (*in), (*out), (*factors), (*W), (*n));
-    CANCEL_task_4808 :
+    # 4792 "fft.c"
+    compute_w_coefficients((*n), 0, (*n) / 2, (*W));
+    CANCEL_task_4791 :
       ;
   }
-  ort_taskenv_free(_tenv, _taskFunc40_);
+  /* no other operations */
+  ort_taskenv_free(_tenv, _taskFunc39_);
   return ((void *) 0);
 }
 
-/* Outlined code for (l4789) #pragma omp parallel  */
 
 static void * _thrFunc0_(void * __arg)
 {
   struct __shvt__ {
       int (* n);
-      struct _noname19_ (* (* W));
+      struct _noname16_ (* (* W));
     };
   struct __shvt__ * _shvars = (struct __shvt__ *) __arg;
 
   /* byref variables */
   int (* n) = _shvars->n;
-  struct _noname19_ (* (* W)) = _shvars->W;
+  struct _noname16_ (* (* W)) = _shvars->W;
 
-  /* byresult variables */
-  /* (l4789) #pragma omp parallel  -- body moved below */
+  /* no initializations */
+  /* (l4789) #pragma omp parallel 
+ -- body moved below */
   # 4789 "fft.c"
   {
-    /* (l4790) #pragma omp single  */
+    /* (l4790) #pragma omp single 
+ */
     # 4790 "fft.c"
     if (ort_mysingle(1))
+      /* (l4791) #pragma omp task untied
+ */
+      # 4791 "fft.c"
       if (omp_in_final() || ort_task_throttling())
         {
           void * _itn;
@@ -10889,11 +11083,10 @@ static void * _thrFunc0_(void * __arg)
           ort_task_immediate_end(_itn);
         }
       else
-        /* (l4791) #pragma omp task untied */
         {
           struct __taskenv__ {
               int (* n);
-              struct _noname19_ (* (* W));
+              struct _noname16_ (* (* W));
             };
           struct __taskenv__ * _tenv;
 
@@ -10901,53 +11094,135 @@ static void * _thrFunc0_(void * __arg)
           /* byref variables */
           _tenv->n = &(*n);
           _tenv->W = &(*W);
-          ort_new_task(_taskFunc39_, (void *) _tenv, 0, 1);
+          ort_new_task(_taskFunc39_, (void *) _tenv, 0, 0, 1, 0, (void *) 0, 0, 0, 0);
+          /* no other operations */
         }
     ort_leaving_single();
   }
+  /* no other operations */
   CANCEL_parallel_4789 :
     ort_taskwait(2);
   return ((void *) 0);
 }
 
-/* Outlined code for (l4791) #pragma omp task untied */
 
-static void * _taskFunc39_(void * __arg)
+static void * _taskFunc40_(void * __arg)
 {
   struct __taskenv__ {
       int (* n);
-      struct _noname19_ (* (* W));
+      struct _noname16_ (* (* in));
+      struct _noname16_ (* (* out));
+      int (* factors)[ 40];
+      struct _noname16_ (* (* W));
     };
   struct __taskenv__ * _tenv = (struct __taskenv__ *) __arg;
 
   /* byref variables */
   int (* n) = _tenv->n;
-  struct _noname19_ (* (* W)) = _tenv->W;
+  struct _noname16_ (* (* in)) = _tenv->in;
+  struct _noname16_ (* (* out)) = _tenv->out;
+  int (* factors)[ 40] = _tenv->factors;
+  struct _noname16_ (* (* W)) = _tenv->W;
 
-  /* byresult variables */
-  /* (l4791) #pragma omp task untied -- body moved below */
-  # 4791 "fft.c"
+  /* no initializations */
+  /* (l4808) #pragma omp task untied
+ -- body moved below */
+  # 4808 "fft.c"
   {
-    # 4792 "fft.c"
-    compute_w_coefficients((*n), 0, (*n) / 2, (*W));
-    CANCEL_task_4791 :
+    # 4809 "fft.c"
+    fft_aux((*n), (*in), (*out), (*factors), (*W), (*n));
+    CANCEL_task_4808 :
       ;
   }
-  ort_taskenv_free(_tenv, _taskFunc39_);
+  /* no other operations */
+  ort_taskenv_free(_tenv, _taskFunc40_);
   return ((void *) 0);
 }
 
 
-void fft_seq(int n, struct _noname19_ (* in), struct _noname19_ (* out))
+static void * _thrFunc1_(void * __arg)
+{
+  struct __shvt__ {
+      int (* n);
+      struct _noname16_ (* (* in));
+      struct _noname16_ (* (* out));
+      int (* factors)[ 40];
+      struct _noname16_ (* (* W));
+    };
+  struct __shvt__ * _shvars = (struct __shvt__ *) __arg;
+
+  /* byref variables */
+  int (* n) = _shvars->n;
+  struct _noname16_ (* (* in)) = _shvars->in;
+  struct _noname16_ (* (* out)) = _shvars->out;
+  int (* factors)[ 40] = _shvars->factors;
+  struct _noname16_ (* (* W)) = _shvars->W;
+
+  /* no initializations */
+  /* (l4806) #pragma omp parallel 
+ -- body moved below */
+  # 4806 "fft.c"
+  {
+    /* (l4807) #pragma omp single 
+ */
+    # 4807 "fft.c"
+    if (ort_mysingle(1))
+      /* (l4808) #pragma omp task untied
+ */
+      # 4808 "fft.c"
+      if (omp_in_final() || ort_task_throttling())
+        {
+          void * _itn;
+
+          _itn = ort_task_immediate_start(0);
+          {
+            # 4809 "fft.c"
+            fft_aux((*n), (*in), (*out), (*factors), (*W), (*n));
+            CANCEL_task_4808 :
+              ;
+          }
+          ort_task_immediate_end(_itn);
+        }
+      else
+        {
+          struct __taskenv__ {
+              int (* n);
+              struct _noname16_ (* (* in));
+              struct _noname16_ (* (* out));
+              int (* factors)[ 40];
+              struct _noname16_ (* (* W));
+            };
+          struct __taskenv__ * _tenv;
+
+          _tenv = (struct __taskenv__ *) ort_taskenv_alloc(sizeof(struct __taskenv__), _taskFunc40_);
+          /* byref variables */
+          _tenv->n = &(*n);
+          _tenv->in = &(*in);
+          _tenv->out = &(*out);
+          _tenv->factors = &(*factors);
+          _tenv->W = &(*W);
+          ort_new_task(_taskFunc40_, (void *) _tenv, 0, 0, 1, 0, (void *) 0, 0, 0, 0);
+          /* no other operations */
+        }
+    ort_leaving_single();
+  }
+  /* no other operations */
+  CANCEL_parallel_4806 :
+    ort_taskwait(2);
+  return ((void *) 0);
+}
+
+
+void fft_seq(int n, struct _noname16_ (* in), struct _noname16_ (* out))
 # 4816 "fft.c"
 {
   int factors[ 40];
   int * p = factors;
   int l = n;
   int r;
-  struct _noname19_ (* W);
+  struct _noname16_ (* W);
 
-  W = (struct _noname19_ (*)) malloc((n + 1) * sizeof(struct _noname19_ ));
+  W = (struct _noname16_ (*)) malloc((n + 1) * sizeof(struct _noname16_));
   compute_w_coefficients_seq(n, 0, n / 2, W);
   do
     {
@@ -10963,7 +11238,7 @@ void fft_seq(int n, struct _noname19_ (* in), struct _noname19_ (* out))
 }
 
 
-int test_correctness(int n, struct _noname19_ (* out1), struct _noname19_ (* out2))
+int test_correctness(int n, struct _noname16_ (* out1), struct _noname16_ (* out2))
 {
   int i;
   double a, d, error = 0.0;
@@ -10989,4 +11264,6 @@ int test_correctness(int n, struct _noname19_ (* out1), struct _noname19_ (* out
   else
     return (1);
 }
+
+
 

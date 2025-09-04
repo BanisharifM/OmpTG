@@ -1,0 +1,58 @@
+{ alf
+ { macro_defs }
+ { least_addr_unit 8 }
+ little_endian
+ { exports
+  { frefs }
+  { lrefs { lref 64 "main" } }
+ }
+ { imports
+  { frefs
+   { fref 64 "$null" }
+   { fref 64 "$mem" }
+  }
+  { lrefs
+   { lref 64 "printf" }
+  }
+ }
+ { decls
+  { alloc 64 ".str" 56 }
+ }
+ { inits
+  { init { ref ".str" { dec_unsigned 64 0 } } { dec_unsigned 8 72 } read_only }
+  { init { ref ".str" { dec_unsigned 64 1 } } { dec_unsigned 8 101 } read_only }
+  { init { ref ".str" { dec_unsigned 64 2 } } { dec_unsigned 8 108 } read_only }
+  { init { ref ".str" { dec_unsigned 64 3 } } { dec_unsigned 8 108 } read_only }
+  { init { ref ".str" { dec_unsigned 64 4 } } { dec_unsigned 8 111 } read_only }
+  { init { ref ".str" { dec_unsigned 64 5 } } { dec_unsigned 8 10 } read_only }
+  { init { ref ".str" { dec_unsigned 64 6 } } { dec_unsigned 8 0 } read_only }
+ }
+ { funcs
+
+  /* Definition of function main */
+  { func
+   { label 64 { lref 64 "main" } { dec_unsigned 64 0 } }
+   { arg_decls }
+   { scope
+    { decls
+     { alloc 64 "%tmp" 32 } /* Local Variable (Non-Inlinable Instruction) */ 
+    }
+    { inits }
+    { stmts
+
+     /* --------- BASIC BLOCK bb ---------- */
+     { label 64 { lref 64 "main::bb" } { dec_unsigned 64 0 } }
+
+     /* STATEMENT main::bb::0
+      *   %tmp = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([7 x i8]* @.str, i32 0, i32 0)) */
+     { call { label 64 { lref 64 "printf" } { dec_unsigned 64 0 } } { addr 64 { fref 64 ".str" } { dec_unsigned 64 0 } } result { addr 64 { fref 64 "%tmp" } { dec_unsigned 64 0 } } }
+
+     /* STATEMENT main::bb::1
+      *   ret i32 0 */
+     { label 64 { lref 64 "main::bb::1" } { dec_unsigned 64 0 } }
+     { return { dec_unsigned 32 0 } }
+    }
+   }
+  }
+ }
+}
