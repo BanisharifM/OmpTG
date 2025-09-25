@@ -1,0 +1,34 @@
+digraph CFG {
+size="10,8"
+rankdir="TB"
+orientation="portrait"
+fontsize=10;
+   subgraph "fib0" {
+   "fib00"[label="fib0__bb",fontsize=10,width=0.01]
+   "fib01"[label="fib0__bb__6",fontsize=10,width=0.01]
+   "fib02"[label="fib0__bb__8",fontsize=10,width=0.01]
+   "fib03"[label="fib0__bb__9",fontsize=10,width=0.01]
+   "fib04"[label="fib0__bb__11",fontsize=10,width=0.01]
+   "fib05"[label="fib0__bb6",fontsize=10,width=0.01]
+   "fib06"[label="fib0__bb6__1",fontsize=10,width=0.01]
+   "fib07"[label="fib0__bb6__2",fontsize=10,width=0.01]
+   "fib08"[label="fib0__bb6__3",fontsize=10,width=0.01]
+   "fib09"[label="fib0__bb6__4",fontsize=10,width=0.01]
+   "fib010"[label="fib0__bb11",fontsize=10,width=0.01]
+   "fib00" -> "fib01"
+   "fib01" -> "fib02"
+   "fib02" -> "fib03"
+   "fib03" -> "fib04"
+   "fib04" -> "fib05"
+   "fib04" -> "fib010"
+   "fib05" -> "fib06"
+   "fib06" -> "fib07"
+   "fib07" -> "fib08"
+   "fib08" -> "fib09"
+   "fib09" -> "fib010"
+   "fib0_entry" [label="",color="white",height="0.01",fontsize=10,width=0.01]
+   "fib0_entry" -> "fib00"
+   "fib0_exit" [label="",color="white",fontsize=10,width=0.01]
+   "fib010" -> "fib0_exit"
+}
+}
